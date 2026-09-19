@@ -1923,8 +1923,19 @@ body.pd-view-open .pd-bar{ display:none }
     gap:3px;
   }
   .xc-cell{ width:46px }
-  .xc-pad,
-  .xc-label{ display:none }
+  .xc-pad{ display:none }
+  /* sur mobile l'escalier perd son sens : le nom de collection revient
+     en ligne pleine largeur, pour separer les series dans le bloc */
+  .xc-label,
+  .xc-label.left{
+    display:block;
+    flex-basis:100%;
+    width:100%;
+    margin:16px 0 4px;
+    padding:0;
+    text-align:left;
+  }
+  .xc-label:first-child{ margin-top:0 }
 }
 
 @media (max-width:620px){
