@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Registre — ART hollOw</title>
+<meta name="description" content="Relevé public de l'état du projet ART hollOw.">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   REGISTRE — relevé public
+   Duotone strict : le gris noir de la page principale, un seul rouge,
+   un gris pour le secondaire. Monospace partout. Filets 1px, angles
+   vifs, rien d'arrondi, aucune ombre, aucun dégradé. Le vide compte.
+   Seules les œuvres apportent leurs couleurs : ce sont les pièces.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root{
+  --noir:  #000000;
+  --fond:  #141413;   /* le gris noir de la page principale */
+  --rouge: #f23632;
+  --gris:  #7d7d7d;
+  --filet: #2f2f2c;
+
+  --mono: "Courier New", Courier, ui-monospace, "Liberation Mono", monospace;
+  --pad:  clamp(18px, 4vw, 64px);
+  --air:  clamp(64px, 9vw, 140px);
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; border-radius:0 }
+
+html{ background:var(--fond) }
+
+body{
+  min-height:100vh;
+  background:var(--fond);
+  color:var(--rouge);
+  font-family:var(--mono);
+  font-size:14px;
+  line-height:1.55;
+  -webkit-font-smoothing:none;
+  text-rendering:geometricPrecision;
+}
+
+a{ color:inherit }
+
+/* libellés : capitales, interlettrage large */
+.lib{
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+}
+.gris{ color:var(--gris) }
+
+/* ── verrou : écran gris plein, un cadenas, une barre de code ──── */
+body.verrouille{ overflow:hidden }
+body.verrouille > :not(.verrou){ display:none }
+.verrou{
+  position:fixed;
+  inset:0;
+  z-index:10;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  background:var(--fond);
+}
+.verrou[hidden]{ display:none }
+.verrou-form{
+  display:grid;
+  justify-items:center;
+  gap:18px;
+  width:min(300px, 100%);
+}
+.cadenas{
+  display:block;
+  width:26px;
+  height:32px;
+  color:var(--rouge);
+}
+.verrou-barre{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) auto;
+  width:100%;
+  border:1px solid var(--rouge);
+}
+.verrou-barre input{
+  min-width:0;
+  padding:10px 12px;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--rouge);
+  font:inherit;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.3em;
+  text-transform:uppercase;
+  caret-color:var(--rouge);
+}
+.verrou-barre input::placeholder{ color:var(--gris); letter-spacing:.24em }
+.verrou-barre button{
+  padding:0 14px;
+  border:0;
+  border-left:1px solid var(--rouge);
+  background:transparent;
+  color:var(--rouge);
+  font:inherit;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+}
+.verrou-barre button:hover,
+.verrou-barre button:focus-visible{ outline:0; background:var(--rouge); color:var(--fond) }
+.verrou-barre:focus-within{ outline:1px solid var(--rouge); outline-offset:3px }
+.verrou-etat{ min-height:1.2em; font-size:10px }
+
+/* ── 0 · bandeau d'avertissement ───────────────────────────────── */
+.bandeau{
+  overflow:hidden;
+  background:var(--rouge);
+  color:var(--noir);
+  border-bottom:1px solid var(--noir);
+}
+.bandeau-piste{
+  display:flex;
+  width:max-content;
+  animation:defile 70s linear infinite;
+}
+.bandeau-piste span{
+  flex:0 0 auto;
+  padding:9px 0;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  white-space:pre;
+}
+@keyframes defile{
+  to{ transform:translateX(-50%) }
+}
+
+/* ── mise en page : une grille de document, beaucoup d'air ─────── */
+.releve{
+  display:grid;
+  grid-template-columns:repeat(12, minmax(0, 1fr));
+  column-gap:clamp(20px, 3vw, 48px);
+  max-width:1320px;
+  margin:0 auto;
+  padding:var(--air) var(--pad) 0;
+}
+
+.module{
+  grid-column:1 / -1;
+  min-width:0;
+  margin-bottom:var(--air);
+}
+.m-pieces{ grid-column:1 / 13 }
+.m-atelier{ grid-column:1 / 8 }
+.m-actes{ grid-column:9 / 13 }
+.m-cotation{ grid-column:1 / 13 }
+.m-attention{ grid-column:1 / 6 }
+.m-depeches{ grid-column:7 / 13 }
+
+/* numéro de section et intitulé, sur un filet */
+.entete{
+  display:flex;
+  align-items:baseline;
+  gap:16px;
+  margin-bottom:clamp(22px, 2.6vw, 36px);
+  padding-bottom:10px;
+  border-bottom:1px solid var(--filet);
+}
+.entete .num{ color:var(--rouge) }
+.entete .titre{ color:var(--rouge) }
+.entete .compte{ margin-left:auto }
+
+/* ── 00 · pièces au registre : la dernière entrée en grand, les
+   précédentes en grille, chacune marquée de son numéro ───────────── */
+.pieces{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:clamp(14px, 2vw, 32px);
+}
+.pieces-grille{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:clamp(14px, 2vw, 32px);
+}
+.piece{
+  position:relative;
+  display:block;
+  min-width:0;
+  overflow:hidden;
+  border:1px solid var(--filet);
+  background:var(--noir);
+  text-decoration:none;
+}
+.piece img{
+  display:block;
+  width:100%;
+  aspect-ratio:4 / 5;
+  object-fit:cover;
+}
+.piece.vedette img{
+  height:100%;
+  aspect-ratio:auto;
+}
+.piece .tag{
+  position:absolute;
+  top:10px;
+  right:10px;
+  padding:4px 8px 3px;
+  background:var(--fond);
+  color:var(--rouge);
+}
+.piece.vedette .tag{ font-size:clamp(13px, 1.4vw, 20px) }
+.piece .tag-bas{
+  top:auto;
+  right:auto;
+  bottom:10px;
+  left:10px;
+}
+.piece:hover,
+.piece:focus-visible{ outline:1px solid var(--rouge); outline-offset:3px }
+
+/* ── 1 · relevé d'atelier : des fractions, pas des barres ───────── */
+.compteurs{ display:grid; gap:clamp(14px, 1.6vw, 22px) }
+.compteur{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) auto;
+  align-items:baseline;
+  gap:18px;
+}
+.compteur .valeur{
+  font-size:clamp(44px, 6.4vw, 96px);
+  font-weight:700;
+  line-height:.9;
+  letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.compteur .valeur .sep{ color:var(--gris) }
+.pied-module{
+  margin-top:clamp(18px, 2vw, 28px);
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+/* ── 2 · état des actes : des voyants ───────────────────────────── */
+.actes{ display:grid; gap:14px }
+.acte{
+  display:grid;
+  grid-template-columns:auto minmax(0, 1fr) auto;
+  align-items:center;
+  gap:14px;
+  padding:12px 0;
+  border-bottom:1px solid var(--filet);
+}
+.voyant{
+  width:10px;
+  height:10px;
+  border:1px solid var(--rouge);
+}
+.voyant.allume{
+  background:var(--rouge);
+  animation:pulse 2.8s ease-in-out infinite;
+}
+.voyant.eteint{ border-color:var(--gris) }
+.acte.dormant .etat{ color:var(--gris) }
+@keyframes pulse{
+  50%{ opacity:.2 }
+}
+
+.protocole{ margin-top:6px; color:var(--gris) }
+.protocole summary{
+  display:inline-block;
+  padding:8px 0;
+  color:var(--gris);
+  cursor:pointer;
+  list-style:none;
+}
+.protocole summary::-webkit-details-marker{ display:none }
+.protocole summary::before{ content:"[+] " }
+.protocole[open] summary::before{ content:"[−] " }
+.protocole summary:focus-visible{ outline:1px solid var(--gris); outline-offset:3px }
+.protocole dl{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) auto;
+  gap:6px 18px;
+  padding:10px 0 0 24px;
+}
+.protocole dt,
+.protocole dd{
+  font-size:11px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+.protocole dd{ text-align:right; font-variant-numeric:tabular-nums }
+
+/* ── 3 · cotation du jour ───────────────────────────────────────── */
+.cotation{
+  border-top:1px solid var(--rouge);
+  border-bottom:1px solid var(--rouge);
+}
+.ligne{
+  display:grid;
+  grid-template-columns:minmax(0, 1.6fr) minmax(0, 1fr) minmax(0, .7fr);
+  align-items:baseline;
+  gap:clamp(12px, 2vw, 32px);
+  padding:clamp(16px, 1.8vw, 24px) 0;
+  font-size:clamp(14px, 1.3vw, 19px);
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.ligne + .ligne{ border-top:1px solid var(--filet) }
+.ligne .l{ min-width:0; overflow-wrap:anywhere }
+.ligne .v,
+.ligne .d{ font-variant-numeric:tabular-nums; white-space:nowrap }
+.ligne .d{ text-align:right }
+.ligne .perdu{ color:var(--gris) }
+/* ce qui s'écrit tel quel : la question du marché, le nom de l'artiste */
+.ligne .tel-quel{ text-transform:none }
+/* la ligne de l'artiste : même typographie, même taille, sous un filet */
+.ligne.artiste{ border-top:1px solid var(--rouge) }
+
+/* ── 4 · compteur d'attention ───────────────────────────────────── */
+.attention .chrono{
+  margin:12px 0 10px;
+  font-size:clamp(48px, 7vw, 104px);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.attention .sous{ font-size:9px }
+
+/* ── 5 · dépêches ───────────────────────────────────────────────── */
+.depeches{ list-style:none }
+.depeche{
+  display:grid;
+  grid-template-columns:auto minmax(0, 1fr);
+  gap:clamp(16px, 2.4vw, 36px);
+  padding:12px 0;
+  border-bottom:1px solid var(--filet);
+}
+.depeche time{
+  color:var(--gris);
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.depeche p{ overflow-wrap:anywhere }
+
+/* lettrine : l'un des deux ornements de la page. Un double cadre
+   gravé autour de la première lettre de la dépêche la plus récente. */
+.lettrine{
+  float:left;
+  margin:4px 12px 0 0;
+  padding:4px 9px 2px;
+  border:1px solid var(--rouge);
+  outline:1px solid var(--rouge);
+  outline-offset:3px;
+  font-size:30px;
+  font-weight:700;
+  line-height:1;
+}
+
+/* ── 6 · pied de page ───────────────────────────────────────────── */
+.pied{
+  max-width:1320px;
+  margin:0 auto;
+  padding:0 var(--pad) clamp(28px, 4vw, 48px);
+}
+/* filet gravé : le second et dernier ornement */
+.filet-grave{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+  color:var(--rouge);
+}
+.filet-grave span{
+  flex:1 1 auto;
+  height:1px;
+  background:var(--rouge);
+}
+.filet-grave svg{
+  flex:0 0 auto;
+  display:block;
+  width:64px;
+  height:13px;
+}
+.pied p,
+.pied nav{
+  font-size:10px;
+  letter-spacing:.2em;
+}
+.pied nav{ text-transform:uppercase }
+.pied nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 24px;
+  margin-top:10px;
+}
+.pied nav a{ text-decoration:underline; text-underline-offset:3px }
+.pied nav a:hover,
+.pied nav a:focus-visible{ outline:1px solid var(--rouge); outline-offset:3px; text-decoration:none }
+
+/* ── mobile : une seule colonne, les compteurs restent gros ─────── */
+@media (max-width:880px){
+  .m-pieces,
+  .m-atelier,
+  .m-actes,
+  .m-cotation,
+  .m-attention,
+  .m-depeches{ grid-column:1 / -1 }
+  .ligne{
+    grid-template-columns:minmax(0, 1fr) auto;
+    row-gap:6px;
+  }
+  .ligne .l{ grid-column:1 / -1 }
+  .ligne .d{ text-align:right }
+  .compteur{ grid-template-columns:minmax(0, 1fr) }
+  .compteur .valeur{ font-size:clamp(56px, 18vw, 96px) }
+  .depeche{ grid-template-columns:minmax(0, 1fr); gap:4px }
+  .pieces{ grid-template-columns:minmax(0, 1fr) }
+  .piece.vedette img{ height:auto; aspect-ratio:4 / 5 }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .bandeau-piste{ animation:none }
+  .voyant.allume{ animation:none }
+}
+</style>
+</head>
+<body class="verrouille">
+
+<!-- verrou : le registre reste fermé tant que le code n'est pas saisi -->
+<div class="verrou" id="verrou">
+  <form class="verrou-form" id="verrou-form" autocomplete="off">
+    <svg class="cadenas" viewBox="0 0 13 16" shape-rendering="crispEdges" aria-hidden="true">
+      <path fill-rule="evenodd" d="M4 0h5v1H4zM3 1h1v1H3zM9 1h1v1H9zM2 2h1v5H2zM10 2h1v5h-1zM0 7h13v9H0zM5 10h3v1H5zM6 11h1v2H6z" fill="currentColor"/>
+    </svg>
+    <div class="verrou-barre">
+      <label class="lib" for="verrou-code" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Code d'accès</label>
+      <input id="verrou-code" name="code" type="password" placeholder="Code" autocomplete="off" spellcheck="false" autocapitalize="characters" aria-describedby="verrou-etat">
+      <button type="submit" aria-label="Entrer">&rarr;</button>
+    </div>
+    <p class="verrou-etat lib gris" id="verrou-etat" aria-live="polite"></p>
+  </form>
+</div>
+
+<!-- 0 · bandeau d'avertissement -->
+<div class="bandeau" role="note" aria-label="Avertissement">
+  <div class="bandeau-piste" id="bandeau" aria-hidden="true"></div>
+</div>
+
+<main class="releve">
+
+  <!-- 00 · pièces au registre -->
+  <section class="module m-pieces" aria-labelledby="t0">
+    <h2 class="entete lib"><span class="num">00</span><span class="titre" id="t0">Pièces au registre</span><span class="compte gris" id="pieces-compte"></span></h2>
+    <div class="pieces" id="pieces"></div>
+  </section>
+
+  <!-- 1 · relevé d'atelier -->
+  <section class="module m-atelier" aria-labelledby="t1">
+    <h2 class="entete lib"><span class="num">01</span><span class="titre" id="t1">Relevé d'atelier</span></h2>
+    <div class="compteurs" id="atelier"></div>
+    <p class="pied-module gris" id="derniere-entree"></p>
+  </section>
+
+  <!-- 2 · état des actes -->
+  <section class="module m-actes" aria-labelledby="t2">
+    <h2 class="entete lib"><span class="num">02</span><span class="titre" id="t2">État des actes</span></h2>
+    <div class="actes" id="actes"></div>
+  </section>
+
+  <!-- 3 · cotation du jour -->
+  <section class="module m-cotation" aria-labelledby="t3">
+    <h2 class="entete lib"><span class="num">03</span><span class="titre" id="t3">Cotation du jour</span></h2>
+    <div class="cotation" id="cotation"></div>
+  </section>
+
+  <!-- 4 · compteur d'attention -->
+  <section class="module m-attention attention" aria-labelledby="t4">
+    <h2 class="entete lib"><span class="num">04</span><span class="titre" id="t4">Compteur d'attention</span></h2>
+    <p class="lib">Attention versée</p>
+    <p class="chrono" id="chrono" role="timer">00:00:00</p>
+    <p class="lib sous gris">Non remboursable</p>
+  </section>
+
+  <!-- 5 · dépêches -->
+  <section class="module m-depeches" aria-labelledby="t5">
+    <h2 class="entete lib"><span class="num">05</span><span class="titre" id="t5">Dépêches</span></h2>
+    <ol class="depeches" id="depeches"></ol>
+  </section>
+
+</main>
+
+<!-- 6 · pied de page -->
+<footer class="pied">
+  <div class="filet-grave" aria-hidden="true">
+    <span></span>
+    <svg viewBox="0 0 64 13" shape-rendering="crispEdges">
+      <path d="M0 6h14v1H0zM50 6h14v1H50z" fill="currentColor"/>
+      <path d="M32 0.5 38 6.5 32 12.5 26 6.5Z M32 3.5 35 6.5 32 9.5 29 6.5Z" fill="none" stroke="currentColor" stroke-width="1" shape-rendering="geometricPrecision"/>
+      <path d="M19 6.5 21.5 4 24 6.5 21.5 9Z M40 6.5 42.5 4 45 6.5 42.5 9Z" fill="currentColor" shape-rendering="geometricPrecision"/>
+    </svg>
+    <span></span>
+  </div>
+  <p class="gris" id="pied"></p>
+  <nav id="liens" aria-label="Liens du site"></nav>
+</footer>
+
+<script src="registre.config.js"></script>
+<script src="registre.js"></script>
+</body>
+</html>
