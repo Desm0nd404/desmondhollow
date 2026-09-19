@@ -1823,16 +1823,16 @@ body.pd-view-open .pd-bar{ display:none }
   justify-content:center;
   min-width:0;
   margin:0;
-  padding:clamp(16px, 2.2vw, 34px);
+  padding:clamp(10px, 1.4vw, 22px);
   cursor:var(--cursor-link);
 }
 .vg-media img,
 .vg-media video{
   display:block;
-  width:auto;
-  height:auto;
+  width:clamp(300px, 32vw, 520px);
+  height:clamp(360px, 40vw, 620px);
   max-width:100%;
-  max-height:clamp(300px, 30vw, 480px);
+  object-fit:contain;
 }
 
 /* une œuvre animée se voit en entier : la vidéo prend toute la largeur
