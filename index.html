@@ -5294,8 +5294,11 @@ function pulseAplat(block = document.querySelector('.vg-block'), count = 6){
 function initHomeBoard(){
   buildPxMark('HOLLOW');
   buildSteps();
-  /* une oeuvre par jour, la meme pour tout le monde */
-  showFeature(Math.floor(Date.now() / 864e5));
+  /* l'accueil ouvre toujours sur la meme oeuvre ; si elle disparait
+     du registre, on retombe sur l'ancienne rotation journaliere */
+  const HOME_WORK = '#013';
+  const homeAt = NFTS.findIndex(work => work.number === HOME_WORK);
+  showFeature(homeAt < 0 ? Math.floor(Date.now() / 864e5) : homeAt);
   const board = document.getElementById('mod-system');
   if (board) board.classList.add('board-ready');
   pulseAplat();
