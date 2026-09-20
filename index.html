@@ -3080,12 +3080,46 @@ body.nft-open{
 :root[data-chroma="bait"] .nft-close:hover,
 :root[data-chroma="bait"] .nft-close:focus-visible{ outline-color:rgba(0,0,0,.42) }
 
+/* sélecteur de langue, fixé en haut à droite */
+#lang-switch{
+  position:fixed;
+  top:10px;
+  right:12px;
+  z-index:60;
+  display:flex;
+  gap:4px;
+  font-family:var(--sans);
+}
+#lang-switch button{
+  padding:3px 8px;
+  border:1px solid var(--line-hi);
+  background:color-mix(in srgb, var(--graphite) 82%, transparent);
+  color:var(--paper);
+  font:inherit;
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.06em;
+  cursor:var(--cursor-link);
+}
+#lang-switch button[aria-pressed="true"]{
+  background:var(--royal);
+  border-color:var(--royal);
+  color:var(--paper);
+}
+#lang-switch button:hover{ border-color:var(--paper) }
+
 </style>
 </head>
 <body>
 
 <div id="stage">
   <h1 class="sr-only">The Register of Hollow</h1>
+
+  <div id="lang-switch" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+    <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+  </div>
 
   <div class="zone" id="z-boot"></div>
 
@@ -3096,7 +3130,7 @@ body.nft-open{
       <button type="button" class="home-icon" id="homeIndex" title="Galerie, vue par collection" aria-label="Ouvrir la galerie par collection"><svg viewBox="0 0 17 18" shape-rendering="crispEdges" aria-hidden="true"><path d="M8 0h1v1h-1zM7 1h3v1h-3zM8 2h1v1h-1zM7 3h3v1h-3zM2 4h1v1h-1zM6 4h5v1h-5zM14 4h1v1h-1zM1 5h3v1h-3zM5 5h7v1h-7zM13 5h3v1h-3zM2 6h1v1h-1zM4 6h9v1h-9zM14 6h1v1h-1zM2 7h13v1h-13zM2 8h5v1h-5zM10 8h5v1h-5zM2 9h4v1h-4zM11 9h4v1h-4zM2 10h4v1h-4zM11 10h4v1h-4zM2 11h5v1h-5zM10 11h5v1h-5zM2 12h13v1h-13zM2 13h5v1h-5zM10 13h5v1h-5zM2 14h4v1h-4zM11 14h4v1h-4zM2 15h4v1h-4zM11 15h4v1h-4zM2 16h4v1h-4zM11 16h4v1h-4zM2 17h4v1h-4zM11 17h4v1h-4z" fill="currentColor"/></svg></button>
   </nav>
     <div class="grid mod-head">
-      <span class="mod-num act-num">ACTE [1] · VENTE À HUIS CLOS</span>
+      <span class="mod-num act-num" data-i18n="act_line">ACTE [1] · VENTE À HUIS CLOS</span>
     </div>
 
     <div class="grid">
@@ -3141,8 +3175,8 @@ Timeout — no boot medium found</pre>
           <figure class="vg-media" id="vgMedia"></figure>
         </div>
         <p class="vg-actions">
-          <button type="button" id="vgOpen">Ouvrir la fiche</button>
-          <button type="button" id="vgNext">Œuvre suivante</button>
+          <button type="button" id="vgOpen" data-i18n="open_sheet">Ouvrir la fiche</button>
+          <button type="button" id="vgNext" data-i18n="next_work">Œuvre suivante</button>
         </p>
       </article>
 
@@ -3165,29 +3199,29 @@ Timeout — no boot medium found</pre>
   <footer id="z-foot" aria-label="Pied du registre">
     <div class="foot-cols">
       <nav class="foot-col" aria-labelledby="footReg">
-        <h2 id="footReg">Registre</h2>
+        <h2 id="footReg" data-i18n="foot_reg">Registre</h2>
         <ul>
-          <li><a href="#mod-system">Planche</a></li>
-          <li><a href="#hollow-notice">Notice</a></li>
-          <li><a href="registre/">Relevé public</a></li>
+          <li><a href="#mod-system" data-i18n="foot_planche">Planche</a></li>
+          <li><a href="#hollow-notice" data-i18n="foot_notice">Notice</a></li>
+          <li><a href="registre/" data-i18n="foot_public">Relevé public</a></li>
         </ul>
       </nav>
       <nav class="foot-col" aria-labelledby="footGal">
-        <h2 id="footGal">Galerie</h2>
+        <h2 id="footGal" data-i18n="foot_gal">Galerie</h2>
         <ul>
-          <li><button type="button" data-gallery="grid">Vue grille</button></li>
-          <li><button type="button" data-gallery="index">Par collection</button></li>
+          <li><button type="button" data-gallery="grid" data-i18n="gal_grid">Vue grille</button></li>
+          <li><button type="button" data-gallery="index" data-i18n="gal_index">Par collection</button></li>
         </ul>
       </nav>
       <nav class="foot-col" aria-labelledby="footActs">
-        <h2 id="footActs">Actes</h2>
+        <h2 id="footActs" data-i18n="foot_acts">Actes</h2>
         <ul>
-          <li class="foot-off">Acte I · Huis clos</li>
-          <li class="foot-off">Acte II · dormant</li>
+          <li class="foot-off" data-i18n="act1_off">Acte I · Huis clos</li>
+          <li class="foot-off" data-i18n="act2_off">Acte II · dormant</li>
         </ul>
       </nav>
       <nav class="foot-col" aria-labelledby="footNet">
-        <h2 id="footNet">Canaux</h2>
+        <h2 id="footNet" data-i18n="foot_net">Canaux</h2>
         <ul>
           <li><a href="https://discord.gg/Na3Y9ne6S" target="_blank" rel="noopener noreferrer">Discord</a></li>
           <li><a href="https://x.com/desmond404_" target="_blank" rel="noopener noreferrer">X · @desmond404_</a></li>
@@ -3204,7 +3238,7 @@ Timeout — no boot medium found</pre>
     <div class="foot-base">
       <p class="foot-sys">空洞起動用オペレーティングシステム, VER.1.0.0</p>
       <div class="foot-right">
-        <p class="foot-state">Acte I en cours · aucune valeur de marché établie</p>
+        <p class="foot-state" data-i18n="foot_state">Acte I en cours · aucune valeur de marché établie</p>
         <p class="foot-sign">© 2026 ART hollOw</p>
       </div>
     </div>
@@ -3299,15 +3333,15 @@ Timeout — no boot medium found</pre>
       <div class="pdv-head">
         <button type="button" id="pdvHome" class="pdv-icon pdv-home" title="Retour à l'index visuel" aria-label="Retour à l'index visuel"><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M7 0h2v2H7zM6 1h1v2H6zM9 1h1v2H9zM5 2h1v2H5zM10 2h1v2h-1zM4 3h1v3H4zM11 3h1v3h-1zM3 4h1v12H3zM12 4h1v12h-1zM7 5h2v2H7zM2 6h1v10H2zM13 6h1v10h-1zM7 8h2v8H7zM4 14h3v2H4zM9 14h3v2H9z" fill="currentColor"/></svg></button>
         <p class="pdv-crumbs">
-          <button type="button" id="pdvBack" class="pdv-link">&lsaquo; Index</button>
+          <button type="button" id="pdvBack" class="pdv-link" data-i18n="crumb_index">&lsaquo; Index</button>
           <span aria-hidden="true">/</span>
-          <span>Collection &middot; <b id="pdvChapterNum"></b> &middot; <b id="pdvKind"></b></span>
+          <span><span data-i18n="crumb_collection">Collection</span> &middot; <b id="pdvChapterNum"></b> &middot; <b id="pdvKind"></b></span>
         </p>
         <button type="button" id="pdvCollapse" class="pdv-icon" aria-pressed="false" title="Replier la colonne" aria-label="Replier la colonne"><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 7h5v2H1zM4 5h2v2H4zM4 9h2v2H4zM10 7h5v2h-5zM10 5h2v2h-2zM10 9h2v2h-2z" fill="currentColor"/></svg></button>
       </div>
 
       <div class="pdv-side-scroll">
-        <p class="pdv-no">no. <b id="pdvTitleNum"></b></p>
+        <p class="pdv-no"><span data-i18n="no_label">no.</span> <b id="pdvTitleNum"></b></p>
         <h2 id="pdvTitle" class="pdv-title"></h2>
         <p class="pdv-sub">
           <button type="button" id="pdvCollectionLink" class="pdv-link">&#8617; <span id="pdvCollectionName"></span></button>
@@ -3315,29 +3349,29 @@ Timeout — no boot medium found</pre>
         </p>
 
         <p class="pdv-dateline">
-          <span>Conservé sous <b id="pdvOwner"></b></span>
-          <button type="button" id="pdvFull" class="pdv-outline">Voir en plein écran</button>
+          <span><span data-i18n="kept_under">Conservé sous</span> <b id="pdvOwner"></b></span>
+          <button type="button" id="pdvFull" class="pdv-outline" data-i18n="view_full">Voir en plein écran</button>
         </p>
 
         <p id="pdvMemo" class="pdv-memo"></p>
 
         <details class="pdv-acc" open>
-          <summary><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 1h6v6H1zM3 3v2h2V3zM9 1h6v6H9zM11 3v2h2V3zM1 9h6v6H1zM3 11v2h2v-2zM9 9h6v6H9zM11 11v2h2v-2z" fill="currentColor" fill-rule="evenodd"/></svg><span>Détail</span></summary>
+          <summary><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 1h6v6H1zM3 3v2h2V3zM9 1h6v6H9zM11 3v2h2V3zM1 9h6v6H1zM3 11v2h2v-2zM9 9h6v6H9zM11 11v2h2v-2z" fill="currentColor" fill-rule="evenodd"/></svg><span data-i18n="detail">Détail</span></summary>
           <div class="pdv-acc-body">
             <dl class="pdv-grid">
-              <div><dt>Support</dt><dd id="pdvSupport"></dd><dd class="pdv-share" id="pdvSupportN"></dd></div>
-              <div><dt>Mesure</dt><dd id="pdvDimensions"></dd><dd class="pdv-share" id="pdvDimensionsN"></dd></div>
-              <div><dt>État</dt><dd id="pdvState"></dd><dd class="pdv-share" id="pdvStateN"></dd></div>
-              <div><dt>Catégorie</dt><dd id="pdvClass"></dd><dd class="pdv-share" id="pdvClassN"></dd></div>
+              <div><dt data-i18n="support">Support</dt><dd id="pdvSupport"></dd><dd class="pdv-share" id="pdvSupportN"></dd></div>
+              <div><dt data-i18n="measure">Mesure</dt><dd id="pdvDimensions"></dd><dd class="pdv-share" id="pdvDimensionsN"></dd></div>
+              <div><dt data-i18n="state_label">État</dt><dd id="pdvState"></dd><dd class="pdv-share" id="pdvStateN"></dd></div>
+              <div><dt data-i18n="category">Catégorie</dt><dd id="pdvClass"></dd><dd class="pdv-share" id="pdvClassN"></dd></div>
             </dl>
-            <p class="pdv-note">À droite : combien d'œuvres du registre partagent la valeur, et leur part.</p>
+            <p class="pdv-note" data-i18n="pdv_note">À droite : combien d'œuvres du registre partagent la valeur, et leur part.</p>
           </div>
         </details>
 
         <details class="pdv-acc" open>
-          <summary><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M5 2h2v2H5zM7 4h2v2H7zM9 6h2v4H9zM7 10h2v2H7zM5 12h2v2H5zM5 4h2v8H5z" fill="currentColor"/></svg><span>Média</span></summary>
+          <summary><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M5 2h2v2H5zM7 4h2v2H7zM9 6h2v4H9zM7 10h2v2H7zM5 12h2v2H5zM5 4h2v8H5z" fill="currentColor"/></svg><span data-i18n="media">Média</span></summary>
           <div class="pdv-acc-body">
-            <p class="pdv-media-links"><button type="button" id="pdvOpenFile" class="pdv-link">Fichier original</button></p>
+            <p class="pdv-media-links"><button type="button" id="pdvOpenFile" class="pdv-link" data-i18n="original_file">Fichier original</button></p>
             <div id="pdvStrip" class="pdv-strip"></div>
             <div class="pdv-pager">
               <button type="button" id="pdvPrev" class="pdv-step" aria-label="Fichier précédent">&lsaquo;</button>
@@ -3348,8 +3382,8 @@ Timeout — no boot medium found</pre>
         </details>
 
         <p class="pdv-foot">
-          <button type="button" id="pdvFootBack" class="pdv-link">&lsaquo; Retour à l'index</button>
-          <button type="button" id="pdvArchive" class="pdv-link">Archive</button>
+          <button type="button" id="pdvFootBack" class="pdv-link" data-i18n="back_index">&lsaquo; Retour à l'index</button>
+          <button type="button" id="pdvArchive" class="pdv-link" data-i18n="archive">Archive</button>
           <span id="pdvPath" class="pdv-path"></span>
         </p>
       </div>
@@ -3364,16 +3398,16 @@ Timeout — no boot medium found</pre>
         <div id="pdvMedia" class="pdv-media" aria-live="polite"></div>
       </figure>
       <div class="pdv-stagebar">
-        <button type="button" id="pdvFrame" class="pdv-toggle" aria-pressed="true"><i aria-hidden="true"></i>Passe-partout</button>
+        <button type="button" id="pdvFrame" class="pdv-toggle" aria-pressed="true"><i aria-hidden="true"></i><span data-i18n="passe_partout">Passe-partout</span></button>
         <div class="pdv-scene" role="group" aria-label="Fond derrière l'œuvre">
-          <span aria-hidden="true">Fond</span>
+          <span aria-hidden="true" data-i18n="background">Fond</span>
           <span class="pdv-scene-set">
             <button type="button" data-scene="creme" aria-pressed="false" title="Crème" aria-label="Fond crème"></button>
             <button type="button" data-scene="art" aria-pressed="false" title="Couleur de l'œuvre" aria-label="Fond couleur de l'œuvre"></button>
             <button type="button" data-scene="graphite" aria-pressed="true" title="Gris-noir" aria-label="Fond gris-noir"></button>
           </span>
         </div>
-        <button type="button" id="pdvGothic" class="pdv-toggle" aria-pressed="false" hidden><i aria-hidden="true"></i>Mode gothique</button>
+        <button type="button" id="pdvGothic" class="pdv-toggle" aria-pressed="false" hidden><i aria-hidden="true"></i><span data-i18n="gothic_mode">Mode gothique</span></button>
         <button type="button" id="pdvFullIcon" class="pdv-icon" title="Plein écran" aria-label="Plein écran"><svg viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 1h5v2H3v3H1zM10 1h5v5h-2V3h-3zM1 10h2v3h3v2H1zM13 10h2v5h-5v-2h3z" fill="currentColor"/></svg></button>
       </div>
     </section>
@@ -3387,7 +3421,7 @@ Timeout — no boot medium found</pre>
       <figcaption id="nftModalCaption"></figcaption>
     </figure>
     <aside class="wiki-infobox">
-      <button id="nftModalClose" class="nft-close" type="button">close</button>
+      <button id="nftModalClose" class="nft-close" type="button" data-i18n="close">close</button>
       <h2 id="nftModalTitle" class="infobox-title"></h2>
       <table>
         <tbody>
@@ -3653,8 +3687,248 @@ const EMBEDDED_ARTWORKS = {
 
 let lastArchiveFocus = null;
 
+/* ══ Langues : FR / EN / 中文 ═══════════════════════════════════
+   Le français est la source (titres et notes dans NFTS, libellés dans
+   CATEGORY_LABELS). Les traductions EN/ZH vivent ici. Défaut : anglais. */
+let HLANG = 'en';
+try { const s = localStorage.getItem('hollow-lang'); if (s === 'fr' || s === 'en' || s === 'zh') HLANG = s; } catch (e) {}
+
+const CAT_TR = {
+  figure:    { en:"Sealed figures",    zh:"封存人像" },
+  monochrome:{ en:"Black line",        zh:"黑线" },
+  aplat:     { en:"Monochrome / flat", zh:"单色 / 平涂" },
+  organe:    { en:"Organs / eyes",     zh:"器官 / 眼睛" },
+  memory:    { en:"Memory landscapes", zh:"记忆风景" },
+  bloc:      { en:"Block-machines",    zh:"机器方块" },
+  motion:    { en:"Moving images",     zh:"动态影像" }
+};
+
+const STATE_TR = {
+  "indexed image":  { en:"indexed image",  zh:"已建档图像" },
+  "indexed motion": { en:"indexed motion", zh:"已建档动态" }
+};
+
+/* titres (t) et notes (m) par œuvre, en anglais et en chinois */
+const WORK_TR = {
+  "#001":{ en:{t:"Unrated",m:"No comparable sale. The report doesn't know what to write."}, zh:{t:"无评级",m:"没有可比的成交。报告不知道该写什么。"} },
+  "#002":{ en:{t:"Second Passport",m:"It cost less than the boat it had to shelter."}, zh:{t:"第二本护照",m:"它比那艘需要藏起来的船还便宜。"} },
+  "#003":{ en:{t:"Fractional Ownership",m:"Sold whole to three people. Each one had the papers."}, zh:{t:"碎片化所有权",m:"整件卖给了三个人。每人都有凭证。"} },
+  "#004":{ en:{t:"Verified Buyer",m:"The record-setter already held the stock he had just marked up."}, zh:{t:"已验证买家",m:"创纪录的人早已持有他刚刚抬价的货。"} },
+  "#005":{ en:{t:"Guaranteed Parity",m:"One dollar, always. Then eighty cents for three days. Then nothing."}, zh:{t:"保证锚定",m:"永远一美元。然后连续三天八十美分。然后归零。"} },
+  "#006":{ en:{t:"Unlisted",m:"It exists. That's all one can say about it."}, zh:{t:"未上市",m:"它存在。能说的仅此而已。"} },
+  "#007":{ en:{t:"Guaranteed Bid",m:"Someone had promised to buy before the room raised a hand."}, zh:{t:"保底出价",m:"在场内举手之前，已有人承诺买下。"} },
+  "#008":{ en:{t:"Order Book",m:"The orders weren't there to be filled."}, zh:{t:"订单簿",m:"这些挂单并不是为了成交。"} },
+  "#009":{ en:{t:"Carbon Offset",m:"The forest was already protected. It was sold twice."}, zh:{t:"碳抵消",m:"那片森林本已受保护。它被卖了两次。"} },
+  "#034":{ en:{t:"Pardon Granted",m:"Signed on the last evening, for someone who had given a great deal."}, zh:{t:"特赦",m:"在最后一晚签署，给了一个捐了很多的人。"} },
+  "#010":{ en:{t:"Before Appraisal",m:"The auctioneer hasn't come by yet."}, zh:{t:"估价之前",m:"拍卖师还没来过。"} },
+  "#035":{ en:{t:"Representation Expenses",m:"The delegation booked a floor. The hotel belonged to the man they came to see."}, zh:{t:"公关开支",m:"代表团包下一整层。那家酒店属于他们要见的人。"} },
+  "#039":{ en:{t:"Private Presale",m:"Launched on a Friday night. Forty wallets served before the announcement."}, zh:{t:"私募预售",m:"在某个周五夜里启动。公告之前已有四十个钱包成交。"} },
+  "#012":{ en:{t:"Long-Term Storage",m:"Geneva. The crate came in in 2013. No one asked to see it."}, zh:{t:"长期仓储",m:"日内瓦。木箱2013年入库。没人要求看一眼。"} },
+  "#013":{ en:{t:"Certificate Included",m:"Forty years of masterpieces out of a garage in Queens."}, zh:{t:"附证书",m:"四十年的杰作，出自皇后区的一间车库。"} },
+  "#014":{ en:{t:"The Left Hand",m:"It buys what the right hand sells. The record holds for three days."}, zh:{t:"左手",m:"左手买下右手卖出的。纪录维持了三天。"} },
+  "#015":{ en:{t:"Margin Call",m:"Leverage was at a hundred. The candle lasted nine minutes."}, zh:{t:"追加保证金",m:"杠杆一百倍。那根K线持续了九分钟。"} },
+  "#016":{ en:{t:"Sponsored Content",m:"She posted the ape. She forgot to say how much she'd been paid."}, zh:{t:"合作内容",m:"她晒出了那只猿。她忘了说自己收了多少钱。"} },
+  "#017":{ en:{t:"Beneficial Owner",m:"The box was filled in. It was a driver's name."}, zh:{t:"实际受益人",m:"那一栏填好了。填的是一名司机的名字。"} },
+  "#019":{ en:{t:"Hold the Position",m:"Hold on, he kept saying, while emptying his own."}, zh:{t:"守住仓位",m:"他不停地说“拿住”，同时清空了自己的。"} },
+  "#020":{ en:{t:"Flag of Convenience",m:"Seized at the dock, resold twice, seen again in the Maldives under another name."}, zh:{t:"方便旗",m:"在码头被扣，转卖两次，又以另一个名字现身马尔代夫。"} },
+  "#021":{ en:{t:"Roadmap",m:"Phase 1 delivered. Phase 2 underway. The server closed on a Tuesday."}, zh:{t:"路线图",m:"第一阶段已交付。第二阶段进行中。服务器在某个周二关停。"} },
+  "#023":{ en:{t:"Probable Attribution",m:"Four hundred fifty million, then no address at all. The museum preferred not to."}, zh:{t:"疑似真迹",m:"四亿五千万，然后再无下落。博物馆宁可作罢。"} },
+  "#024":{ en:{t:"Segregated Funds",m:"The word was in the terms of service. The money was in the Bahamas."}, zh:{t:"隔离资金",m:"这个词写在用户协议里。钱在巴哈马。"} },
+  "#025":{ en:{t:"Symphony in Red",m:"Down forty percent overnight, wallets drained. By morning the founder posted a violin and 'we're only getting started.'"}, zh:{t:"红色交响曲",m:"一夜暴跌四成，钱包被清空。清晨，创始人发了一把小提琴，配文“我们才刚刚开始”。"} },
+  "#033":{ en:{t:"Seasonal Fruit",m:"He ate it. Another was taped back up. The certificate didn't budge."}, zh:{t:"时令水果",m:"他把它吃了。又贴回去一只。证书纹丝未动。"} },
+  "#026":{ en:{t:"Proof of Reserves",m:"The funds were there on audit day. Borrowed the night before."}, zh:{t:"储备证明",m:"审计当天资金都在。前一晚借来的。"} },
+  "#027":{ en:{t:"Surprise Box",m:"It's not gambling, since you can't withdraw anything."}, zh:{t:"盲盒",m:"这不算赌博，因为你什么都取不出来。"} },
+  "#036":{ en:{t:"24h Volume",m:"Two addresses, one million dollars, a hundred times over one night."}, zh:{t:"24小时成交量",m:"两个地址，一百万美元，一夜之间来回一百次。"} },
+  "#037":{ en:{t:"Network Fees",m:"The mint cost more than the object. The bots went first."}, zh:{t:"网络手续费",m:"铸造费比藏品本身还贵。机器人抢在了前面。"} },
+  "#038":{ en:{t:"House Edge",m:"He played live and won often. It was his casino."}, zh:{t:"庄家优势",m:"他直播下注，还常常赢。那是他自己的赌场。"} },
+  "#040":{ en:{t:"Appointed Bidder",m:"He raises his hand three times. Never a fourth: the agreed price was reached."}, zh:{t:"受托竞买人",m:"他举手三次。从不举第四次：约定的价格已经到了。"} },
+  "#029":{ en:{t:"Liquidation Underway",m:"Nothing to do. It's already done."}, zh:{t:"清算进行中",m:"无事可做。一切已成定局。"} },
+  "#031":{ en:{t:"Public Mint",m:"Twelve seconds. Nobody clicked fast enough, except those who weren't clicking."}, zh:{t:"公开铸造",m:"十二秒。没人点得够快，除了那些根本不用点的人。"} },
+  "#032":{ en:{t:"Displayed Balance",m:"The balance on screen wasn't his. The link in the description was."}, zh:{t:"展示余额",m:"屏幕上的余额不是他的。简介里的链接才是。"} }
+};
+
+/* libellés d'interface : fr = valeur d'origine du HTML */
+const UI_TR = {
+  act_line:       { fr:"ACTE [1] · VENTE À HUIS CLOS", en:"ACT [1] · PRIVATE SALE, CLOSED DOORS", zh:"第一幕 · 闭门私售" },
+  open_sheet:     { fr:"Ouvrir la fiche", en:"Open the record", zh:"打开档案" },
+  next_work:      { fr:"Œuvre suivante", en:"Next work", zh:"下一件" },
+  show_prefix:    { fr:"Afficher", en:"Show", zh:"显示" },
+  foot_reg:       { fr:"Registre", en:"Register", zh:"登记册" },
+  foot_planche:   { fr:"Planche", en:"Board", zh:"版面" },
+  foot_notice:    { fr:"Notice", en:"Notice", zh:"说明" },
+  foot_public:    { fr:"Relevé public", en:"Public record", zh:"公开记录" },
+  foot_gal:       { fr:"Galerie", en:"Gallery", zh:"画廊" },
+  gal_grid:       { fr:"Vue grille", en:"Grid view", zh:"网格视图" },
+  gal_index:      { fr:"Par collection", en:"By collection", zh:"按系列" },
+  foot_acts:      { fr:"Actes", en:"Acts", zh:"幕" },
+  act1_off:       { fr:"Acte I · Huis clos", en:"Act I · Closed doors", zh:"第一幕 · 闭门" },
+  act2_off:       { fr:"Acte II · dormant", en:"Act II · dormant", zh:"第二幕 · 休眠" },
+  foot_net:       { fr:"Canaux", en:"Channels", zh:"渠道" },
+  foot_state:     { fr:"Acte I en cours · aucune valeur de marché établie", en:"Act I underway · no market value established", zh:"第一幕进行中 · 尚未确立市场价值" },
+  crumb_index:    { fr:"‹ Index", en:"‹ Index", zh:"‹ 索引" },
+  crumb_collection:{ fr:"Collection", en:"Collection", zh:"系列" },
+  kept_under:     { fr:"Conservé sous", en:"Kept under", zh:"存放于" },
+  view_full:      { fr:"Voir en plein écran", en:"View full screen", zh:"全屏查看" },
+  detail:         { fr:"Détail", en:"Detail", zh:"详情" },
+  support:        { fr:"Support", en:"Support", zh:"载体" },
+  measure:        { fr:"Mesure", en:"Size", zh:"尺寸" },
+  state_label:    { fr:"État", en:"State", zh:"状态" },
+  category:       { fr:"Catégorie", en:"Category", zh:"类别" },
+  pdv_note:       { fr:"À droite : combien d'œuvres du registre partagent la valeur, et leur part.", en:"On the right: how many works in the register share the value, and their share.", zh:"右侧：登记册中有多少件作品共享该数值，及其占比。" },
+  media:          { fr:"Média", en:"Media", zh:"媒体" },
+  original_file:  { fr:"Fichier original", en:"Original file", zh:"原始文件" },
+  back_index:     { fr:"‹ Retour à l'index", en:"‹ Back to index", zh:"‹ 返回索引" },
+  archive:        { fr:"Archive", en:"Archive", zh:"档案" },
+  passe_partout:  { fr:"Passe-partout", en:"Mat", zh:"衬边" },
+  background:     { fr:"Fond", en:"Background", zh:"背景" },
+  gothic_mode:    { fr:"Mode gothique", en:"Gothic mode", zh:"哥特模式" },
+  no_label:       { fr:"no.", en:"no.", zh:"编号" },
+  rank_of:        { fr:"sur", en:"of", zh:"/" },
+  close:          { fr:"close", en:"close", zh:"关闭" }
+};
+
+/* les paragraphes de la notice ; le dernier prend la classe notice-end */
+const NOTICE = {
+  en:[
+    "I am Desmond. I run HOLLOW, the registry of ART hollOw.",
+    "HOLLOW was born from a simple observation: in part of the digital art market, the artwork tends to disappear behind its value. An image is no longer viewed only for what it evokes, but for what it might be worth. The collection explores this shift and builds its own language, figures, archives, and fragments around it.",
+    "The subject is a market where people buy in order to resell. Price is considered before the image, until eventually price becomes the only thing being looked at. The titles borrow the language of the market: auction, provenance, reserve, valuation. They do not point to anyone in particular. They describe a mechanism, not individuals. Each work acts as a fragment of the same observation without trying to explain it entirely.",
+    "HOLLOW does not observe this system from the outside. Sold as NFTs, the collection itself becomes a tradable object, subject to price, scarcity, and speculation. It deliberately places itself within the very system it describes.",
+    "This is where the work continues. Once HOLLOW enters the market, it no longer controls what people look at first. The image or its price. The artwork or its valuation. Collecting, reselling, speculating, or holding therefore become actions that directly participate in the subject of the collection itself.",
+    "HOLLOW does not attempt to resolve this contradiction. It exists within it."
+  ],
+  fr:[
+    "Je suis Desmond. Je tiens HOLLOW, le registre d'ART hollOw.",
+    "HOLLOW est né d'un constat simple : dans une partie du marché de l'art numérique, l'œuvre tend à disparaître derrière sa valeur. Une image n'est plus regardée seulement pour ce qu'elle évoque, mais pour ce qu'elle pourrait valoir. La collection explore ce glissement et construit autour de lui sa propre langue, ses figures, ses archives et ses fragments.",
+    "Le sujet est un marché où l'on achète pour revendre. Le prix se regarde avant l'image, jusqu'à ce que le prix devienne la seule chose que l'on regarde. Les titres empruntent la langue du marché : enchère, provenance, réserve, cote. Ils ne visent personne en particulier. Ils décrivent un mécanisme, pas des individus. Chaque œuvre agit comme un fragment du même constat, sans chercher à l'expliquer entièrement.",
+    "HOLLOW n'observe pas ce système de l'extérieur. Vendue en NFT, la collection devient elle-même un objet négociable, soumis au prix, à la rareté et à la spéculation. Elle se place délibérément dans le système même qu'elle décrit.",
+    "C'est là que le travail continue. Une fois HOLLOW entrée sur le marché, elle ne contrôle plus ce que l'on regarde en premier. L'image ou son prix. L'œuvre ou sa valorisation. Collectionner, revendre, spéculer ou conserver deviennent alors des actes qui participent directement au sujet de la collection elle-même.",
+    "HOLLOW ne cherche pas à résoudre cette contradiction. Elle existe à l'intérieur."
+  ],
+  zh:[
+    "我是 Desmond。我管理 HOLLOW——ART hollOw 的登记册。",
+    "HOLLOW 源于一个简单的观察：在数字艺术市场的某个角落，作品往往消失在它的价值背后。一张图像不再只因它所唤起的东西而被观看，而是因为它可能值多少钱。这个系列探讨这种转变，并围绕它构建自己的语言、形象、档案与碎片。",
+    "主题是一个为转售而买入的市场。人们先看价格，再看图像，直到最后只看价格。标题借用市场的语言：拍卖、来源、底价、估值。它们并不针对任何具体的人，只描述一种机制，而非个体。每件作品都是同一观察的一个碎片，并不试图把它完全解释清楚。",
+    "HOLLOW 并非从外部观察这个系统。作为 NFT 出售，这个系列本身也成了可交易之物，受制于价格、稀缺与投机。它有意置身于它所描述的那个系统之中。",
+    "作品正是在这里继续。一旦 HOLLOW 进入市场，它便无法再决定人们先看什么。是图像还是价格。是作品还是估值。于是，收藏、转售、投机或持有，都成了直接参与这个系列主题本身的行为。",
+    "HOLLOW 并不试图化解这一矛盾。它就存在于矛盾之中。"
+  ]
+};
+
 function categoryLabel(kind){
-  return CATEGORY_LABELS[kind] || kind;
+  const tr = CAT_TR[kind];
+  return (HLANG !== 'fr' && tr && tr[HLANG]) || CATEGORY_LABELS[kind] || kind;
+}
+function stateLabel(value){
+  const tr = STATE_TR[value];
+  return (HLANG !== 'fr' && tr && tr[HLANG]) || value;
+}
+function titleFor(work){
+  const tr = WORK_TR[work.number];
+  return (HLANG !== 'fr' && tr && tr[HLANG] && tr[HLANG].t) || work.title;
+}
+function memoFor(work){
+  const tr = WORK_TR[work.number];
+  return (HLANG !== 'fr' && tr && tr[HLANG] && tr[HLANG].m) || work.memo || '';
+}
+function t(key){
+  const e = UI_TR[key];
+  return e ? (e[HLANG] || e.fr) : key;
+}
+
+/* remet à jour les textes déjà posés, sans reconstruire le DOM */
+function refreshFeatureText(){
+  if (typeof vgAt !== 'number' || vgAt < 0 || !NFTS[vgAt]) return;
+  const work = NFTS[vgAt];
+  const ti = document.getElementById('vgTitle');
+  const me = document.getElementById('vgMemo');
+  if (ti) ti.textContent = titleFor(work);
+  if (me) me.textContent = memoFor(work);
+}
+function refreshFriseText(){
+  if (Array.isArray(xcCells)){
+    xcCells.forEach((cell, i) => {
+      const work = NFTS[i];
+      if (!cell || !work) return;
+      cell.title = `${work.number} ${titleFor(work)}`;
+      cell.setAttribute('aria-label', `${t('show_prefix')} ${work.number} ${titleFor(work)}`);
+    });
+  }
+  document.querySelectorAll('#xc-steps .xc-label').forEach(label => {
+    const kind = label.dataset.kind;
+    if (!kind) return;
+    const count = label.querySelector('b');
+    label.replaceChildren(`${categoryLabel(kind)} · `, count || document.createTextNode(''));
+  });
+}
+function refreshGalleryText(){
+  document.querySelectorAll('#powerdown figure[data-idx]').forEach(fig => {
+    const work = NFTS[+fig.dataset.idx];
+    if (!work) return;
+    fig.setAttribute('aria-label', `${t('open_sheet')} ${work.number} ${titleFor(work)}`);
+    const cap = fig.querySelector('figcaption');
+    if (cap){
+      const b = document.createElement('b');
+      b.textContent = work.number;
+      cap.replaceChildren(b, ` · ${titleFor(work)}`);
+    }
+  });
+  document.querySelectorAll('#pd-index .pdx-group').forEach(group => {
+    const head = group.querySelector('.pdx-head');
+    const kind = group.dataset.kind;
+    if (!head || !kind) return;
+    const span = head.querySelector('span');
+    head.replaceChildren(document.createTextNode(categoryLabel(kind)));
+    if (span) head.appendChild(span);
+  });
+}
+
+function applyLang(lang){
+  if (lang === 'fr' || lang === 'en' || lang === 'zh') HLANG = lang;
+  try { localStorage.setItem('hollow-lang', HLANG); } catch (e) {}
+  document.documentElement.lang = HLANG;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.getAttribute('data-i18n'));
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    el.title = t(el.getAttribute('data-i18n-title'));
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
+  });
+
+  const nb = document.querySelector('#hollow-notice .notice-body');
+  if (nb){
+    const paras = NOTICE[HLANG] || NOTICE.en;
+    nb.replaceChildren(...paras.map((txt, i) => {
+      const p = document.createElement('p');
+      if (i === paras.length - 1) p.className = 'notice-end';
+      p.textContent = txt;
+      return p;
+    }));
+  }
+
+  document.querySelectorAll('#lang-switch button').forEach(b => {
+    b.setAttribute('aria-pressed', String(b.dataset.lang === HLANG));
+  });
+
+  refreshFeatureText();
+  refreshFriseText();
+  refreshGalleryText();
+  const pv = document.getElementById('pd-view');
+  if (pv && !pv.hidden && typeof pdvGo === 'function' && pdvAt >= 0) pdvGo(pdvAt);
+}
+
+function initLangSwitch(){
+  const ls = document.getElementById('lang-switch');
+  if (ls){
+    ls.addEventListener('click', e => {
+      const b = e.target.closest('button[data-lang]');
+      if (b) applyLang(b.dataset.lang);
+    });
+  }
+  applyLang(HLANG);
 }
 
 function assetSrc(work){
@@ -3847,11 +4121,11 @@ function buildGallery(){
     fig.dataset.idx = i;
     fig.tabIndex = 0;
     fig.setAttribute('role', 'button');
-    fig.setAttribute('aria-label', `Ouvrir la fiche ${work.number} ${work.title}`);
+    fig.setAttribute('aria-label', `${t('open_sheet')} ${work.number} ${titleFor(work)}`);
     const cap = document.createElement('figcaption');
     const capNum = document.createElement('b');
     capNum.textContent = work.number;
-    cap.append(capNum, ` · ${work.title}`);
+    cap.append(capNum, ` · ${titleFor(work)}`);
     fig.append(media, cap);
     pdGrid.appendChild(fig);
   });
@@ -4183,12 +4457,12 @@ function pdvGo(pos){
   pdvShowMedia(work);
 
   pdvPut('pdvKind', categoryLabel(work.kind));
-  pdvPut('pdvTitle', work.title);
+  pdvPut('pdvTitle', titleFor(work));
   pdvPut('pdvTitleNum', work.number.replace('#', ''));
   pdvPut('pdvOwner', work.memory);
   pdvPut('pdvCollectionName', categoryLabel(work.kind));
   const siblings = NFTS.filter(item => item.kind === work.kind);
-  pdvPut('pdvRank', `${siblings.indexOf(work) + 1} sur ${siblings.length}`);
+  pdvPut('pdvRank', `${siblings.indexOf(work) + 1} ${t('rank_of')} ${siblings.length}`);
   const kinds = pdvKinds();
   pdvPut('pdvChapterNum', String(kinds.indexOf(work.kind) + 1));
   const fmt = n => n.toLocaleString('fr-FR', { maximumFractionDigits:1 });
@@ -4197,14 +4471,14 @@ function pdvGo(pos){
     ['pdvClass', 'kind', categoryLabel],
     ['pdvSupport', 'support'],
     ['pdvDimensions', 'dimensions'],
-    ['pdvState', 'state']
+    ['pdvState', 'state', stateLabel]
   ].forEach(([id, field, label]) => {
     const value = work[field];
     const count = NFTS.filter(item => item[field] === value).length;
     pdvPut(id, label ? label(value) : value);
     pdvPut(`${id}N`, `${count} · ${fmt(count / NFTS.length * 100)} %`);
   });
-  pdvPut('pdvMemo', work.memo);
+  pdvPut('pdvMemo', memoFor(work));
   const openFile = document.getElementById('pdvOpenFile');
   if (openFile) openFile.disabled = /^data:/.test(assetSrc(work));
   pdvPaint(work);
@@ -4817,8 +5091,8 @@ function showFeature(pos){
   const num = document.createElement('b');
   num.textContent = work.number;
   document.getElementById('vgCap').replaceChildren(num);
-  document.getElementById('vgTitle').textContent = work.title;
-  document.getElementById('vgMemo').textContent = work.memo || '';
+  document.getElementById('vgTitle').textContent = titleFor(work);
+  document.getElementById('vgMemo').textContent = memoFor(work);
   xcCells.forEach((cell, i) => cell.setAttribute('aria-current', String(i === vgAt)));
   /* une oeuvre animee joue en entier, en boucle et sans le son ; sa
      couleur se lit sur son affiche, chargee a part sans etre montree */
@@ -4882,6 +5156,7 @@ function buildSteps(){
     /* le nom de collection se loge dans le vide que laisse l'escalier */
     const label = document.createElement('span');
     label.className = 'xc-label';
+    label.dataset.kind = kind;
     const count = document.createElement('b');
     count.textContent = String(works.length).padStart(2, '0');
     label.append(`${categoryLabel(kind)} · `, count);
@@ -4909,8 +5184,8 @@ function buildSteps(){
       cell.className = 'xc-cell';
       cell.style.gridRow = line;
       cell.style.gridColumn = String(start + k + 1);
-      cell.title = `${work.number} ${work.title}`;
-      cell.setAttribute('aria-label', `Afficher ${work.number} ${work.title}`);
+      cell.title = `${work.number} ${titleFor(work)}`;
+      cell.setAttribute('aria-label', `${t('show_prefix')} ${work.number} ${titleFor(work)}`);
       cell.appendChild(createArtworkMedia(work, false, 99));
       cell.addEventListener('click', () => showFeature(i));
       xcCells[i] = cell;
@@ -5039,6 +5314,7 @@ function initHomeBoard(){
 if (replay) replay.addEventListener('click', jouer);
 initWikiArchive();
 initHomeBoard();
+initLangSwitch();
 document.fonts.ready.then(jouer);
 </script>
  
