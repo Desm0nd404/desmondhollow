@@ -3185,14 +3185,16 @@ Timeout — no boot medium found</pre>
     </div>
 
     <aside class="grid" id="hollow-notice" aria-label="Notice du registre">
-      <p class="notice-label">Notice du registre</p>
+      <p class="notice-label" data-i18n="notice_label">Notice du registre</p>
       <div class="notice-body">
-        <p>I am Desmond. I run HOLLOW, the registry of ART hollOw.</p>
-        <p>HOLLOW was born from a simple observation: in part of the digital art market, the artwork tends to disappear behind its value. An image is no longer viewed only for what it evokes, but for what it might be worth. The collection explores this shift and builds its own language, figures, archives, and fragments around it.</p>
-        <p>The subject is a market where people buy in order to resell. Price is considered before the image, until eventually price becomes the only thing being looked at. The titles borrow the language of the market: auction, provenance, reserve, valuation. They do not point to anyone in particular. They describe a mechanism, not individuals. Each work acts as a fragment of the same observation without trying to explain it entirely.</p>
-        <p>HOLLOW does not observe this system from the outside. Sold as NFTs, the collection itself becomes a tradable object, subject to price, scarcity, and speculation. It deliberately places itself within the very system it describes.</p>
-        <p>This is where the work continues. Once HOLLOW enters the market, it no longer controls what people look at first. The image or its price. The artwork or its valuation. Collecting, reselling, speculating, or holding therefore become actions that directly participate in the subject of the collection itself.</p>
-        <p class="notice-end">HOLLOW does not attempt to resolve this contradiction. It exists within it.</p>
+        <div id="notice-manifesto"></div>
+        <p data-i18n="notice_acts_intro">Le projet avance par actes.</p>
+        <ul class="notice-acts">
+          <li><b data-i18n="notice_act1">Acte I</b><span data-i18n="notice_act1_desc">Huis clos. Ce qui se passe ici se passe sans public.</span><b class="notice-state is-live"><i aria-hidden="true"></i><span data-i18n="notice_live">En cours</span></b></li>
+          <li><b data-i18n="notice_act2">Acte II</b><span data-i18n="notice_act2_desc">Non ouvert. Rien n'en est annoncé.</span><b class="notice-state"><i aria-hidden="true"></i><span data-i18n="notice_dormant">Dormant</span></b></li>
+        </ul>
+        <p><span data-i18n="notice_ref1">L'état du projet est tenu dans le </span><a href="registre/" data-i18n="notice_public_link">relevé public</a><span data-i18n="notice_ref2">. Les pièces se parcourent dans la </span><button type="button" class="notice-link" data-gallery="grid" data-i18n="notice_gallery_link">galerie</button><span data-i18n="notice_ref3">. La suite est annoncée sur </span><a href="https://x.com/desmond404_" target="_blank" rel="noopener noreferrer" data-i18n="notice_x_link">X</a><span data-i18n="notice_ref4"> et sur le </span><a href="https://discord.gg/Na3Y9ne6S" target="_blank" rel="noopener noreferrer" data-i18n="notice_discord_link">Discord</a><span data-i18n="notice_ref5">.</span></p>
+        <p class="notice-end" data-i18n="notice_closing">Aucune pièce vendue à ce jour. Aucun prix affiché.</p>
       </div>
     </aside>
   </section>
@@ -3784,7 +3786,25 @@ const UI_TR = {
   gothic_mode:    { fr:"Mode gothique", en:"Gothic mode", zh:"哥特模式" },
   no_label:       { fr:"no.", en:"no.", zh:"编号" },
   rank_of:        { fr:"sur", en:"of", zh:"/" },
-  close:          { fr:"close", en:"close", zh:"关闭" }
+  close:          { fr:"close", en:"close", zh:"关闭" },
+  notice_label:   { fr:"Notice du registre", en:"Register notice", zh:"登记册说明" },
+  notice_acts_intro:{ fr:"Le projet avance par actes.", en:"The project moves forward in acts.", zh:"这个项目按幕推进。" },
+  notice_act1:    { fr:"Acte I", en:"Act I", zh:"第一幕" },
+  notice_act1_desc:{ fr:"Huis clos. Ce qui se passe ici se passe sans public.", en:"Closed doors. What happens here happens without an audience.", zh:"闭门。此处发生的一切，无人旁观。" },
+  notice_live:    { fr:"En cours", en:"Underway", zh:"进行中" },
+  notice_act2:    { fr:"Acte II", en:"Act II", zh:"第二幕" },
+  notice_act2_desc:{ fr:"Non ouvert. Rien n'en est annoncé.", en:"Not opened. Nothing is announced.", zh:"尚未开启。未有任何宣布。" },
+  notice_dormant: { fr:"Dormant", en:"Dormant", zh:"休眠" },
+  notice_ref1:    { fr:"L'état du projet est tenu dans le ", en:"The project's status is kept in the ", zh:"项目状态记录在" },
+  notice_public_link:{ fr:"relevé public", en:"public record", zh:"公开记录" },
+  notice_ref2:    { fr:". Les pièces se parcourent dans la ", en:". The works are browsed in the ", zh:"。作品可在" },
+  notice_gallery_link:{ fr:"galerie", en:"gallery", zh:"画廊" },
+  notice_ref3:    { fr:". La suite est annoncée sur ", en:". What comes next is announced on ", zh:"中浏览。后续会在" },
+  notice_x_link:  { fr:"X", en:"X", zh:"X" },
+  notice_ref4:    { fr:" et sur le ", en:" and on ", zh:"和" },
+  notice_discord_link:{ fr:"Discord", en:"Discord", zh:"Discord" },
+  notice_ref5:    { fr:".", en:".", zh:"上公布。" },
+  notice_closing: { fr:"Aucune pièce vendue à ce jour. Aucun prix affiché.", en:"No work sold to date. No price displayed.", zh:"迄今未售出任何作品。不标示任何价格。" }
 };
 
 /* les paragraphes de la notice ; le dernier prend la classe notice-end */
@@ -3898,12 +3918,11 @@ function applyLang(lang){
     el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria')));
   });
 
-  const nb = document.querySelector('#hollow-notice .notice-body');
-  if (nb){
+  const nm = document.getElementById('notice-manifesto');
+  if (nm){
     const paras = NOTICE[HLANG] || NOTICE.en;
-    nb.replaceChildren(...paras.map((txt, i) => {
+    nm.replaceChildren(...paras.map(txt => {
       const p = document.createElement('p');
-      if (i === paras.length - 1) p.className = 'notice-end';
       p.textContent = txt;
       return p;
     }));
