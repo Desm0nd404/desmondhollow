@@ -3080,20 +3080,16 @@ body.nft-open{
 :root[data-chroma="bait"] .nft-close:hover,
 :root[data-chroma="bait"] .nft-close:focus-visible{ outline-color:rgba(0,0,0,.42) }
 
-/* sélecteur de langue, fixé en haut à droite */
+/* sélecteur de langue, dans la barre bleue du pied */
 #lang-switch{
-  position:fixed;
-  top:10px;
-  right:12px;
-  z-index:60;
   display:flex;
   gap:4px;
   font-family:var(--sans);
 }
 #lang-switch button{
   padding:3px 8px;
-  border:1px solid var(--line-hi);
-  background:color-mix(in srgb, var(--graphite) 82%, transparent);
+  border:1px solid color-mix(in srgb, var(--paper) 45%, var(--royal));
+  background:transparent;
   color:var(--paper);
   font:inherit;
   font-size:11px;
@@ -3102,9 +3098,9 @@ body.nft-open{
   cursor:var(--cursor-link);
 }
 #lang-switch button[aria-pressed="true"]{
-  background:var(--royal);
-  border-color:var(--royal);
-  color:var(--paper);
+  background:var(--paper);
+  border-color:var(--paper);
+  color:var(--royal);
 }
 #lang-switch button:hover{ border-color:var(--paper) }
 
@@ -3114,12 +3110,6 @@ body.nft-open{
 
 <div id="stage">
   <h1 class="sr-only">The Register of Hollow</h1>
-
-  <div id="lang-switch" role="group" aria-label="Language">
-    <button type="button" data-lang="en" aria-pressed="true">EN</button>
-    <button type="button" data-lang="fr" aria-pressed="false">FR</button>
-    <button type="button" data-lang="zh" aria-pressed="false">中文</button>
-  </div>
 
   <div class="zone" id="z-boot"></div>
 
@@ -3238,6 +3228,11 @@ Timeout — no boot medium found</pre>
     </div>
 
     <div class="foot-base">
+      <div id="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="fr" aria-pressed="false">FR</button>
+        <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
       <p class="foot-sys">空洞起動用オペレーティングシステム, VER.1.0.0</p>
       <div class="foot-right">
         <p class="foot-state" data-i18n="foot_state">Acte I en cours · aucune valeur de marché établie</p>
