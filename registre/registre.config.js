@@ -145,6 +145,7 @@ window.REGISTRE_CONFIG = {
     { numero: "#038", titre: "Avantage Maison", image: "../assets/hollow-finish/038-green.png" },
     { numero: "#039", titre: "Prévente Privée", image: "../assets/hollow-finish/039-orange-monochrome.png" },
     { numero: "#040", titre: "Enchérisseur Mandaté", image: "../assets/hollow-finish/040-hollow-bot.png" },
+    { numero: "#041", titre: "Équipe Anonyme", image: "../assets/hollow-finish/posters/041-rose-baby.png" },
   ],
   piecesAffichees: 5,
 
