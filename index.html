@@ -2006,6 +2006,15 @@ body.pd-view-open .pd-bar{ display:none }
   font-weight:400;
   color:color-mix(in srgb, var(--paper) 55%, var(--royal));
 }
+/* Acte I est en cours : il clignote, en pleine couleur */
+.foot-live{
+  color:var(--paper);
+  animation:foot-blink 1.4s steps(1, end) infinite;
+}
+@keyframes foot-blink{ 50%{ opacity:.25 } }
+@media (prefers-reduced-motion:reduce){
+  .foot-live{ animation:none }
+}
 
 .foot-social{
   display:flex;
@@ -3208,7 +3217,7 @@ Timeout — no boot medium found</pre>
       <nav class="foot-col" aria-labelledby="footActs">
         <h2 id="footActs" data-i18n="foot_acts">Actes</h2>
         <ul>
-          <li class="foot-off" data-i18n="act1_off">Acte I · Huis clos</li>
+          <li class="foot-off foot-live" data-i18n="act1_off">Acte I · Huis clos</li>
           <li class="foot-off" data-i18n="act2_off">Acte II · dormant</li>
         </ul>
       </nav>
