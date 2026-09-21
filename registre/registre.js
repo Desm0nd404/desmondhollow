@@ -201,18 +201,23 @@
       })
       .catch(() => pari.perdu());
 
-    /* volume NFT sur 24 h d'une collection */
-    const nft = ligne(`VOLUME NFT 24 H · ${C.nftLibelle}`);
-    releve(`coingecko-nft-${C.nftCollection}`,
-      `https://api.coingecko.com/api/v3/nfts/${encodeURIComponent(C.nftCollection)}`)
-      .then(data => {
-        const usd = data && data.volume_24h && data.volume_24h.usd;
-        const vari = data && data.volume_24h_percentage_change && data.volume_24h_percentage_change.usd;
-        if (typeof usd !== 'number') throw new Error('vide');
-        nft.ok(`VOLUME NFT 24 H · ${C.nftLibelle}`, `$${fr(usd, 0)}`,
-          typeof vari === 'number' ? signe(vari, '%') : '');
-      })
-      .catch(() => nft.perdu());
+    /* volume NFT sur 24 h d'une collection. Ligne facultative : sans
+       collection renseignee dans la config, elle n'est pas relevee. Le
+       libelle ne s'affiche que s'il est rempli. */
+    if (C.nftCollection){
+      const titreNft = C.nftLibelle ? `VOLUME NFT 24 H · ${C.nftLibelle}` : 'VOLUME NFT 24 H';
+      const nft = ligne(titreNft);
+      releve(`coingecko-nft-${C.nftCollection}`,
+        `https://api.coingecko.com/api/v3/nfts/${encodeURIComponent(C.nftCollection)}`)
+        .then(data => {
+          const usd = data && data.volume_24h && data.volume_24h.usd;
+          const vari = data && data.volume_24h_percentage_change && data.volume_24h_percentage_change.usd;
+          if (typeof usd !== 'number') throw new Error('vide');
+          nft.ok(titreNft, `$${fr(usd, 0)}`,
+            typeof vari === 'number' ? signe(vari, '%') : '');
+        })
+        .catch(() => nft.perdu());
+    }
 
     /* la ligne de l'artiste : même typographie, même taille, sous un filet */
     const artiste = el('div', 'ligne artiste');

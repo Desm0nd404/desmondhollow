@@ -192,8 +192,11 @@ window.REGISTRE_CONFIG = {
   cotation: {
     cacheSecondes: 3600,
     delaiSecondes: 8,
-    nftCollection: "cryptopunks",
-    nftLibelle: "CRYPTOPUNKS",
+    /* Laisser vide : aucune ligne de volume NFT n'est relevee. Pour en
+       suivre une, mettre ici son identifiant CoinGecko (celui de l'URL de
+       la collection) et, si on veut le nommer a l'ecran, son libelle. */
+    nftCollection: "",
+    nftLibelle: "",
     ligneArtiste: "ART hollOw",
   },
 
