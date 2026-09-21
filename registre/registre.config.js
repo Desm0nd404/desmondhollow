@@ -76,8 +76,8 @@
  * @property {number} cotation.delaiSecondes
  *   Temps maximum d'attente d'une source ; au-delà, la ligne affiche SIGNAL PERDU.
  * @property {string} cotation.nftCollection
- *   Identifiant CoinGecko de la collection NFT dont on relève le volume 24 h
- *   (ex. "cryptopunks", "bored-ape-yacht-club", "pudgy-penguins").
+ *   Identifiant CoinGecko de la collection NFT dont on relève le volume 24 h,
+ *   tel qu'il apparaît dans l'URL de la collection sur CoinGecko.
  * @property {string} cotation.nftLibelle  Nom affiché pour cette collection.
  * @property {string} cotation.ligneArtiste  Nom affiché sur la ligne de l'artiste.
  * @property {Depeche[]} depeches          Fil des dépêches (module 5). Seules les 8 plus récentes s'affichent.

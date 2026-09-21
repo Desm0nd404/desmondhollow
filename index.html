@@ -39,7 +39,7 @@
    est une fonction du système, jamais une décoration.
    ═══════════════════════════════════════════════════════════════ */
 
-/* Montserrat, la police de CryptoPunks (mêmes deux graisses : 400 et 700).
+/* Montserrat, réduite aux deux graisses utilisées : 400 et 700.
    Tirée de la Montserrat 7.200 installée sur le poste (licence SIL OFL),
    réduite aux alphabets latins. Les graisses 900 du site tombent sur la 700. */
 @font-face{
@@ -103,7 +103,7 @@
   --mono:    "Courier New", Courier, "MS Gothic", "Nimbus Mono PS", "Liberation Mono", monospace;
   --display: "Times New Roman", Times, "Nimbus Roman", "Liberation Serif", serif;
   --code:    "DejaVu Sans Mono", "Liberation Mono", Consolas, "Lucida Console", monospace;
-  /* police du site : Montserrat, comme CryptoPunks. --mono, --display et
+  /* police du site : Montserrat. --mono, --display et
      --plex restent définis pour pouvoir revenir en arrière ; seul le BIOS
      et la ligne de la galerie gardent la chasse fixe (--code). */
   --sans:    "Montserrat", Arial, Helvetica, sans-serif;
@@ -302,10 +302,10 @@ body.powerdown{ overflow:hidden }
 #pd-index figure:focus-visible{ outline:1px solid var(--royal); outline-offset:2px }
 
 /* ── fiche de fichier ──────────────────────────────────
-   Trois fiches fondues : l'en-tête, le numéro et la note de Sam Spratt ;
-   le titre, le rang dans la collection, les cartes claires sans filet et
-   la vignette cadrée de rouge de XCOPY ; le code des textes de
-   CryptoPunks (courant, gras, couleur = cliquable). Deux chasses fixes :
+   Trois mises en page fondues : l'en-tête, le numéro et la note ; le
+   titre, le rang dans la collection, les cartes claires sans filet et la
+   vignette cadrée de rouge ; le code des textes (courant, gras, couleur
+   = cliquable). Deux chasses fixes :
    Courier gras pour le titre et le numéro, Plex pour tout le reste.
    La colonne lit, la scène montre : les réglages de la scène sont posés
    sur elle. Bleu pour ce qui se clique, rouge pour les repères. */
@@ -381,8 +381,7 @@ body.pd-view-open .pd-bar{ display:none }
 
 /* ── la colonne de lecture sur le gris noir de la planche : mêmes encres
    que le reste du site (crème, gris, bleu pour ce qui se clique). Les
-   cartes sont un cran plus claires que le fond, comme les barres
-   blanches de XCOPY. */
+   cartes sont un cran plus claires que le fond. */
 .pdv-side{
   /* la colonne est sur le gris noir de la planche : elle garde les encres
      du site (crème, gris, bleu des liens, rouge des repères), seules les
@@ -1674,9 +1673,9 @@ body.pd-view-open .pd-bar{ display:none }
 #homeIndex:hover{ border-color:var(--paper) }
 
 /* ══ 01 / SYSTEM — une seule planche, trois sources fondues ═══
-   La voix brute des légendes vient de RAW ; la marque en carrés
-   et la frise en escalier, de XCOPY ; l'aplat plein et le très
-   grand titre, du Van Gogh Museum. Le bleu reste à la barre
+   La voix brute des légendes, la marque en carrés et la frise en
+   escalier, l'aplat plein et le très grand titre : trois registres
+   visuels tenus ensemble. Le bleu reste à la barre
    d'amorçage : la planche tient sur un gris noir. L'aplat et la
    marque prennent la case de la palette --pal-* la plus proche de
    la couleur de l'œuvre ; une œuvre en noir et blanc prend le crème.
@@ -1956,11 +1955,10 @@ body.pd-view-open .pd-bar{ display:none }
 }
 
 /* ══ PIED — la barre bleue ferme la page comme elle l'ouvre ══
-   D'après le pied de CryptoPunks : colonnes de liens, filet, ligne
-   de base. Mêmes encres que la bande d'amorçage : papier pour ce qui
-   se lit et se clique (le bleu des liens se perdrait sur ce bleu),
-   rouge pour l'état du système. Canaux en carrés joints, comme le
-   sélecteur ETH / USD. */
+   Colonnes de liens, filet, ligne de base. Mêmes encres que la bande
+   d'amorçage : papier pour ce qui se lit et se clique (le bleu des liens
+   se perdrait sur ce bleu), rouge pour l'état du système. Canaux en
+   carrés joints. */
 #z-foot{
   padding:clamp(34px, 3.4vw, 54px) var(--pad) clamp(18px, 1.8vw, 26px);
   background:var(--royal);
@@ -2104,9 +2102,8 @@ body.pd-view-open .pd-bar{ display:none }
 }
 
 /* ══ NOTICE — entre la frise et le port franc ═══════════════
-   Qui tient le registre, ce qu'il vise, où en sont les actes. D'après
-   le texte de présentation de CryptoPunks : un bloc calé à gauche, en
-   corps de lecture, les liens en bleu gras. Courant en 400, ce qu'on retient en gras. */
+   Qui tient le registre, ce qu'il vise, où en sont les actes : un bloc
+   calé à gauche, en corps de lecture, les liens en bleu gras. Courant en 400, ce qu'on retient en gras. */
 #hollow-notice{
   margin-top:clamp(90px, 9vw, 170px);
   /* la notice ferme la page : de l'air avant la barre bleue du pied */
