@@ -1158,10 +1158,6 @@ body.pd-view-open .pd-bar{ display:none }
   /* la couleur de l'œuvre affichée : posée ici pour que la planche ET le
      port franc la reçoivent, et changent ensemble */
   --tone:var(--pal-cream);
-  /* encre posee sur l'aplat : elle suit le fond, qui va du creme au bleu
-     profond. Recalculees a chaque oeuvre, voir paint(). */
-  --tone-ink:var(--graphite);
-  --tone-accent:var(--red);
   position:relative;
   margin-top:var(--chrome);
   /* le gris noir de la planche descend jusqu'au port franc */
@@ -1226,17 +1222,17 @@ body.pd-view-open .pd-bar{ display:none }
 #z-boot{
   padding:clamp(10px, 1.3vw, 17px) var(--pad) clamp(11px, 1.4vw, 18px);
   min-height:clamp(94px, 8.4vw, 132px);
-  background:var(--tone);
-  color:var(--tone-accent);
+  background:var(--royal);
+  color:var(--red);
   font-size:clamp(13px, 1.35vw, 19px);
   line-height:1.22;
   letter-spacing:.02em;
   text-transform:uppercase;
 }
 #z-boot div:nth-child(-n+2){
-  color:var(--tone-ink);
+  color:var(--paper);
 }
-#z-boot{ text-shadow:0 0 4px color-mix(in srgb, var(--tone-accent) 22%, transparent) }
+#z-boot{ text-shadow:0 0 4px color-mix(in srgb, var(--red) 22%, transparent) }
 
 /* ══ 01 / SYSTEM ══════════════════════════════════════════════ */
 
@@ -1969,8 +1965,8 @@ body.pd-view-open .pd-bar{ display:none }
    sélecteur ETH / USD. */
 #z-foot{
   padding:clamp(34px, 3.4vw, 54px) var(--pad) clamp(18px, 1.8vw, 26px);
-  background:var(--tone);
-  color:var(--tone-ink);
+  background:var(--royal);
+  color:var(--paper);
   font-size:13px;
   line-height:1.5;
 }
@@ -1987,13 +1983,13 @@ body.pd-view-open .pd-bar{ display:none }
 }
 .foot-col h2{
   margin:0 0 12px;
-  /* intitulés en accent, comme les lignes accentuées de la bande d'amorçage */
-  color:var(--tone-accent);
+  /* intitulés en rouge, comme les lignes rouges de la bande d'amorçage */
+  color:var(--red);
   font-size:13px;
   font-weight:900;
   letter-spacing:.02em;
   text-transform:uppercase;
-  text-shadow:0 0 4px color-mix(in srgb, var(--tone-accent) 22%, transparent);
+  text-shadow:0 0 4px color-mix(in srgb, var(--red) 22%, transparent);
 }
 .foot-col ul{
   margin:0;
@@ -2023,11 +2019,11 @@ body.pd-view-open .pd-bar{ display:none }
 }
 .foot-off{
   font-weight:400;
-  color:color-mix(in srgb, var(--tone-ink) 55%, var(--tone));
+  color:color-mix(in srgb, var(--paper) 55%, var(--royal));
 }
 /* Acte I est en cours : il clignote, en pleine couleur */
 .foot-live{
-  color:var(--tone-accent);
+  color:var(--red);
   animation:foot-blink 1.4s steps(1, end) infinite;
 }
 @keyframes foot-blink{ 50%{ opacity:.25 } }
@@ -2059,7 +2055,7 @@ body.pd-view-open .pd-bar{ display:none }
   text-decoration:none;
   cursor:var(--cursor-link);
 }
-.foot-social a:focus-visible{ outline:1px solid var(--tone-ink); outline-offset:2px }
+.foot-social a:focus-visible{ outline:1px solid var(--paper); outline-offset:2px }
 .foot-social svg{ display:block }
 
 .foot-social .foot-discord{ color:var(--pal-rust) }
@@ -5101,7 +5097,7 @@ function readSwatches(){
     const hex = root.getPropertyValue(token).trim().replace('#', '');
     if (!/^[0-9a-f]{6}$/i.test(hex)) return null;
     const [r, g, b] = [0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16));
-    return { token, rgb:[r, g, b], ...rgbToHsl(r, g, b) };
+    return { token, ...rgbToHsl(r, g, b) };
   }).filter(Boolean);
 }
 
@@ -5140,28 +5136,6 @@ function sampleColor(img){
     return null;
   }
 }
-
-/* ── encre lisible sur l'aplat ────────────────────────────────────
-   La bande d'amorcage, le pied et le logo prennent la couleur de l'oeuvre.
-   Cette couleur va du creme au bleu profond : aucune encre fixe ne tient
-   sur toute la palette. On choisit donc au contraste reel (WCAG), pas a
-   l'oeil ni sur la clarte HSL — le rouge et le vert sage ont la meme
-   clarte et l'un sur l'autre ne se lisent pas. */
-const readRgb = token => {
-  const hex = getComputedStyle(document.documentElement)
-    .getPropertyValue(token).trim().replace('#', '');
-  return /^[0-9a-f]{6}$/i.test(hex)
-    ? [0, 2, 4].map(i => parseInt(hex.slice(i, i + 2), 16))
-    : null;
-};
-const relLum = ([r, g, b]) => {
-  const f = v => (v /= 255) <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4);
-  return .2126 * f(r) + .7152 * f(g) + .0722 * f(b);
-};
-const contrast = (a, b) => {
-  const l1 = relLum(a), l2 = relLum(b);
-  return (Math.max(l1, l2) + .05) / (Math.min(l1, l2) + .05);
-};
 
 function aplatFor(color){
   if (!color) return null;
@@ -5228,16 +5202,6 @@ function showFeature(pos){
     const toneHost = document.getElementById('stage') || board;
     if (swatch) toneHost.style.setProperty('--tone', `var(${swatch.token})`);
     else toneHost.style.removeProperty('--tone');
-    /* sans swatch on retombe sur le creme de la palette */
-    const bg = (swatch && swatch.rgb) || readRgb('--pal-cream');
-    const dark = readRgb('--graphite'), light = readRgb('--paper'), red = readRgb('--red');
-    const ink = !bg || !dark || !light ? 'var(--graphite)'
-      : contrast(bg, dark) >= contrast(bg, light) ? 'var(--graphite)' : 'var(--paper)';
-    /* le rouge de signature reste tant qu'il se lit ; sinon l'accent reprend
-       l'encre. En dessous de 2 il se confond avec l'aplat (rouille, sage). */
-    const accent = bg && red && contrast(bg, red) >= 2 ? 'var(--red)' : ink;
-    toneHost.style.setProperty('--tone-ink', ink);
-    toneHost.style.setProperty('--tone-accent', accent);
   };
   if (sample) sample.addEventListener('load', paint);
   else paint();
