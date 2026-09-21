@@ -1839,18 +1839,24 @@ body.pd-view-open .pd-bar{ display:none }
   object-fit:contain;
 }
 
-/* une œuvre animée se voit en entier : la vidéo prend toute la largeur
-   de l'aplat, le titre et la note passent dessous */
-.vg-block[data-media="video"]{ grid-template-columns:minmax(0, 1fr) }
-.vg-block[data-media="video"] .vg-media{
+/* une œuvre animée ou couchée (les dragons) se voit en entier : elle prend
+   toute la largeur de l'aplat, le titre et la note passent dessous. La boîte
+   portrait par défaut les rapetisserait. */
+.vg-block[data-media="video"],
+.vg-block[data-format="paysage"]{ grid-template-columns:minmax(0, 1fr) }
+.vg-block[data-media="video"] .vg-media,
+.vg-block[data-format="paysage"] .vg-media{
   order:-1;
   padding-bottom:0;
 }
-.vg-block[data-media="video"] .vg-media video{
+.vg-block[data-media="video"] .vg-media video,
+.vg-block[data-format="paysage"] .vg-media img{
   width:100%;
+  height:auto;
   max-height:none;
 }
-.vg-block[data-media="video"] .vg-title{ margin-top:0 }
+.vg-block[data-media="video"] .vg-title,
+.vg-block[data-format="paysage"] .vg-title{ margin-top:0 }
 
 /* la frise en escalier : chaque collection reprend où la précédente
    s'arrête, une case grise fait la marche */
@@ -1944,6 +1950,7 @@ body.pd-view-open .pd-bar{ display:none }
 
 @media (max-width:620px){
   .vg-block{ grid-template-columns:minmax(0, 1fr); min-height:0 }
+  .vg-block[data-format="paysage"]{ grid-template-columns:minmax(0, 1fr) }
 }
 
 /* ══ PIED — la barre bleue ferme la page comme elle l'ouvre ══
@@ -5197,7 +5204,15 @@ function showFeature(pos){
 
   media.querySelectorAll('video').forEach(v => v.pause());
   const block = media.closest('.vg-block');
-  if (block) block.dataset.media = work.media;
+  if (block){
+    block.dataset.media = work.media;
+    /* au-dela de 1.2 l'oeuvre est franchement couchee ; une piece presque
+       carree garde la mise en page d'origine */
+    const size = /^(\d+) x (\d+)$/.exec(work.dimensions || '');
+    const wide = size && (+size[1] / +size[2]) > 1.2;
+    if (wide) block.dataset.format = 'paysage';
+    else delete block.dataset.format;
+  }
   media.replaceChildren(visual);
   if (visual instanceof HTMLVideoElement && !reduce) visual.play().catch(() => {});
 }
