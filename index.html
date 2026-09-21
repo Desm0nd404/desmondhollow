@@ -1839,17 +1839,16 @@ body.pd-view-open .pd-bar{ display:none }
   object-fit:contain;
 }
 
-/* une œuvre animée ou couchée (les dragons) se voit en entier : elle prend
-   toute la largeur de l'aplat, le titre et la note passent dessous. La boîte
-   portrait par défaut les rapetisserait. */
-.vg-block[data-media="video"],
+/* une œuvre couchée — image ou vidéo — se voit en entier : elle prend toute
+   la largeur de l'aplat, le titre et la note passent dessous. Une œuvre
+   debout garde la boîte portrait : en plein format elle deborderait de
+   l'ecran (une video 602x824 y montait a 868x1188). */
 .vg-block[data-format="paysage"]{ grid-template-columns:minmax(0, 1fr) }
-.vg-block[data-media="video"] .vg-media,
 .vg-block[data-format="paysage"] .vg-media{
   order:-1;
   padding-bottom:0;
 }
-.vg-block[data-media="video"] .vg-media video,
+.vg-block[data-format="paysage"] .vg-media video,
 .vg-block[data-format="paysage"] .vg-media img{
   width:100%;
   height:auto;
@@ -1859,7 +1858,6 @@ body.pd-view-open .pd-bar{ display:none }
    l'aplat au lieu de le remplir d'un bord a l'autre. La boite media est
    deja centree, la largeur reduite se cale toute seule. */
 .vg-block[data-format="paysage"] .vg-media img{ width:86% }
-.vg-block[data-media="video"] .vg-title,
 .vg-block[data-format="paysage"] .vg-title{ margin-top:0 }
 
 /* la frise en escalier : chaque collection reprend où la précédente
@@ -5212,9 +5210,21 @@ function showFeature(pos){
     block.dataset.media = work.media;
     /* au-dela de 1.2 l'oeuvre est franchement couchee ; une piece presque
        carree garde la mise en page d'origine */
+    const setFormat = ratio => {
+      if (NFTS[vgAt] !== work) return;           /* l'oeuvre a change entre-temps */
+      if (ratio > 1.2) block.dataset.format = 'paysage';
+      else delete block.dataset.format;
+    };
     const size = /^(\d+) x (\d+)$/.exec(work.dimensions || '');
-    const wide = size && (+size[1] / +size[2]) > 1.2;
-    if (wide) block.dataset.format = 'paysage';
+    if (size) setFormat(+size[1] / +size[2]);
+    else if (visual instanceof HTMLVideoElement){
+      /* le champ dimensions d'une video porte le poids du fichier : son
+         format ne se connait qu'une fois les metadonnees lues */
+      delete block.dataset.format;
+      if (visual.videoWidth) setFormat(visual.videoWidth / visual.videoHeight);
+      else visual.addEventListener('loadedmetadata',
+        () => setFormat(visual.videoWidth / visual.videoHeight), { once:true });
+    }
     else delete block.dataset.format;
   }
   media.replaceChildren(visual);
