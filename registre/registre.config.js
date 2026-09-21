@@ -159,6 +159,8 @@ window.REGISTRE_CONFIG = {
     { numero: "#052", titre: "Marché Secondaire", image: "../assets/hollow-finish/052-dragon-cl-vert.png" },
     { numero: "#053", titre: "Garantie de Rachat", image: "../assets/hollow-finish/053-dragon-cl-bleu.png" },
     { numero: "#054", titre: "Tirage Illimité", image: "../assets/hollow-finish/054-dragon-cl-cyan.png" },
+    { numero: "#055", titre: "Clause de Non-Responsabilité", image: "../assets/hollow-finish/055-dragon-noir.png" },
+    { numero: "#056", titre: "Livre Blanc", image: "../assets/hollow-finish/056-dragon-gris.png" },
   ],
   piecesAffichees: 5,
 
