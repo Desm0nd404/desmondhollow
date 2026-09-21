@@ -3653,13 +3653,19 @@ const NFTS = [
   { number:"#046", title:"Adossé à l’Or", kind:"dragon", src:"assets/hollow-finish/046-dragon-jaune.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 046-dragon-jaune.png", memory:"FINISH / F046", state:"indexed image", memo:"Le lingot existait. L’audit n’a jamais été publié." },
   { number:"#047", title:"Réseau de Test", kind:"dragon", src:"assets/hollow-finish/047-dragon-cyan.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 047-dragon-cyan.png", memory:"FINISH / F047", state:"indexed image", memo:"Les gains s’affichaient en vrai. Le réseau, non." },
   { number:"#048", title:"Partenariat Stratégique", kind:"dragon", src:"assets/hollow-finish/048-dragon-magenta.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 048-dragon-magenta.png", memory:"FINISH / F048", state:"indexed image", memo:"Annoncé en grand. L’autre partie l’a appris par le communiqué." },
+  { number:"#049", title:"Version Originale", kind:"dragon-classique", src:"assets/hollow-finish/049-dragon-cl-jaune.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 049-dragon-cl-jaune.png", memory:"FINISH / F049", state:"indexed image", memo:"Le collectionneur a demandé laquelle était la première. Les deux fichiers portent la même date." },
+  { number:"#050", title:"Droit de Suite", kind:"dragon-classique", src:"assets/hollow-finish/050-dragon-cl-rouge.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 050-dragon-cl-rouge.png", memory:"FINISH / F050", state:"indexed image", memo:"L’artiste touche un pourcentage sur chaque revente. La place de marché a retiré la fonction en mars." },
+  { number:"#051", title:"Jeton Jumeau", kind:"dragon-classique", src:"assets/hollow-finish/051-dragon-cl-rose.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 051-dragon-cl-rose.png", memory:"FINISH / F051", state:"indexed image", memo:"Le même dessin, frappé deux fois, sur deux chaînes différentes." },
+  { number:"#052", title:"Marché Secondaire", kind:"dragon-classique", src:"assets/hollow-finish/052-dragon-cl-vert.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 052-dragon-cl-vert.png", memory:"FINISH / F052", state:"indexed image", memo:"Vendue trois fois en une nuit. Toujours entre les trois mêmes portefeuilles." },
+  { number:"#053", title:"Garantie de Rachat", kind:"dragon-classique", src:"assets/hollow-finish/053-dragon-cl-bleu.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 053-dragon-cl-bleu.png", memory:"FINISH / F053", state:"indexed image", memo:"Rachat garanti au prix d’émission. La société a fermé avant la première demande." },
+  { number:"#054", title:"Tirage Illimité", kind:"dragon-classique", src:"assets/hollow-finish/054-dragon-cl-cyan.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 054-dragon-cl-cyan.png", memory:"FINISH / F054", state:"indexed image", memo:"Annoncée limitée. La fenêtre de frappe est restée ouverte trois jours." },
   { number:"#019", title:"Destruction de Jetons", kind:"figure", src:"assets/hollow-finish/019-burn.png", media:"image", support:"PNG image", dimensions:"450 x 658", source:"FINISH / 019-burn.png", memory:"FINISH / F019", state:"indexed image", memo:"La cérémonie a été diffusée en direct. L’adresse de destruction avait une clé privée." },
   { number:"#029", title:"Liquidation en Cours", kind:"motion", src:"assets/hollow-finish/web-video/029-jujuhjj-h264.mp4", poster:"assets/hollow-finish/posters/029-jujuhjj.png", media:"video", support:"MP4 video", dimensions:"5.57 MB", source:"FINISH / jujuhjj (1).mp4", memory:"FINISH / V029", state:"indexed motion", gothic:"assets/hollow-finish/029-jujuhjj-gothic.gif", memo:"Rien à faire. C’est déjà fait." },
   { number:"#031", title:"Frappe Publique", kind:"motion", src:"assets/hollow-finish/web-video/031-machine-h264.mp4", poster:"assets/hollow-finish/posters/031-machine.png", media:"video", support:"MP4 video", dimensions:"61.75 MB", source:"FINISH / 031-machine.mp4", memory:"FINISH / V031", state:"indexed motion", memo:"Douze secondes. Personne n’a cliqué assez vite, sauf ceux qui ne cliquaient pas." },
   { number:"#032", title:"Solde Affiché", kind:"motion", src:"assets/hollow-finish/web-video/032-rtyytryrt-h264.mp4", poster:"assets/hollow-finish/posters/032-rtyytryrt.png", media:"video", support:"MP4 video", dimensions:"37.00 MB", source:"FINISH / rtyytryrt (1).mp4", memory:"FINISH / V032", state:"indexed motion", memo:"Le compte à l’écran n’était pas le sien. Le lien en description, si." }
 ];
 
-const CATEGORY_ORDER = ["figure", "monochrome", "aplat", "organe", "memory", "bloc", "motion", "dragon"];
+const CATEGORY_ORDER = ["figure", "monochrome", "aplat", "organe", "memory", "bloc", "motion", "dragon", "dragon-classique"];
 const CATEGORY_LABELS = {
   figure:"Figures scellees",
   monochrome:"Ligne noire",
@@ -3668,7 +3674,8 @@ const CATEGORY_LABELS = {
   memory:"Paysages-memoire",
   bloc:"Blocs-machines",
   motion:"Images en mouvement",
-  dragon:"Data Dragon"
+  dragon:"Data Dragon / glitch",
+  "dragon-classique":"Data Dragon / classique"
 };
 
 const MEDIA_VERSION = "finish-media-20260905-blocs-pink-griser-green";
@@ -3715,7 +3722,8 @@ try { const s = localStorage.getItem('hollow-lang'); if (s === 'fr' || s === 'en
 
 const CAT_TR = {
   figure:    { en:"Sealed figures",    zh:"封存人像" },
-  dragon:    { en:"Data Dragon",       zh:"数据龙" },
+  dragon:    { en:"Data Dragon / glitch", zh:"数据龙 / 故障" },
+  "dragon-classique": { en:"Data Dragon / classic", zh:"数据龙 / 经典" },
   monochrome:{ en:"Black line",        zh:"黑线" },
   aplat:     { en:"Monochrome / flat", zh:"单色 / 平涂" },
   organe:    { en:"Organs / eyes",     zh:"器官 / 眼睛" },
@@ -3753,6 +3761,12 @@ const WORK_TR = {
   "#046":{ en:{t:"Gold-Backed",m:"The bar existed. The audit was never published."}, zh:{t:"黄金背书",m:"金条是存在的。审计报告从未公布。"} },
   "#047":{ en:{t:"Testnet",m:"The gains displayed for real. The network did not."}, zh:{t:"测试网",m:"收益显示得很真实。网络不是。"} },
   "#048":{ en:{t:"Strategic Partnership",m:"Announced with fanfare. The other party found out from the press release."}, zh:{t:"战略合作",m:"大张旗鼓地宣布。另一方是看公告才知道的。"} },
+  "#049":{ en:{t:"Original Version",m:"The collector asked which one came first. Both files carry the same date."}, zh:{t:"原始版本",m:"藏家问哪一件是第一件。两个文件的日期一样。"} },
+  "#050":{ en:{t:"Resale Royalty",m:"The artist earns a cut on every resale. The marketplace removed the feature in March."}, zh:{t:"转售版税",m:"艺术家每次转售都有分成。平台三月把这个功能取消了。"} },
+  "#051":{ en:{t:"Twin Token",m:"The same drawing, minted twice, on two different chains."}, zh:{t:"孪生代币",m:"同一张画，在两条链上各铸了一次。"} },
+  "#052":{ en:{t:"Secondary Market",m:"Sold three times in one night. Always between the same three wallets."}, zh:{t:"二级市场",m:"一夜之间成交三次。始终在同样的三个钱包之间。"} },
+  "#053":{ en:{t:"Buyback Guarantee",m:"Buyback guaranteed at issue price. The company closed before the first request."}, zh:{t:"回购保证",m:"承诺按发行价回购。公司在第一笔申请之前就关门了。"} },
+  "#054":{ en:{t:"Open Edition",m:"Announced as limited. The mint window stayed open for three days."}, zh:{t:"不限量发行",m:"宣称限量。铸造窗口开了三天。"} },
   "#012":{ en:{t:"Long-Term Storage",m:"Geneva. The crate came in in 2013. No one asked to see it."}, zh:{t:"长期仓储",m:"日内瓦。木箱2013年入库。没人要求看一眼。"} },
   "#013":{ en:{t:"Certificate Included",m:"Forty years of masterpieces out of a garage in Queens."}, zh:{t:"附证书",m:"四十年的杰作，出自皇后区的一间车库。"} },
   "#014":{ en:{t:"The Left Hand",m:"It buys what the right hand sells. The record holds for three days."}, zh:{t:"左手",m:"左手买下右手卖出的。纪录维持了三天。"} },

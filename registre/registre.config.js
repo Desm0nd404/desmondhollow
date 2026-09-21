@@ -153,6 +153,12 @@ window.REGISTRE_CONFIG = {
     { numero: "#046", titre: "Adossé à l’Or", image: "../assets/hollow-finish/046-dragon-jaune.png" },
     { numero: "#047", titre: "Réseau de Test", image: "../assets/hollow-finish/047-dragon-cyan.png" },
     { numero: "#048", titre: "Partenariat Stratégique", image: "../assets/hollow-finish/048-dragon-magenta.png" },
+    { numero: "#049", titre: "Version Originale", image: "../assets/hollow-finish/049-dragon-cl-jaune.png" },
+    { numero: "#050", titre: "Droit de Suite", image: "../assets/hollow-finish/050-dragon-cl-rouge.png" },
+    { numero: "#051", titre: "Jeton Jumeau", image: "../assets/hollow-finish/051-dragon-cl-rose.png" },
+    { numero: "#052", titre: "Marché Secondaire", image: "../assets/hollow-finish/052-dragon-cl-vert.png" },
+    { numero: "#053", titre: "Garantie de Rachat", image: "../assets/hollow-finish/053-dragon-cl-bleu.png" },
+    { numero: "#054", titre: "Tirage Illimité", image: "../assets/hollow-finish/054-dragon-cl-cyan.png" },
   ],
   piecesAffichees: 5,
 
