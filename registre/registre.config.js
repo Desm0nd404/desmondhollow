@@ -147,6 +147,12 @@ window.REGISTRE_CONFIG = {
     { numero: "#040", titre: "Enchérisseur Mandaté", image: "../assets/hollow-finish/040-hollow-bot.png" },
     { numero: "#041", titre: "Équipe Anonyme", image: "../assets/hollow-finish/posters/041-rose-baby.png" },
     { numero: "#042", titre: "Édition Limitée", image: "../assets/hollow-finish/posters/042-dark-glitch.png" },
+    { numero: "#043", titre: "Bougie Verte", image: "../assets/hollow-finish/043-dragon-vert.png" },
+    { numero: "#044", titre: "Valeur Sûre", image: "../assets/hollow-finish/044-dragon-bleu.png" },
+    { numero: "#045", titre: "Enveloppe Rouge", image: "../assets/hollow-finish/045-dragon-rouge.png" },
+    { numero: "#046", titre: "Adossé à l’Or", image: "../assets/hollow-finish/046-dragon-jaune.png" },
+    { numero: "#047", titre: "Réseau de Test", image: "../assets/hollow-finish/047-dragon-cyan.png" },
+    { numero: "#048", titre: "Partenariat Stratégique", image: "../assets/hollow-finish/048-dragon-magenta.png" },
   ],
   piecesAffichees: 5,
 

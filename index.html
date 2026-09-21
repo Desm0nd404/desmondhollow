@@ -3647,13 +3647,19 @@ const NFTS = [
   { number:"#040", title:"Enchérisseur Mandaté", kind:"figure", src:"assets/hollow-finish/040-hollow-bot.png", media:"image", support:"PNG image", dimensions:"679 x 668", source:"FINISH / hollow bot.png", memory:"FINISH / F040", state:"indexed image", memo:"Il lève la main trois fois. Jamais la quatrième : le prix convenu était atteint." },
   { number:"#041", title:"Équipe Anonyme", kind:"figure", src:"assets/hollow-finish/web-video/041-rose-baby-h264.mp4", poster:"assets/hollow-finish/posters/041-rose-baby.png", media:"video", support:"MP4 video", dimensions:"4.18 MB", source:"FINISH / rose-baby-glitch (1).mov", memory:"FINISH / V041", state:"indexed motion", memo:"Six fondateurs au livre blanc. Un seul portefeuille pour les six." },
   { number:"#042", title:"Édition Limitée", kind:"monochrome", src:"assets/hollow-finish/web-video/042-dark-glitch-h264.mp4", poster:"assets/hollow-finish/posters/042-dark-glitch.png", media:"video", support:"MP4 video", dimensions:"1.68 MB", source:"FINISH / dark-glitch (1).mov", memory:"FINISH / V042", state:"indexed motion", memo:"La même image, sans les couleurs. Numérotée un sur un, comme la précédente." },
+  { number:"#043", title:"Bougie Verte", kind:"dragon", src:"assets/hollow-finish/043-dragon-vert.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 043-dragon-vert.png", memory:"FINISH / F043", state:"indexed image", memo:"Le graphe a verdi pendant huit minutes. Le communiqué est sorti après." },
+  { number:"#044", title:"Valeur Sûre", kind:"dragon", src:"assets/hollow-finish/044-dragon-bleu.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 044-dragon-bleu.png", memory:"FINISH / F044", state:"indexed image", memo:"Classée valeur sûre par le fonds qui en détenait la moitié." },
+  { number:"#045", title:"Enveloppe Rouge", kind:"dragon", src:"assets/hollow-finish/045-dragon-rouge.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 045-dragon-rouge.png", memory:"FINISH / F045", state:"indexed image", memo:"Distribuée au nouvel an. Déblocage prévu en 2031." },
+  { number:"#046", title:"Adossé à l’Or", kind:"dragon", src:"assets/hollow-finish/046-dragon-jaune.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 046-dragon-jaune.png", memory:"FINISH / F046", state:"indexed image", memo:"Le lingot existait. L’audit n’a jamais été publié." },
+  { number:"#047", title:"Réseau de Test", kind:"dragon", src:"assets/hollow-finish/047-dragon-cyan.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 047-dragon-cyan.png", memory:"FINISH / F047", state:"indexed image", memo:"Les gains s’affichaient en vrai. Le réseau, non." },
+  { number:"#048", title:"Partenariat Stratégique", kind:"dragon", src:"assets/hollow-finish/048-dragon-magenta.png", media:"image", support:"PNG image", dimensions:"634 x 427", source:"FINISH / 048-dragon-magenta.png", memory:"FINISH / F048", state:"indexed image", memo:"Annoncé en grand. L’autre partie l’a appris par le communiqué." },
   { number:"#019", title:"Destruction de Jetons", kind:"figure", src:"assets/hollow-finish/019-burn.png", media:"image", support:"PNG image", dimensions:"450 x 658", source:"FINISH / 019-burn.png", memory:"FINISH / F019", state:"indexed image", memo:"La cérémonie a été diffusée en direct. L’adresse de destruction avait une clé privée." },
   { number:"#029", title:"Liquidation en Cours", kind:"motion", src:"assets/hollow-finish/web-video/029-jujuhjj-h264.mp4", poster:"assets/hollow-finish/posters/029-jujuhjj.png", media:"video", support:"MP4 video", dimensions:"5.57 MB", source:"FINISH / jujuhjj (1).mp4", memory:"FINISH / V029", state:"indexed motion", gothic:"assets/hollow-finish/029-jujuhjj-gothic.gif", memo:"Rien à faire. C’est déjà fait." },
   { number:"#031", title:"Frappe Publique", kind:"motion", src:"assets/hollow-finish/web-video/031-machine-h264.mp4", poster:"assets/hollow-finish/posters/031-machine.png", media:"video", support:"MP4 video", dimensions:"61.75 MB", source:"FINISH / 031-machine.mp4", memory:"FINISH / V031", state:"indexed motion", memo:"Douze secondes. Personne n’a cliqué assez vite, sauf ceux qui ne cliquaient pas." },
   { number:"#032", title:"Solde Affiché", kind:"motion", src:"assets/hollow-finish/web-video/032-rtyytryrt-h264.mp4", poster:"assets/hollow-finish/posters/032-rtyytryrt.png", media:"video", support:"MP4 video", dimensions:"37.00 MB", source:"FINISH / rtyytryrt (1).mp4", memory:"FINISH / V032", state:"indexed motion", memo:"Le compte à l’écran n’était pas le sien. Le lien en description, si." }
 ];
 
-const CATEGORY_ORDER = ["figure", "monochrome", "aplat", "organe", "memory", "bloc", "motion"];
+const CATEGORY_ORDER = ["figure", "monochrome", "aplat", "organe", "memory", "bloc", "motion", "dragon"];
 const CATEGORY_LABELS = {
   figure:"Figures scellees",
   monochrome:"Ligne noire",
@@ -3661,7 +3667,8 @@ const CATEGORY_LABELS = {
   organe:"Organes / yeux",
   memory:"Paysages-memoire",
   bloc:"Blocs-machines",
-  motion:"Images en mouvement"
+  motion:"Images en mouvement",
+  dragon:"Data Dragon"
 };
 
 const MEDIA_VERSION = "finish-media-20260905-blocs-pink-griser-green";
@@ -3708,6 +3715,7 @@ try { const s = localStorage.getItem('hollow-lang'); if (s === 'fr' || s === 'en
 
 const CAT_TR = {
   figure:    { en:"Sealed figures",    zh:"封存人像" },
+  dragon:    { en:"Data Dragon",       zh:"数据龙" },
   monochrome:{ en:"Black line",        zh:"黑线" },
   aplat:     { en:"Monochrome / flat", zh:"单色 / 平涂" },
   organe:    { en:"Organs / eyes",     zh:"器官 / 眼睛" },
@@ -3739,6 +3747,12 @@ const WORK_TR = {
   "#019":{ en:{t:"Token Burn",m:"The ceremony was streamed live. The burn address had a private key."}, zh:{t:"销毁代币",m:"仪式全程直播。那个销毁地址有私钥。"} },
   "#041":{ en:{t:"Anonymous Team",m:"Six founders in the whitepaper. One wallet for all six."}, zh:{t:"匿名团队",m:"白皮书里有六位创始人。六个人共用一个钱包。"} },
   "#042":{ en:{t:"Limited Edition",m:"The same image, minus the colours. Numbered one of one, like the last one."}, zh:{t:"限量版",m:"同一张图，去掉颜色。限量一版一件，和上一件一样。"} },
+  "#043":{ en:{t:"Green Candle",m:"The chart ran green for eight minutes. The press release came after."}, zh:{t:"绿色K线",m:"走势绿了八分钟。公告是之后才发的。"} },
+  "#044":{ en:{t:"Blue Chip",m:"Rated a safe bet by the fund that held half of it."}, zh:{t:"蓝筹",m:"被那家持有它一半份额的基金评为稳健之选。"} },
+  "#045":{ en:{t:"Red Envelope",m:"Handed out at New Year. Unlocks in 2031."}, zh:{t:"红包",m:"新年发的。2031年解锁。"} },
+  "#046":{ en:{t:"Gold-Backed",m:"The bar existed. The audit was never published."}, zh:{t:"黄金背书",m:"金条是存在的。审计报告从未公布。"} },
+  "#047":{ en:{t:"Testnet",m:"The gains displayed for real. The network did not."}, zh:{t:"测试网",m:"收益显示得很真实。网络不是。"} },
+  "#048":{ en:{t:"Strategic Partnership",m:"Announced with fanfare. The other party found out from the press release."}, zh:{t:"战略合作",m:"大张旗鼓地宣布。另一方是看公告才知道的。"} },
   "#012":{ en:{t:"Long-Term Storage",m:"Geneva. The crate came in in 2013. No one asked to see it."}, zh:{t:"长期仓储",m:"日内瓦。木箱2013年入库。没人要求看一眼。"} },
   "#013":{ en:{t:"Certificate Included",m:"Forty years of masterpieces out of a garage in Queens."}, zh:{t:"附证书",m:"四十年的杰作，出自皇后区的一间车库。"} },
   "#014":{ en:{t:"The Left Hand",m:"It buys what the right hand sells. The record holds for three days."}, zh:{t:"左手",m:"左手买下右手卖出的。纪录维持了三天。"} },
