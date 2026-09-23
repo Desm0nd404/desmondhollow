@@ -1678,62 +1678,36 @@ body.pd-view-open .pd-bar{ display:none }
    croix. Texte noir sur l'aplat rouille, comme partout ailleurs. */
 .home-rules{
   display:flex;
-  align-items:baseline;
-  flex-wrap:wrap;
-  gap:4px 16px;
-  padding:8px var(--pad);
+  align-items:center;
+  gap:6px 24px;
+  padding:9px var(--pad);
   background:var(--pal-rust);
   color:var(--black);
   font-family:var(--sans);
-  font-size:clamp(10px, 1.1vw, 13px);
-  font-weight:500;
-  line-height:1.4;
-  letter-spacing:.06em;
+  font-size:clamp(13px, 1.4vw, 17px);
+  font-weight:700;
+  line-height:1.3;
+  letter-spacing:.08em;
   text-transform:uppercase;
 }
 .home-rules[hidden]{ display:none }
 
-.hr-label{
-  font-weight:800;
-  letter-spacing:.12em;
-}
-.hr-list{
-  flex:1 1 220px;
-  display:flex;
-  flex-wrap:wrap;
-  align-items:baseline;
-  gap:4px 2px;
-}
-.hr-cat + .hr-cat::before{
-  content:"·";
-  padding:0 6px;
-  pointer-events:none;
-}
-.hr-cat{
+.hr-item{
   padding:0;
   border:0;
   background:transparent;
   color:var(--black);
   font:inherit;
   letter-spacing:inherit;
+  text-transform:inherit;
   cursor:var(--cursor-link);
 }
-.hr-cat:hover{ text-decoration:underline; text-underline-offset:2px }
-.hr-cat:focus-visible{ outline:1px solid var(--black); outline-offset:2px }
-.hr-open{
-  padding:0;
-  border:0;
-  background:transparent;
-  font:inherit;
-  font-weight:800;
-  letter-spacing:inherit;
-  color:var(--black);
-  text-decoration:underline;
-  text-underline-offset:2px;
-  white-space:nowrap;
-  cursor:var(--cursor-link);
-}
-.hr-open:hover{ text-decoration:none }
+.hr-item:hover{ text-decoration:underline; text-underline-offset:3px }
+.hr-item:focus-visible{ outline:1px solid var(--black); outline-offset:2px }
+.hr-bold{ font-weight:900; cursor:default }
+.hr-bold:hover{ text-decoration:none }
+a.hr-item{ text-decoration:none }
+a.hr-item:hover{ text-decoration:underline; text-underline-offset:3px }
 
 .hr-close{
   width:16px;
@@ -3213,12 +3187,12 @@ body.nft-open{
   <div class="zone" id="z-boot"></div>
 
   <!-- barre de navigation du registre, collée sous z-boot -->
-  <nav class="home-rules" id="homeRules" hidden data-i18n-aria="rules_nav" aria-label="Catégories du registre">
-    <span class="hr-label" data-i18n="rules_label">Registre</span>
-    <span class="hr-list" id="homeRulesCats"></span>
-    <button type="button" class="hr-open" id="homeRulesText" data-i18n="rules_text">Texte</button>
-    <a class="hr-open" href="registre/" data-i18n="rules_open">Relevé</a>
-    <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Fermer la barre" aria-label="Fermer la barre">&#215;</button>
+  <nav class="home-rules" id="homeRules" hidden data-i18n-aria="rules_nav" aria-label="Navigation du registre">
+    <span class="hr-item hr-bold" data-i18n="rules_register">Register</span>
+    <button type="button" class="hr-item" id="homeRulesArtwork" data-i18n="rules_artwork">Artwork</button>
+    <button type="button" class="hr-item" id="homeRulesText" data-i18n="rules_text">Text</button>
+    <a class="hr-item" href="registre/" data-i18n="rules_open">Record</a>
+    <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Close" aria-label="Close">&#215;</button>
   </nav>
 
   <section class="module frame" id="mod-system" aria-label="System">
@@ -3928,12 +3902,13 @@ const UI_TR = {
   no_label:       { fr:"no.", en:"no.", zh:"编号" },
   rank_of:        { fr:"sur", en:"of", zh:"/" },
   close:          { fr:"close", en:"close", zh:"关闭" },
-  rules_btn:      { fr:"Catégories du registre", en:"Register categories", zh:"登记册分类" },
-  rules_label:    { fr:"Registre", en:"Register", zh:"登记册" },
-  rules_nav:      { fr:"Catégories du registre", en:"Register categories", zh:"登记册分类" },
-  rules_text:     { fr:"Texte", en:"Text", zh:"文本" },
-  rules_open:     { fr:"Relevé", en:"Record", zh:"记录" },
-  rules_close:    { fr:"Fermer la barre", en:"Close the bar", zh:"关闭工具条" },
+  rules_btn:      { fr:"Navigation du registre", en:"Register navigation", zh:"登记册导航" },
+  rules_register: { fr:"Register", en:"Register", zh:"Register" },
+  rules_artwork:  { fr:"Artwork", en:"Artwork", zh:"Artwork" },
+  rules_nav:      { fr:"Navigation du registre", en:"Register navigation", zh:"登记册导航" },
+  rules_text:     { fr:"Text", en:"Text", zh:"Text" },
+  rules_open:     { fr:"Record", en:"Record", zh:"Record" },
+  rules_close:    { fr:"Fermer", en:"Close", zh:"关闭" },
   notice_label:   { fr:"Notice du registre", en:"Register notice", zh:"登记册说明" },
   notice_acts_intro:{ fr:"Le projet avance par actes.", en:"The project moves forward in acts.", zh:"这个项目按幕推进。" },
   notice_act1:    { fr:"Acte I", en:"Act I", zh:"第一幕" },
@@ -4039,9 +4014,6 @@ function refreshGalleryText(){
       b.textContent = work.number;
       cap.replaceChildren(b, ` · ${titleFor(work)}`);
     }
-  });
-  document.querySelectorAll('#homeRules .hr-cat[data-kind]').forEach(btn => {
-    btn.textContent = categoryLabel(btn.dataset.kind);
   });
   document.querySelectorAll('#pd-index .pdx-group').forEach(group => {
     const head = group.querySelector('.pdx-head');
@@ -5507,34 +5479,13 @@ function initHomeBoard(){
     wiki.setAttribute('aria-controls', 'homeRules');
     wiki.addEventListener('click', () => setRules(!!rulesBand && rulesBand.hidden));
   }
-  /* les categories du registre, dans l'ordre du registre et sans celles
-     qui n'ont aucune piece ; le libelle suit la langue */
-  const catsHost = document.getElementById('homeRulesCats');
-  const openCategory = kind => {
-    openGallery('index');
-    const group = document.querySelector(`#pd-index .pdx-group[data-kind="${kind}"]`);
-    if (!group) return;
-    /* les vignettes se decodent apres coup et deplacent la liste :
-       on repose la categorie en haut une fois qu'elles ont pris place */
-    const pose = () => group.scrollIntoView({ block:'start' });
-    requestAnimationFrame(pose);
-    setTimeout(pose, 300);
-    setTimeout(pose, 900);
-  };
-  if (catsHost){
-    catsHost.replaceChildren(...CATEGORY_ORDER
-      .filter(kind => NFTS.some(work => work.kind === kind))
-      .map(kind => {
-        const b = document.createElement('button');
-        b.type = 'button';
-        b.className = 'hr-cat';
-        b.dataset.kind = kind;
-        b.textContent = categoryLabel(kind);
-        b.addEventListener('click', () => { setRules(false); openCategory(kind); });
-        return b;
-      }));
-  }
-  /* le texte : la notice du registre, plus bas sur la meme page */
+  /* Artwork : ouvre la galerie en grille */
+  const rulesArtwork = document.getElementById('homeRulesArtwork');
+  if (rulesArtwork) rulesArtwork.addEventListener('click', () => {
+    setRules(false);
+    openGallery('grid');
+  });
+  /* Text : descend a la notice du registre */
   const rulesText = document.getElementById('homeRulesText');
   if (rulesText) rulesText.addEventListener('click', () => {
     setRules(false);
