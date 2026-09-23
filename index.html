@@ -1672,6 +1672,74 @@ body.pd-view-open .pd-bar{ display:none }
 #homeIndex{ border-color:var(--royal); background:var(--royal); color:var(--paper) }
 #homeIndex:hover{ border-color:var(--paper) }
 
+/* ── la bande des règles ────────────────────────────────────────
+   Le carré rouille n'envoie plus sur le relevé : il ouvre une bande
+   fine sous les icônes. Trois lignes sèches, l'accès au relevé, une
+   croix. Texte noir sur l'aplat rouille, comme partout ailleurs. */
+.home-rules{
+  position:absolute;
+  top:50px;
+  left:var(--pad);
+  right:var(--pad);
+  z-index:5;
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:4px 14px;
+  padding:7px 10px;
+  background:var(--pal-rust);
+  color:var(--black);
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:1.4;
+  letter-spacing:.03em;
+}
+.home-rules[hidden]{ display:none }
+
+.hr-label{
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+.hr-list{
+  flex:1 1 220px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:4px 14px;
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+.hr-list li + li::before{
+  content:"· ";
+  margin-left:-10px;
+  padding-right:4px;
+}
+.hr-open{
+  color:var(--black);
+  text-decoration:underline;
+  text-underline-offset:2px;
+  white-space:nowrap;
+  cursor:var(--cursor-link);
+}
+.hr-open:hover{ text-decoration:none }
+
+.hr-close{
+  width:18px;
+  height:18px;
+  padding:0;
+  border:1px solid var(--black);
+  background:transparent;
+  color:var(--black);
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1;
+  cursor:var(--cursor-link);
+  align-self:center;
+}
+.hr-close:hover{ background:var(--black); color:var(--pal-rust) }
+.hr-close:focus-visible{ outline:1px solid var(--black); outline-offset:2px }
+
 /* ══ 01 / SYSTEM — une seule planche, trois sources fondues ═══
    La voix brute des légendes, la marque en carrés et la frise en
    escalier, l'aplat plein et le très grand titre : trois registres
@@ -3134,10 +3202,22 @@ body.nft-open{
 
   <section class="module frame" id="mod-system" aria-label="System">
     <nav id="home-icons" aria-label="Accès au registre">
-      <button type="button" class="home-icon" id="homeWiki" title="Registre public" aria-label="Ouvrir le registre public"><svg viewBox="0 0 17 20" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 0h1v1h-1zM15 0h1v1h-1zM0 1h3v1h-3zM14 1h3v1h-3zM0 2h17v1h-17zM0 3h17v1h-17zM0 4h3v1h-3zM14 4h3v1h-3zM1 5h1v1h-1zM15 5h1v1h-1zM1 7h1v1h-1zM15 7h1v1h-1zM0 8h3v1h-3zM14 8h3v1h-3zM0 9h17v1h-17zM0 10h17v1h-17zM0 11h3v1h-3zM14 11h3v1h-3zM1 12h1v1h-1zM15 12h1v1h-1zM1 14h1v1h-1zM15 14h1v1h-1zM0 15h3v1h-3zM14 15h3v1h-3zM0 16h17v1h-17zM0 17h17v1h-17zM0 18h3v1h-3zM14 18h3v1h-3zM1 19h1v1h-1zM15 19h1v1h-1z" fill="currentColor"/></svg></button>
+      <button type="button" class="home-icon" id="homeWiki" title="Règles du registre" aria-label="Afficher les règles du registre" data-i18n-title="rules_btn" data-i18n-aria="rules_btn"><svg viewBox="0 0 17 20" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 0h1v1h-1zM15 0h1v1h-1zM0 1h3v1h-3zM14 1h3v1h-3zM0 2h17v1h-17zM0 3h17v1h-17zM0 4h3v1h-3zM14 4h3v1h-3zM1 5h1v1h-1zM15 5h1v1h-1zM1 7h1v1h-1zM15 7h1v1h-1zM0 8h3v1h-3zM14 8h3v1h-3zM0 9h17v1h-17zM0 10h17v1h-17zM0 11h3v1h-3zM14 11h3v1h-3zM1 12h1v1h-1zM15 12h1v1h-1zM1 14h1v1h-1zM15 14h1v1h-1zM0 15h3v1h-3zM14 15h3v1h-3zM0 16h17v1h-17zM0 17h17v1h-17zM0 18h3v1h-3zM14 18h3v1h-3zM1 19h1v1h-1zM15 19h1v1h-1z" fill="currentColor"/></svg></button>
       <button type="button" class="home-icon" id="homeGrid" title="Galerie, vue grille" aria-label="Ouvrir la galerie en grille"><svg viewBox="0 0 17 17" shape-rendering="crispEdges" aria-hidden="true"><path d="M8 0h1v1h-1zM7 1h3v1h-3zM2 2h3v1h-3zM6 2h5v1h-5zM12 2h3v1h-3zM2 3h3v1h-3zM6 3h5v1h-5zM12 3h3v1h-3zM2 4h13v1h-13zM4 5h3v1h-3zM10 5h3v1h-3zM2 6h5v1h-5zM10 6h5v1h-5zM1 7h4v1h-4zM12 7h4v1h-4zM0 8h5v1h-5zM12 8h5v1h-5zM1 9h4v1h-4zM12 9h4v1h-4zM2 10h5v1h-5zM10 10h5v1h-5zM4 11h3v1h-3zM10 11h3v1h-3zM2 12h13v1h-13zM2 13h3v1h-3zM6 13h5v1h-5zM12 13h3v1h-3zM2 14h3v1h-3zM6 14h5v1h-5zM12 14h3v1h-3zM7 15h3v1h-3zM8 16h1v1h-1z" fill="currentColor"/></svg></button>
       <button type="button" class="home-icon" id="homeIndex" title="Galerie, vue par collection" aria-label="Ouvrir la galerie par collection"><svg viewBox="0 0 17 18" shape-rendering="crispEdges" aria-hidden="true"><path d="M8 0h1v1h-1zM7 1h3v1h-3zM8 2h1v1h-1zM7 3h3v1h-3zM2 4h1v1h-1zM6 4h5v1h-5zM14 4h1v1h-1zM1 5h3v1h-3zM5 5h7v1h-7zM13 5h3v1h-3zM2 6h1v1h-1zM4 6h9v1h-9zM14 6h1v1h-1zM2 7h13v1h-13zM2 8h5v1h-5zM10 8h5v1h-5zM2 9h4v1h-4zM11 9h4v1h-4zM2 10h4v1h-4zM11 10h4v1h-4zM2 11h5v1h-5zM10 11h5v1h-5zM2 12h13v1h-13zM2 13h5v1h-5zM10 13h5v1h-5zM2 14h4v1h-4zM11 14h4v1h-4zM2 15h4v1h-4zM11 15h4v1h-4zM2 16h4v1h-4zM11 16h4v1h-4zM2 17h4v1h-4zM11 17h4v1h-4z" fill="currentColor"/></svg></button>
   </nav>
+
+    <!-- la bande des regles : ouverte par le carre rouille, fermee par la croix -->
+    <div class="home-rules" id="homeRules" hidden>
+      <span class="hr-label" data-i18n="rules_label">Règles</span>
+      <ul class="hr-list">
+        <li data-i18n="rules_1">Huis clos. Rien n'est ouvert au public.</li>
+        <li data-i18n="rules_2">Aucune pièce vendue. Aucun prix affiché.</li>
+        <li data-i18n="rules_3">Le relevé public fait foi.</li>
+      </ul>
+      <a class="hr-open" href="registre/" data-i18n="rules_open">Ouvrir le relevé</a>
+      <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Fermer les règles" aria-label="Fermer les règles">&#215;</button>
+    </div>
     <div class="grid mod-head">
       <span class="mod-num act-num" data-i18n="act_line">ACTE [1] · VENTE À HUIS CLOS</span>
     </div>
@@ -3837,6 +3917,13 @@ const UI_TR = {
   no_label:       { fr:"no.", en:"no.", zh:"编号" },
   rank_of:        { fr:"sur", en:"of", zh:"/" },
   close:          { fr:"close", en:"close", zh:"关闭" },
+  rules_btn:      { fr:"Règles du registre", en:"Register rules", zh:"登记册规则" },
+  rules_label:    { fr:"Règles", en:"Rules", zh:"规则" },
+  rules_1:        { fr:"Huis clos. Rien n'est ouvert au public.", en:"Closed doors. Nothing is open to the public.", zh:"闭门。不对外开放。" },
+  rules_2:        { fr:"Aucune pièce vendue. Aucun prix affiché.", en:"No work sold. No price displayed.", zh:"未售出任何作品。不标示任何价格。" },
+  rules_3:        { fr:"Le relevé public fait foi.", en:"The public record is the reference.", zh:"以公开记录为准。" },
+  rules_open:     { fr:"Ouvrir le relevé", en:"Open the record", zh:"打开记录" },
+  rules_close:    { fr:"Fermer les règles", en:"Close the rules", zh:"关闭规则" },
   notice_label:   { fr:"Notice du registre", en:"Register notice", zh:"登记册说明" },
   notice_acts_intro:{ fr:"Le projet avance par actes.", en:"The project moves forward in acts.", zh:"这个项目按幕推进。" },
   notice_act1:    { fr:"Acte I", en:"Act I", zh:"第一幕" },
@@ -5393,8 +5480,27 @@ function initHomeBoard(){
   const wiki = document.getElementById('homeWiki');
   const grid = document.getElementById('homeGrid');
   const index = document.getElementById('homeIndex');
-  /* la liste mène au registre public, une page à part */
-  if (wiki) wiki.addEventListener('click', () => { window.location.href = 'registre/'; });
+  /* la liste ouvre la bande des règles ; le relevé public reste à un
+     clic, depuis la bande elle-même */
+  const rulesBand = document.getElementById('homeRules');
+  const rulesShut = document.getElementById('homeRulesClose');
+  const setRules = open => {
+    if (!rulesBand) return;
+    rulesBand.hidden = !open;
+    if (wiki) wiki.setAttribute('aria-expanded', open ? 'true' : 'false');
+  };
+  if (wiki){
+    wiki.setAttribute('aria-expanded', 'false');
+    wiki.setAttribute('aria-controls', 'homeRules');
+    wiki.addEventListener('click', () => setRules(!!rulesBand && rulesBand.hidden));
+  }
+  if (rulesShut) rulesShut.addEventListener('click', () => {
+    setRules(false);
+    if (wiki) wiki.focus({ preventScroll:true });
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && rulesBand && !rulesBand.hidden) setRules(false);
+  });
   if (grid) grid.addEventListener('click', () => openGallery('grid'));
   if (index) index.addEventListener('click', () => openGallery('index'));
   /* le pied bleu et la notice reprennent les accès à la galerie */
