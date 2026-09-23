@@ -1677,36 +1677,37 @@ body.pd-view-open .pd-bar{ display:none }
    fine sous les icônes. Trois lignes sèches, l'accès au relevé, une
    croix. Texte noir sur l'aplat rouille, comme partout ailleurs. */
 .home-rules{
-  position:absolute;
-  top:50px;
-  left:var(--pad);
-  right:var(--pad);
-  z-index:5;
   display:flex;
   align-items:baseline;
   flex-wrap:wrap;
-  gap:4px 14px;
-  padding:7px 10px;
+  gap:4px 16px;
+  padding:8px var(--pad);
   background:var(--pal-rust);
   color:var(--black);
-  font-family:var(--mono);
-  font-size:11px;
+  font-family:var(--sans);
+  font-size:clamp(10px, 1.1vw, 13px);
+  font-weight:500;
   line-height:1.4;
-  letter-spacing:.03em;
+  letter-spacing:.06em;
+  text-transform:uppercase;
 }
 .home-rules[hidden]{ display:none }
 
 .hr-label{
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.14em;
+  font-weight:800;
+  letter-spacing:.12em;
 }
 .hr-list{
   flex:1 1 220px;
   display:flex;
   flex-wrap:wrap;
   align-items:baseline;
-  gap:4px 14px;
+  gap:4px 2px;
+}
+.hr-cat + .hr-cat::before{
+  content:"·";
+  padding:0 6px;
+  pointer-events:none;
 }
 .hr-cat{
   padding:0;
@@ -1715,7 +1716,6 @@ body.pd-view-open .pd-bar{ display:none }
   color:var(--black);
   font:inherit;
   letter-spacing:inherit;
-  text-transform:uppercase;
   cursor:var(--cursor-link);
 }
 .hr-cat:hover{ text-decoration:underline; text-underline-offset:2px }
@@ -1725,6 +1725,7 @@ body.pd-view-open .pd-bar{ display:none }
   border:0;
   background:transparent;
   font:inherit;
+  font-weight:800;
   letter-spacing:inherit;
   color:var(--black);
   text-decoration:underline;
@@ -1735,14 +1736,15 @@ body.pd-view-open .pd-bar{ display:none }
 .hr-open:hover{ text-decoration:none }
 
 .hr-close{
-  width:18px;
-  height:18px;
+  width:16px;
+  height:16px;
+  margin-left:auto;
   padding:0;
   border:1px solid var(--black);
   background:transparent;
   color:var(--black);
-  font-family:var(--mono);
-  font-size:12px;
+  font-family:var(--sans);
+  font-size:11px;
   line-height:1;
   cursor:var(--cursor-link);
   align-self:center;
@@ -3210,6 +3212,15 @@ body.nft-open{
 
   <div class="zone" id="z-boot"></div>
 
+  <!-- barre de navigation du registre, collée sous z-boot -->
+  <nav class="home-rules" id="homeRules" hidden data-i18n-aria="rules_nav" aria-label="Catégories du registre">
+    <span class="hr-label" data-i18n="rules_label">Registre</span>
+    <span class="hr-list" id="homeRulesCats"></span>
+    <button type="button" class="hr-open" id="homeRulesText" data-i18n="rules_text">Texte</button>
+    <a class="hr-open" href="registre/" data-i18n="rules_open">Relevé</a>
+    <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Fermer la barre" aria-label="Fermer la barre">&#215;</button>
+  </nav>
+
   <section class="module frame" id="mod-system" aria-label="System">
     <nav id="home-icons" aria-label="Accès au registre">
       <button type="button" class="home-icon" id="homeWiki" title="Règles du registre" aria-label="Afficher les règles du registre" data-i18n-title="rules_btn" data-i18n-aria="rules_btn"><svg viewBox="0 0 17 20" shape-rendering="crispEdges" aria-hidden="true"><path d="M1 0h1v1h-1zM15 0h1v1h-1zM0 1h3v1h-3zM14 1h3v1h-3zM0 2h17v1h-17zM0 3h17v1h-17zM0 4h3v1h-3zM14 4h3v1h-3zM1 5h1v1h-1zM15 5h1v1h-1zM1 7h1v1h-1zM15 7h1v1h-1zM0 8h3v1h-3zM14 8h3v1h-3zM0 9h17v1h-17zM0 10h17v1h-17zM0 11h3v1h-3zM14 11h3v1h-3zM1 12h1v1h-1zM15 12h1v1h-1zM1 14h1v1h-1zM15 14h1v1h-1zM0 15h3v1h-3zM14 15h3v1h-3zM0 16h17v1h-17zM0 17h17v1h-17zM0 18h3v1h-3zM14 18h3v1h-3zM1 19h1v1h-1zM15 19h1v1h-1z" fill="currentColor"/></svg></button>
@@ -3217,14 +3228,7 @@ body.nft-open{
       <button type="button" class="home-icon" id="homeIndex" title="Galerie, vue par collection" aria-label="Ouvrir la galerie par collection"><svg viewBox="0 0 17 18" shape-rendering="crispEdges" aria-hidden="true"><path d="M8 0h1v1h-1zM7 1h3v1h-3zM8 2h1v1h-1zM7 3h3v1h-3zM2 4h1v1h-1zM6 4h5v1h-5zM14 4h1v1h-1zM1 5h3v1h-3zM5 5h7v1h-7zM13 5h3v1h-3zM2 6h1v1h-1zM4 6h9v1h-9zM14 6h1v1h-1zM2 7h13v1h-13zM2 8h5v1h-5zM10 8h5v1h-5zM2 9h4v1h-4zM11 9h4v1h-4zM2 10h4v1h-4zM11 10h4v1h-4zM2 11h5v1h-5zM10 11h5v1h-5zM2 12h13v1h-13zM2 13h5v1h-5zM10 13h5v1h-5zM2 14h4v1h-4zM11 14h4v1h-4zM2 15h4v1h-4zM11 15h4v1h-4zM2 16h4v1h-4zM11 16h4v1h-4zM2 17h4v1h-4zM11 17h4v1h-4z" fill="currentColor"/></svg></button>
   </nav>
 
-    <!-- la bande des regles : ouverte par le carre rouille, fermee par la croix -->
-    <nav class="home-rules" id="homeRules" hidden data-i18n-aria="rules_nav" aria-label="Catégories du registre">
-      <span class="hr-label" data-i18n="rules_label">Registre</span>
-      <span class="hr-list" id="homeRulesCats"></span>
-      <button type="button" class="hr-open" id="homeRulesText" data-i18n="rules_text">Texte</button>
-      <a class="hr-open" href="registre/" data-i18n="rules_open">Relevé</a>
-      <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Fermer la barre" aria-label="Fermer la barre">&#215;</button>
-    </nav>
+
     <div class="grid mod-head">
       <span class="mod-num act-num" data-i18n="act_line">ACTE [1] · VENTE À HUIS CLOS</span>
     </div>
