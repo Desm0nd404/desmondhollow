@@ -1705,17 +1705,27 @@ body.pd-view-open .pd-bar{ display:none }
   flex:1 1 220px;
   display:flex;
   flex-wrap:wrap;
+  align-items:baseline;
   gap:4px 14px;
-  margin:0;
+}
+.hr-cat{
   padding:0;
-  list-style:none;
+  border:0;
+  background:transparent;
+  color:var(--black);
+  font:inherit;
+  letter-spacing:inherit;
+  text-transform:uppercase;
+  cursor:var(--cursor-link);
 }
-.hr-list li + li::before{
-  content:"· ";
-  margin-left:-10px;
-  padding-right:4px;
-}
+.hr-cat:hover{ text-decoration:underline; text-underline-offset:2px }
+.hr-cat:focus-visible{ outline:1px solid var(--black); outline-offset:2px }
 .hr-open{
+  padding:0;
+  border:0;
+  background:transparent;
+  font:inherit;
+  letter-spacing:inherit;
   color:var(--black);
   text-decoration:underline;
   text-underline-offset:2px;
@@ -3208,16 +3218,13 @@ body.nft-open{
   </nav>
 
     <!-- la bande des regles : ouverte par le carre rouille, fermee par la croix -->
-    <div class="home-rules" id="homeRules" hidden>
-      <span class="hr-label" data-i18n="rules_label">Règles</span>
-      <ul class="hr-list">
-        <li data-i18n="rules_1">Huis clos. Rien n'est ouvert au public.</li>
-        <li data-i18n="rules_2">Aucune pièce vendue. Aucun prix affiché.</li>
-        <li data-i18n="rules_3">Le relevé public fait foi.</li>
-      </ul>
-      <a class="hr-open" href="registre/" data-i18n="rules_open">Ouvrir le relevé</a>
-      <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Fermer les règles" aria-label="Fermer les règles">&#215;</button>
-    </div>
+    <nav class="home-rules" id="homeRules" hidden data-i18n-aria="rules_nav" aria-label="Catégories du registre">
+      <span class="hr-label" data-i18n="rules_label">Registre</span>
+      <span class="hr-list" id="homeRulesCats"></span>
+      <button type="button" class="hr-open" id="homeRulesText" data-i18n="rules_text">Texte</button>
+      <a class="hr-open" href="registre/" data-i18n="rules_open">Relevé</a>
+      <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Fermer la barre" aria-label="Fermer la barre">&#215;</button>
+    </nav>
     <div class="grid mod-head">
       <span class="mod-num act-num" data-i18n="act_line">ACTE [1] · VENTE À HUIS CLOS</span>
     </div>
@@ -3917,13 +3924,12 @@ const UI_TR = {
   no_label:       { fr:"no.", en:"no.", zh:"编号" },
   rank_of:        { fr:"sur", en:"of", zh:"/" },
   close:          { fr:"close", en:"close", zh:"关闭" },
-  rules_btn:      { fr:"Règles du registre", en:"Register rules", zh:"登记册规则" },
-  rules_label:    { fr:"Règles", en:"Rules", zh:"规则" },
-  rules_1:        { fr:"Huis clos. Rien n'est ouvert au public.", en:"Closed doors. Nothing is open to the public.", zh:"闭门。不对外开放。" },
-  rules_2:        { fr:"Aucune pièce vendue. Aucun prix affiché.", en:"No work sold. No price displayed.", zh:"未售出任何作品。不标示任何价格。" },
-  rules_3:        { fr:"Le relevé public fait foi.", en:"The public record is the reference.", zh:"以公开记录为准。" },
-  rules_open:     { fr:"Ouvrir le relevé", en:"Open the record", zh:"打开记录" },
-  rules_close:    { fr:"Fermer les règles", en:"Close the rules", zh:"关闭规则" },
+  rules_btn:      { fr:"Catégories du registre", en:"Register categories", zh:"登记册分类" },
+  rules_label:    { fr:"Registre", en:"Register", zh:"登记册" },
+  rules_nav:      { fr:"Catégories du registre", en:"Register categories", zh:"登记册分类" },
+  rules_text:     { fr:"Texte", en:"Text", zh:"文本" },
+  rules_open:     { fr:"Relevé", en:"Record", zh:"记录" },
+  rules_close:    { fr:"Fermer la barre", en:"Close the bar", zh:"关闭工具条" },
   notice_label:   { fr:"Notice du registre", en:"Register notice", zh:"登记册说明" },
   notice_acts_intro:{ fr:"Le projet avance par actes.", en:"The project moves forward in acts.", zh:"这个项目按幕推进。" },
   notice_act1:    { fr:"Acte I", en:"Act I", zh:"第一幕" },
@@ -4029,6 +4035,9 @@ function refreshGalleryText(){
       b.textContent = work.number;
       cap.replaceChildren(b, ` · ${titleFor(work)}`);
     }
+  });
+  document.querySelectorAll('#homeRules .hr-cat[data-kind]').forEach(btn => {
+    btn.textContent = categoryLabel(btn.dataset.kind);
   });
   document.querySelectorAll('#pd-index .pdx-group').forEach(group => {
     const head = group.querySelector('.pdx-head');
@@ -5494,6 +5503,40 @@ function initHomeBoard(){
     wiki.setAttribute('aria-controls', 'homeRules');
     wiki.addEventListener('click', () => setRules(!!rulesBand && rulesBand.hidden));
   }
+  /* les categories du registre, dans l'ordre du registre et sans celles
+     qui n'ont aucune piece ; le libelle suit la langue */
+  const catsHost = document.getElementById('homeRulesCats');
+  const openCategory = kind => {
+    openGallery('index');
+    const group = document.querySelector(`#pd-index .pdx-group[data-kind="${kind}"]`);
+    if (!group) return;
+    /* les vignettes se decodent apres coup et deplacent la liste :
+       on repose la categorie en haut une fois qu'elles ont pris place */
+    const pose = () => group.scrollIntoView({ block:'start' });
+    requestAnimationFrame(pose);
+    setTimeout(pose, 300);
+    setTimeout(pose, 900);
+  };
+  if (catsHost){
+    catsHost.replaceChildren(...CATEGORY_ORDER
+      .filter(kind => NFTS.some(work => work.kind === kind))
+      .map(kind => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'hr-cat';
+        b.dataset.kind = kind;
+        b.textContent = categoryLabel(kind);
+        b.addEventListener('click', () => { setRules(false); openCategory(kind); });
+        return b;
+      }));
+  }
+  /* le texte : la notice du registre, plus bas sur la meme page */
+  const rulesText = document.getElementById('homeRulesText');
+  if (rulesText) rulesText.addEventListener('click', () => {
+    setRules(false);
+    const notice = document.getElementById('hollow-notice');
+    if (notice) notice.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
   if (rulesShut) rulesShut.addEventListener('click', () => {
     setRules(false);
     if (wiki) wiki.focus({ preventScroll:true });
