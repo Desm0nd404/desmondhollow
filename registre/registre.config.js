@@ -146,7 +146,7 @@ window.REGISTRE_CONFIG = {
     { numero: "#039", titre: "Prévente Privée", image: "../assets/hollow-finish/039-orange-monochrome.png" },
     { numero: "#040", titre: "Enchérisseur Mandaté", image: "../assets/hollow-finish/040-hollow-bot.png" },
     { numero: "#041", titre: "Équipe Anonyme", image: "../assets/hollow-finish/posters/041-rose-baby.png" },
-    { numero: "#042", titre: "Édition Limitée", image: "../assets/hollow-finish/posters/042-dark-glitch.png" },
+    { numero: "#042", titre: "The Last Expression", image: "../assets/hollow-finish/posters/042-dark-glitch.png" },
     { numero: "#043", titre: "Bougie Verte", image: "../assets/hollow-finish/043-dragon-vert.png" },
     { numero: "#044", titre: "Valeur Sûre", image: "../assets/hollow-finish/044-dragon-bleu.png" },
     { numero: "#045", titre: "Enveloppe Rouge", image: "../assets/hollow-finish/045-dragon-rouge.png" },
