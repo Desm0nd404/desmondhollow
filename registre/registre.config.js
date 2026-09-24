@@ -120,7 +120,7 @@ window.REGISTRE_CONFIG = {
     { numero: "#009", titre: "Compensation Carbone", image: "../assets/hollow-finish/009-eryqyert.png" },
     { numero: "#010", titre: "Avant Estimation", image: "../assets/hollow-finish/010-fyufgyyhu.png" },
     { numero: "#012", titre: "Stockage Longue Durée", image: "../assets/hollow-finish/012-greenforest.png" },
-    { numero: "#013", titre: "Certificat Inclus", image: "../assets/hollow-finish/013-hgdhgfd.png" },
+    { numero: "#013", titre: "Witness", image: "../assets/hollow-finish/013-hgdhgfd.png" },
     { numero: "#014", titre: "La Main Gauche", image: "../assets/hollow-finish/014-hgkyghkj.png" },
     { numero: "#015", titre: "Appel de Marge", image: "../assets/hollow-finish/015-hkbjjbkjbk.png" },
     { numero: "#016", titre: "Contenu Partenaire", image: "../assets/hollow-finish/016-image.png" },
