@@ -112,7 +112,7 @@ window.REGISTRE_CONFIG = {
     { numero: "#001", titre: "Sans Cote", image: "../assets/hollow-finish/001-azerzrazea.png" },
     { numero: "#002", titre: "Second Passeport", image: "../assets/hollow-finish/002-cbcbcbcb.png" },
     { numero: "#003", titre: "Propriété Fractionnée", image: "../assets/hollow-finish/003-colorspock.png" },
-    { numero: "#004", titre: "Acheteur Vérifié", image: "../assets/hollow-finish/004-cvbfdfd.png" },
+    { numero: "#004", titre: "Proxy", image: "../assets/hollow-finish/004-cvbfdfd.png" },
     { numero: "#005", titre: "Parité Garantie", image: "../assets/hollow-finish/005-dfhhfd.png" },
     { numero: "#006", titre: "Non Coté", image: "../assets/hollow-finish/006-dhdhg.png" },
     { numero: "#007", titre: "Enchère Garantie", image: "../assets/hollow-finish/007-dithered.png" },
