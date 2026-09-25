@@ -134,7 +134,7 @@ window.REGISTRE_CONFIG = {
     { numero: "#025", titre: "Symphony in Red", image: "../assets/hollow-finish/025-violone.png" },
     { numero: "#026", titre: "Preuve de Réserves", image: "../assets/hollow-finish/026-yhhy.png" },
     { numero: "#027", titre: "Coffre Surprise", image: "../assets/hollow-finish/027-ytjyjghgj.png" },
-    { numero: "#029", titre: "Liquidation en Cours", image: "../assets/hollow-finish/posters/029-jujuhjj.png" },
+    { numero: "#029", titre: "The Curator Is Absent", image: "../assets/hollow-finish/posters/029-jujuhjj.png" },
     { numero: "#031", titre: "Frappe Publique", image: "../assets/hollow-finish/posters/031-machine.png" },
     { numero: "#032", titre: "Solde Affiché", image: "../assets/hollow-finish/posters/032-rtyytryrt.png" },
     { numero: "#033", titre: "Fruit de Saison", image: "../assets/hollow-finish/033-appledead.png" },
