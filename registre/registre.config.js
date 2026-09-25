@@ -123,7 +123,7 @@ window.REGISTRE_CONFIG = {
     { numero: "#013", titre: "Witness", image: "../assets/hollow-finish/013-hgdhgfd.png" },
     { numero: "#014", titre: "Memento", image: "../assets/hollow-finish/014-hgkyghkj.png" },
     { numero: "#015", titre: "Appel de Marge", image: "../assets/hollow-finish/015-hkbjjbkjbk.png" },
-    { numero: "#016", titre: "Contenu Partenaire", image: "../assets/hollow-finish/016-image.png" },
+    { numero: "#016", titre: "Prometheus", image: "../assets/hollow-finish/016-image.png" },
     { numero: "#017", titre: "Murmur", image: "../assets/hollow-finish/017-kkkkkkkkkkkkkkkkkk.png" },
     { numero: "#019", titre: "Destruction de Jetons", image: "../assets/hollow-finish/019-burn.png" },
     { numero: "#020", titre: "Ruin", image: "../assets/hollow-finish/019-reverse.png" },
