@@ -161,6 +161,7 @@ window.REGISTRE_CONFIG = {
     { numero: "#054", titre: "Tirage Illimité", image: "../assets/hollow-finish/054-dragon-cl-cyan.png" },
     { numero: "#055", titre: "Clause de Non-Responsabilité", image: "../assets/hollow-finish/055-dragon-noir.png" },
     { numero: "#056", titre: "Livre Blanc", image: "../assets/hollow-finish/056-dragon-gris.png" },
+    { numero: "#057", titre: "Réserve Non Atteinte", image: "../assets/hollow-finish/057-reserve.png" },
   ],
   piecesAffichees: 5,
 
