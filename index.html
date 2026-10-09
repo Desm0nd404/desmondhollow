@@ -3736,10 +3736,16 @@ const NFTS = [
   { number:"#019", title:"Destruction de Jetons", kind:"figure", src:"assets/hollow-finish/019-burn.png", media:"image", support:"PNG image", dimensions:"450 x 658", source:"FINISH / 019-burn.png", memory:"FINISH / F019", state:"indexed image", memo:"La cérémonie a été diffusée en direct. L’adresse de destruction avait une clé privée." },
   { number:"#029", title:"The Curator Is Absent", kind:"motion", src:"assets/hollow-finish/web-video/029-jujuhjj-h264.mp4", poster:"assets/hollow-finish/posters/029-jujuhjj.png", media:"video", support:"MP4 video", dimensions:"5.57 MB", source:"FINISH / jujuhjj (1).mp4", memory:"FINISH / V029", state:"indexed motion", gothic:"assets/hollow-finish/029-jujuhjj-gothic.gif", memo:"Rien à faire. C’est déjà fait." },
   { number:"#031", title:"Frappe Publique", kind:"motion", src:"assets/hollow-finish/web-video/031-machine-h264.mp4", poster:"assets/hollow-finish/posters/031-machine.png", media:"video", support:"MP4 video", dimensions:"61.75 MB", source:"FINISH / 031-machine.mp4", memory:"FINISH / V031", state:"indexed motion", memo:"Douze secondes. Personne n’a cliqué assez vite, sauf ceux qui ne cliquaient pas." },
-  { number:"#032", title:"Jester Signal 404", kind:"motion", src:"assets/hollow-finish/web-video/032-rtyytryrt-h264.mp4", poster:"assets/hollow-finish/posters/032-rtyytryrt.png", media:"video", support:"MP4 video", dimensions:"37.00 MB", source:"FINISH / rtyytryrt (1).mp4", memory:"FINISH / V032", state:"indexed motion", memo:"Le compte à l’écran n’était pas le sien. Le lien en description, si." }
+  { number:"#032", title:"Jester Signal 404", kind:"motion", src:"assets/hollow-finish/web-video/032-rtyytryrt-h264.mp4", poster:"assets/hollow-finish/posters/032-rtyytryrt.png", media:"video", support:"MP4 video", dimensions:"37.00 MB", source:"FINISH / rtyytryrt (1).mp4", memory:"FINISH / V032", state:"indexed motion", memo:"Le compte à l’écran n’était pas le sien. Le lien en description, si." },
+  { number:"#058", title:"BlackWell", kind:"opepen", src:"assets/hollow-finish/058-opepen-blackwell.png", media:"image", support:"PNG image", dimensions:"1024 x 1024", source:"Opepen / Chrome / edition 1", memory:"OPEPEN / C058", state:"indexed image", memo:"Soumission Opepen « Chrome », édition de 1." },
+  { number:"#059", title:"Arasaka", kind:"opepen", src:"assets/hollow-finish/059-opepen-arasaka.png", media:"image", support:"PNG image", dimensions:"1024 x 1024", source:"Opepen / Chrome / edition 4", memory:"OPEPEN / C059", state:"indexed image", memo:"Soumission Opepen « Chrome », édition de 4." },
+  { number:"#060", title:"Alt", kind:"opepen", src:"assets/hollow-finish/060-opepen-alt.png", media:"image", support:"PNG image", dimensions:"1024 x 1024", source:"Opepen / Chrome / edition 5", memory:"OPEPEN / C060", state:"indexed image", memo:"Soumission Opepen « Chrome », édition de 5." },
+  { number:"#061", title:"Overlock", kind:"opepen", src:"assets/hollow-finish/061-opepen-overlock.png", media:"image", support:"PNG image", dimensions:"338 x 320", source:"Opepen / Chrome / edition 10", memory:"OPEPEN / C061", state:"indexed image", memo:"Soumission Opepen « Chrome », édition de 10." },
+  { number:"#062", title:"Relic", kind:"opepen", src:"assets/hollow-finish/062-opepen-relic.png", media:"image", support:"PNG image", dimensions:"328 x 322", source:"Opepen / Chrome / edition 20", memory:"OPEPEN / C062", state:"indexed image", memo:"Soumission Opepen « Chrome », édition de 20." },
+  { number:"#063", title:"EdgeRunner", kind:"opepen", src:"assets/hollow-finish/063-opepen-edgerunner.png", media:"image", support:"PNG image", dimensions:"1024 x 1024", source:"Opepen / Chrome / edition 40", memory:"OPEPEN / C063", state:"indexed image", memo:"Soumission Opepen « Chrome », édition de 40." },
 ];
 
-const CATEGORY_ORDER = ["figure", "monochrome", "aplat", "organe", "memory", "bloc", "motion", "dragon"];
+const CATEGORY_ORDER = ["figure", "monochrome", "aplat", "organe", "memory", "bloc", "motion", "dragon", "opepen"];
 const CATEGORY_LABELS = {
   figure:"Figures scellees",
   monochrome:"Ligne noire",
@@ -3748,7 +3754,8 @@ const CATEGORY_LABELS = {
   memory:"Paysages-memoire",
   bloc:"Blocs-machines",
   motion:"Images en mouvement",
-  dragon:"Data Dragon"
+  dragon:"Data Dragon",
+  opepen:"Opepen / Chrome"
 };
 
 const MEDIA_VERSION = "finish-media-20260905-blocs-pink-griser-green";
@@ -3796,6 +3803,7 @@ try { const s = localStorage.getItem('hollow-lang'); if (s === 'fr' || s === 'en
 const CAT_TR = {
   figure:    { en:"Sealed figures",    zh:"封存人像" },
   dragon:    { en:"Data Dragon", zh:"数据龙" },
+  opepen:    { en:"Opepen / Chrome", zh:"Opepen / Chrome" },
   monochrome:{ en:"Black line",        zh:"黑线" },
   aplat:     { en:"Monochrome / flat", zh:"单色 / 平涂" },
   organe:    { en:"Organs / eyes",     zh:"器官 / 眼睛" },
@@ -3811,6 +3819,12 @@ const STATE_TR = {
 
 /* titres (t) et notes (m) par œuvre, en anglais et en chinois */
 const WORK_TR = {
+  "#058":{ en:{t:"BlackWell",m:"Opepen submission Chrome, edition of 1."}, zh:{t:"BlackWell",m:"Opepen 投稿 Chrome，1 版。"} },
+  "#059":{ en:{t:"Arasaka",m:"Opepen submission Chrome, edition of 4."}, zh:{t:"Arasaka",m:"Opepen 投稿 Chrome，4 版。"} },
+  "#060":{ en:{t:"Alt",m:"Opepen submission Chrome, edition of 5."}, zh:{t:"Alt",m:"Opepen 投稿 Chrome，5 版。"} },
+  "#061":{ en:{t:"Overlock",m:"Opepen submission Chrome, edition of 10."}, zh:{t:"Overlock",m:"Opepen 投稿 Chrome，10 版。"} },
+  "#062":{ en:{t:"Relic",m:"Opepen submission Chrome, edition of 20."}, zh:{t:"Relic",m:"Opepen 投稿 Chrome，20 版。"} },
+  "#063":{ en:{t:"EdgeRunner",m:"Opepen submission Chrome, edition of 40."}, zh:{t:"EdgeRunner",m:"Opepen 投稿 Chrome，40 版。"} },
   "#001":{ en:{t:"Unrated",m:"No comparable sale. The report doesn't know what to write."}, zh:{t:"无评级",m:"没有可比的成交。报告不知道该写什么。"} },
   "#002":{ en:{t:"Echo",m:"It cost less than the boat it had to shelter."}, zh:{t:"回声",m:"它比那艘需要藏起来的船还便宜。"} },
   "#003":{ en:{t:"Relic",m:"Sold whole to three people. Each one had the papers."}, zh:{t:"遗物",m:"整件卖给了三个人。每人都有凭证。"} },

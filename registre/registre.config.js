@@ -162,6 +162,12 @@ window.REGISTRE_CONFIG = {
     { numero: "#055", titre: "Clause de Non-Responsabilité", image: "../assets/hollow-finish/055-dragon-noir.png" },
     { numero: "#056", titre: "Livre Blanc", image: "../assets/hollow-finish/056-dragon-gris.png" },
     { numero: "#057", titre: "Yahiko", image: "../assets/hollow-finish/057-reserve.png" },
+    { numero: "#058", titre: "BlackWell", image: "../assets/hollow-finish/058-opepen-blackwell.png" },
+    { numero: "#059", titre: "Arasaka", image: "../assets/hollow-finish/059-opepen-arasaka.png" },
+    { numero: "#060", titre: "Alt", image: "../assets/hollow-finish/060-opepen-alt.png" },
+    { numero: "#061", titre: "Overlock", image: "../assets/hollow-finish/061-opepen-overlock.png" },
+    { numero: "#062", titre: "Relic", image: "../assets/hollow-finish/062-opepen-relic.png" },
+    { numero: "#063", titre: "EdgeRunner", image: "../assets/hollow-finish/063-opepen-edgerunner.png" },
   ],
   piecesAffichees: 5,
 
