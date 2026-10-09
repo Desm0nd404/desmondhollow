@@ -2161,8 +2161,8 @@ a.hr-item:hover{ text-decoration:underline; text-underline-offset:3px }
    calé à gauche, en corps de lecture, les liens en bleu gras. Courant en 400, ce qu'on retient en gras. */
 #hollow-notice{
   margin-top:clamp(90px, 9vw, 170px);
-  /* la notice ferme la page : de l'air avant la barre bleue du pied */
-  margin-bottom:clamp(40px, 5vw, 90px);
+  /* la soumission Opepen suit la notice, puis la barre bleue du pied */
+  margin-bottom:0;
   align-items:start;
 }
 .notice-label{
@@ -2255,6 +2255,89 @@ a.hr-item:hover{ text-decoration:underline; text-underline-offset:3px }
 }
 @media (prefers-reduced-motion:reduce){
   .notice-state.is-live i{ animation:none }
+}
+
+
+/* ══ SOUMISSION OPEPEN ═══════════════════════════════════════
+   Même gabarit que la notice : étiquette, corps de lecture, filets 1 px.
+   Les six éditions en rang, du 1/1 au 40/40. */
+#opepen-sub{
+  margin-top:clamp(20px, 3vw, 50px);
+  margin-bottom:clamp(40px, 5vw, 90px);
+  align-items:start;
+}
+.op-body{
+  grid-column:1 / 10;
+  max-width:72ch;
+  font-size:clamp(15px, 1.15vw, 19px);
+  line-height:1.45;
+}
+.op-body p{ margin:0 0 1.15em }
+.op-title{
+  margin:0 0 .5em;
+  font-size:clamp(28px, 3vw, 48px);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-.01em;
+}
+.op-body a{
+  color:var(--royal);
+  font-weight:900;
+  text-decoration:none;
+  cursor:var(--cursor-link);
+}
+.op-body a:hover,
+.op-body a:focus-visible{ text-decoration:underline; text-underline-offset:3px; outline:0 }
+.op-spec{
+  margin:0 0 1.4em;
+  border-top:1px solid var(--line-hi);
+  font-size:.9em;
+}
+.op-spec div{
+  display:grid;
+  grid-template-columns:16ch minmax(0, 1fr);
+  column-gap:2ch;
+  padding:.55em 0;
+  border-bottom:1px solid var(--line-hi);
+}
+.op-spec dt{ color:var(--dim); letter-spacing:.12em; text-transform:uppercase; font-size:.85em }
+.op-spec dd{ margin:0; font-weight:900 }
+.op-grid{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(6, minmax(0, 1fr));
+  gap:clamp(8px, 1vw, 16px);
+  margin:clamp(16px, 2vw, 28px) 0 0;
+  padding:0;
+  list-style:none;
+}
+.op-grid a{ display:block; cursor:var(--cursor-link) }
+.op-grid img{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1;
+  object-fit:cover;
+  border:1px solid var(--line-hi);
+}
+.op-grid a:hover img,
+.op-grid a:focus-visible img{ border-color:var(--royal); outline:0 }
+.op-cap{
+  display:block;
+  margin-top:.6em;
+  color:var(--dim);
+  font-size:11px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.op-cap b{ color:var(--paper); font-weight:900 }
+@media (max-width:900px){
+  .op-body{ grid-column:1 / -1 }
+  .op-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)) }
+}
+@media (max-width:520px){
+  .op-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)) }
+  .op-spec div{ grid-template-columns:minmax(0, 1fr) }
 }
 
 /* ══ REJOUER ═══════════════════════════════════════════════ */
@@ -3271,6 +3354,31 @@ Timeout — no boot medium found</pre>
         <p class="notice-end" data-i18n="notice_closing">Aucune pièce vendue à ce jour. Aucun prix affiché.</p>
       </div>
     </aside>
+
+    <aside class="grid" id="opepen-sub" aria-labelledby="opTitle">
+      <p class="notice-label" data-i18n="op_label">Soumission Opepen</p>
+      <div class="op-body">
+        <h2 class="op-title" id="opTitle">Chrome</h2>
+        <p class="op-text" data-i18n="op_text">Un regard sur un monde où la valeur dépasse la vision. L'identité devient fabriquée, la perception déformée, et tout se change peu à peu en quelque chose à posséder, à coter ou à échanger. Les figures restent volontairement aveugles, prises entre ce qui est réel, ce qu'on leur montre et ce que d'autres décident digne d'être vu.</p>
+        <dl class="op-spec">
+          <div><dt data-i18n="op_artist">Artiste</dt><dd>Desmond404</dd></div>
+          <div><dt data-i18n="op_type">Type d'édition</dt><dd>Print</dd></div>
+          <div><dt data-i18n="op_ratio">Format</dt><dd>1:1</dd></div>
+          <div><dt data-i18n="op_editions">Éditions</dt><dd>1 · 4 · 5 · 10 · 20 · 40</dd></div>
+          <div><dt data-i18n="op_published">Publiée</dt><dd>28.09.2026</dd></div>
+          <div><dt data-i18n="op_index">Registre</dt><dd>#058 — #063</dd></div>
+        </dl>
+        <p><a href="https://opepen.art/submissions/b12d8775-e98c-49d8-a728-b765f4e2a52c" target="_blank" rel="noopener noreferrer" data-i18n="op_link">Voir la soumission sur Opepen →</a></p>
+      </div>
+      <ol class="op-grid">
+          <li><a href="#oeuvre-058" aria-label="#058 BlackWell, 1/1"><img src="assets/hollow-finish/058-opepen-blackwell.png" alt="#058 BlackWell" loading="lazy" decoding="async" width="300" height="300"></a><span class="op-cap"><b>01</b> · BlackWell</span></li>
+          <li><a href="#oeuvre-059" aria-label="#059 Arasaka, 4/4"><img src="assets/hollow-finish/059-opepen-arasaka.png" alt="#059 Arasaka" loading="lazy" decoding="async" width="300" height="300"></a><span class="op-cap"><b>04</b> · Arasaka</span></li>
+          <li><a href="#oeuvre-060" aria-label="#060 Alt, 5/5"><img src="assets/hollow-finish/060-opepen-alt.png" alt="#060 Alt" loading="lazy" decoding="async" width="300" height="300"></a><span class="op-cap"><b>05</b> · Alt</span></li>
+          <li><a href="#oeuvre-061" aria-label="#061 Overlock, 10/10"><img src="assets/hollow-finish/061-opepen-overlock.png" alt="#061 Overlock" loading="lazy" decoding="async" width="300" height="300"></a><span class="op-cap"><b>10</b> · Overlock</span></li>
+          <li><a href="#oeuvre-062" aria-label="#062 Relic, 20/20"><img src="assets/hollow-finish/062-opepen-relic.png" alt="#062 Relic" loading="lazy" decoding="async" width="300" height="300"></a><span class="op-cap"><b>20</b> · Relic</span></li>
+          <li><a href="#oeuvre-063" aria-label="#063 EdgeRunner, 40/40"><img src="assets/hollow-finish/063-opepen-edgerunner.png" alt="#063 EdgeRunner" loading="lazy" decoding="async" width="300" height="300"></a><span class="op-cap"><b>40</b> · EdgeRunner</span></li>
+      </ol>
+    </aside>
   </section>
   <footer id="z-foot" aria-label="Pied du registre">
     <div class="foot-cols">
@@ -3942,7 +4050,16 @@ const UI_TR = {
   notice_ref4:    { fr:" et sur le ", en:" and on ", zh:"和" },
   notice_discord_link:{ fr:"Discord", en:"Discord", zh:"Discord" },
   notice_ref5:    { fr:".", en:".", zh:"上公布。" },
-  notice_closing: { fr:"Aucune pièce vendue à ce jour. Aucun prix affiché.", en:"No work sold to date. No price displayed.", zh:"迄今未售出任何作品。不标示任何价格。" }
+  notice_closing: { fr:"Aucune pièce vendue à ce jour. Aucun prix affiché.", en:"No work sold to date. No price displayed.", zh:"迄今未售出任何作品。不标示任何价格。" },
+  op_label:     { fr:"Soumission Opepen", en:"Opepen submission", zh:"Opepen 投稿" },
+  op_text:      { fr:"Un regard sur un monde où la valeur dépasse la vision. L'identité devient fabriquée, la perception déformée, et tout se change peu à peu en quelque chose à posséder, à coter ou à échanger. Les figures restent volontairement aveugles, prises entre ce qui est réel, ce qu'on leur montre et ce que d'autres décident digne d'être vu.", en:"A reflection on a world where value overtakes vision. Identity becomes manufactured, perception distorted, and everything slowly turns into something to own, price or trade. The figures remain deliberately blind, caught between what is real, what they are shown, and what others decide is worth seeing.", zh:"关于一个价值压倒视觉的世界的思考。身份被制造，感知被扭曲，一切慢慢变成可以拥有、定价或交易的东西。人物刻意保持失明，困在真实之物、被展示之物，以及他人认定值得一看之物之间。" },
+  op_artist:    { fr:"Artiste", en:"Artist", zh:"艺术家" },
+  op_type:      { fr:"Type d'édition", en:"Edition type", zh:"版本类型" },
+  op_ratio:     { fr:"Format", en:"Aspect ratio", zh:"比例" },
+  op_editions:  { fr:"Éditions", en:"Editions", zh:"版数" },
+  op_published: { fr:"Publiée", en:"Published", zh:"发布" },
+  op_index:     { fr:"Registre", en:"Register", zh:"登记号" },
+  op_link:      { fr:"Voir la soumission sur Opepen →", en:"View the submission on Opepen →", zh:"在 Opepen 查看投稿 →" }
 };
 
 /* les paragraphes de la notice ; le dernier prend la classe notice-end */
