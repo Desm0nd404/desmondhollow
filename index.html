@@ -1937,6 +1937,15 @@ a.hr-item:hover{ text-decoration:underline; text-underline-offset:3px }
   white-space:nowrap;
 }
 .xc-label.left{ text-align:right }
+/* collection en vente : bleu, comme tout ce qui se clique */
+.cat-link{
+  color:var(--royal);
+  font-weight:900;
+  text-decoration:none;
+  cursor:var(--cursor-link);
+}
+.cat-link:hover,
+.cat-link:focus-visible{ text-decoration:underline; text-underline-offset:3px; outline:0 }
 
 /* cases en portrait : la frise gagne en hauteur sans déborder de la
    largeur, et les œuvres, presque toutes verticales, s'y voient mieux */
@@ -3865,6 +3874,10 @@ const CATEGORY_LABELS = {
   dragon:"Data Dragon",
   opepen:"Opepen / Chrome"
 };
+/* collections en vente : le libellé devient un lien direct */
+const CAT_LINKS = {
+  figure:"https://opensea.io/collection/hollow-genesis-258257868"
+};
 
 const MEDIA_VERSION = "finish-media-20260905-blocs-pink-griser-green";
 const EMBEDDED_ARTWORKS = {
@@ -4094,6 +4107,21 @@ function categoryLabel(kind){
   const tr = CAT_TR[kind];
   return (HLANG !== 'fr' && tr && tr[HLANG]) || CATEGORY_LABELS[kind] || kind;
 }
+/* libellé de collection, en lien quand la collection a sa page de vente */
+function categoryNode(kind){
+  const text = categoryLabel(kind);
+  const href = CAT_LINKS[kind];
+  if (!href) return document.createTextNode(text);
+  const a = document.createElement('a');
+  a.className = 'cat-link';
+  a.href = href;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.textContent = text;
+  a.title = `${text} · OpenSea`;
+  a.addEventListener('click', e => e.stopPropagation());
+  return a;
+}
 function stateLabel(value){
   const tr = STATE_TR[value];
   return (HLANG !== 'fr' && tr && tr[HLANG]) || value;
@@ -4133,7 +4161,7 @@ function refreshFriseText(){
     const kind = label.dataset.kind;
     if (!kind) return;
     const count = label.querySelector('b');
-    label.replaceChildren(`${categoryLabel(kind)} · `, count || document.createTextNode(''));
+    label.replaceChildren(categoryNode(kind), ' · ', count || document.createTextNode(''));
   });
 }
 function refreshGalleryText(){
@@ -4153,7 +4181,7 @@ function refreshGalleryText(){
     const kind = group.dataset.kind;
     if (!head || !kind) return;
     const span = head.querySelector('span');
-    head.replaceChildren(document.createTextNode(categoryLabel(kind)));
+    head.replaceChildren(categoryNode(kind));
     if (span) head.appendChild(span);
   });
 }
@@ -4434,7 +4462,7 @@ function pdxBuild(){
 
     const head = document.createElement('h3');
     head.className = 'pdx-head';
-    head.textContent = categoryLabel(kind);
+    head.appendChild(categoryNode(kind));
     const count = document.createElement('span');
     count.textContent = ` \u00b7 ${String(groups.get(kind).length).padStart(2, '0')}`;
     head.appendChild(count);
@@ -5453,7 +5481,7 @@ function buildSteps(){
     label.dataset.kind = kind;
     const count = document.createElement('b');
     count.textContent = String(works.length).padStart(2, '0');
-    label.append(`${categoryLabel(kind)} · `, count);
+    label.append(categoryNode(kind), ' · ', count);
     label.style.gridRow = line;
     if (start > 1){
       label.classList.add('left');
