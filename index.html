@@ -5,9 +5,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Register of Hollow</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=4">
-<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon.png?v=4">
-<link rel="apple-touch-icon" href="/assets/favicon-180.png?v=4">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png?v=5">
+<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon.png?v=5">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192.png?v=5">
+<link rel="apple-touch-icon" href="/assets/favicon-180.png?v=5">
 <style>
 @font-face{
   font-family:"Plex"; font-style:normal; font-weight:400; font-display:block;
@@ -1714,12 +1715,13 @@ body.hr-open{ overflow:hidden }
 body.hr-open .hr-veil{ opacity:1 }
 body.hr-open .hr-drawer{ transform:none }
 
+/* en-tête : la marque, l'étiquette d'index, la croix en pixels */
 .hr-top{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:16px;
-  margin-bottom:clamp(36px, 7vh, 90px);
+  margin-bottom:clamp(40px, 8vh, 96px);
 }
 .hr-mark{
   font-size:12px;
@@ -1727,41 +1729,73 @@ body.hr-open .hr-drawer{ transform:none }
   letter-spacing:.12em;
   color:var(--pal-rust);
 }
+.hr-mark span{
+  margin-left:1ch;
+  color:var(--dim);
+  font-weight:400;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
 .hr-close{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:32px;
+  height:32px;
   padding:0;
-  border:0;
+  border:1px solid var(--pal-rust);
   background:transparent;
-  color:var(--paper);
-  font:inherit;
-  font-size:clamp(17px, 1.6vw, 22px);
-  font-weight:700;
+  color:var(--pal-rust);
   cursor:var(--cursor-link);
 }
-.hr-close:hover{ color:var(--pal-rust) }
-.hr-close:focus-visible{ outline:1px solid var(--paper); outline-offset:3px }
+.hr-close svg{ display:block; width:14px; height:14px }
+.hr-close:hover{ background:var(--pal-rust); color:var(--black) }
+.hr-close:focus-visible{ outline:1px solid var(--paper); outline-offset:2px }
 
-/* les trois accès, en très grand */
+/* étiquette de section, la même que celle de la notice */
+.hr-label{
+  margin:0 0 12px;
+  color:var(--dim);
+  font-size:9.5px;
+  font-weight:400;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+
+/* les trois accès, empilés, un numéro de registre en exposant */
 .hr-main{
   display:flex;
   flex-direction:column;
   align-items:flex-start;
-  margin:0 0 clamp(32px, 6vh, 64px);
+  gap:.12em;
+  margin:0 0 clamp(36px, 7vh, 72px);
   padding:0;
   list-style:none;
 }
 .hr-item{
+  display:inline-flex;
+  align-items:flex-start;
+  gap:.35em;
   padding:0;
   border:0;
   background:transparent;
   color:var(--paper);
   font-family:var(--sans);
-  font-size:clamp(44px, 6.4vw, 84px);
+  font-size:clamp(30px, 3.6vw, 48px);
   font-weight:700;
-  line-height:1;
-  letter-spacing:-.03em;
+  line-height:1.05;
+  letter-spacing:-.02em;
   text-align:left;
   text-decoration:none;
   cursor:var(--cursor-link);
+}
+.hr-n{
+  margin-top:.35em;
+  color:var(--pal-rust);
+  font-family:var(--plex);
+  font-size:.3em;
+  font-weight:400;
+  letter-spacing:.08em;
 }
 .hr-item:hover{ color:var(--pal-rust) }
 .hr-item:focus-visible{ outline:1px solid var(--paper); outline-offset:3px }
@@ -1772,34 +1806,53 @@ body.hr-open .hr-drawer{ transform:none }
   grid-template-columns:repeat(2, minmax(0, 1fr));
   gap:28px clamp(20px, 3vw, 40px);
 }
-.hr-cols h2{
-  margin:0 0 .8em;
-  color:var(--dim);
-  font-size:10px;
-  font-weight:400;
-  letter-spacing:.17em;
-  text-transform:uppercase;
-}
-.hr-cols ul{ margin:0; padding:0; list-style:none }
-.hr-cols li{ margin:0 0 .35em }
-.hr-cols a{
+.hr-sheet ul{ margin:0; padding:0; list-style:none }
+.hr-sheet li{ margin:0 0 .4em }
+.hr-row{
   color:var(--paper);
-  font-size:clamp(16px, 1.3vw, 19px);
-  font-weight:700;
+  font-size:clamp(15px, 1.2vw, 18px);
   line-height:1.3;
   text-decoration:none;
   cursor:var(--cursor-link);
 }
-.hr-cols a span{ color:var(--dim); font-weight:400 }
-.hr-cols a:hover{ color:var(--pal-rust) }
-.hr-cols a:hover span{ color:inherit }
-.hr-cols a:focus-visible{ outline:1px solid var(--paper); outline-offset:2px }
-
-.hr-foot{
-  margin:auto 0 0;
-  padding-top:clamp(32px, 6vh, 64px);
+.hr-k{ font-weight:700 }
+.hr-v{
   color:var(--dim);
-  font-size:12px;
+  font-weight:400;
+  overflow-wrap:anywhere;
+}
+.hr-v::before{ content:" · " }
+.hr-go{ display:none }
+.hr-row:hover,
+.hr-row:hover .hr-v{ color:var(--pal-rust) }
+.hr-row:focus-visible{ outline:1px solid var(--paper); outline-offset:2px }
+
+/* pied : l'état de l'acte, le voyant qui bat, la signature */
+.hr-foot{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  gap:8px 20px;
+  margin:auto 0 0;
+  padding-top:clamp(28px, 5vh, 56px);
+  color:var(--dim);
+  font-size:11px;
+  letter-spacing:.06em;
+}
+.hr-state{
+  display:inline-flex;
+  align-items:center;
+  gap:1ch;
+  color:var(--pal-rust);
+  font-weight:700;
+  text-transform:uppercase;
+}
+.hr-state i{
+  display:block;
+  width:7px;
+  height:7px;
+  background:var(--pal-rust);
+  animation:notice-blink 1.6s steps(1) infinite;
 }
 
 @media (max-width:520px){
@@ -1808,6 +1861,7 @@ body.hr-open .hr-drawer{ transform:none }
 @media (prefers-reduced-motion:reduce){
   .hr-veil,
   .hr-drawer{ transition:none }
+  .hr-state i{ animation:none }
 }
 
 /* ══ 01 / SYSTEM — une seule planche, trois sources fondues ═══
@@ -3366,33 +3420,37 @@ body.nft-open{
   <div class="hr-veil" id="homeRulesVeil" hidden></div>
   <aside class="hr-drawer" id="homeRules" hidden role="dialog" aria-modal="true" data-i18n-aria="rules_nav" aria-label="Navigation du registre">
     <div class="hr-top">
-      <span class="hr-mark">ART hollOw</span>
-      <button type="button" class="hr-close" id="homeRulesClose" data-i18n="rules_close">Fermer</button>
+      <span class="hr-mark">ART hollOw<span data-i18n="rules_index">Index</span></span>
+      <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Fermer" aria-label="Fermer"><svg width="14" height="14" viewBox="0 0 14 14" shape-rendering="crispEdges" aria-hidden="true"><path d="M0 0h2v2h-2zM12 0h2v2h-2zM2 2h2v2h-2zM10 2h2v2h-2zM4 4h2v2h-2zM8 4h2v2h-2zM6 6h2v2h-2zM4 8h2v2h-2zM8 8h2v2h-2zM2 10h2v2h-2zM10 10h2v2h-2zM0 12h2v2h-2zM12 12h2v2h-2z" fill="currentColor"/></svg></button>
     </div>
-    <ul class="hr-main">
-      <li><button type="button" class="hr-item" id="homeRulesArtwork" data-i18n="rules_artwork">Register Artwork</button></li>
-      <li><button type="button" class="hr-item" id="homeRulesText" data-i18n="rules_text">Text</button></li>
-      <li><a class="hr-item" href="registre/" data-i18n="rules_open">Record</a></li>
-    </ul>
+    <p class="hr-label" data-i18n="rules_register">Register</p>
+    <ol class="hr-main">
+      <li><button type="button" class="hr-item" id="homeRulesArtwork"><span class="hr-n">01</span><span data-i18n="rules_artwork">Register Artwork</span><span class="hr-go" aria-hidden="true">→</span></button></li>
+      <li><button type="button" class="hr-item" id="homeRulesText"><span class="hr-n">02</span><span data-i18n="rules_text">Text</span><span class="hr-go" aria-hidden="true">→</span></button></li>
+      <li><a class="hr-item" href="registre/"><span class="hr-n">03</span><span data-i18n="rules_open">Record</span><span class="hr-go" aria-hidden="true">→</span></a></li>
+    </ol>
     <div class="hr-cols">
-      <nav aria-labelledby="hrCollect">
-        <h2 id="hrCollect" data-i18n="rules_collect">Collectionner</h2>
-        <ul>
-          <li><a href="https://opensea.io/collection/hollow-genesis-258257868" target="_blank" rel="noopener noreferrer">OpenSea <span>· Hollow genesis</span></a></li>
-          <li><a href="https://superrare.com/desmond404" target="_blank" rel="noopener noreferrer">SuperRare <span>· desmond404</span></a></li>
-          <li><a href="https://opepen.art/submissions/b12d8775-e98c-49d8-a728-b765f4e2a52c" target="_blank" rel="noopener noreferrer">Opepen <span>· Chrome</span></a></li>
-        </ul>
-      </nav>
-      <nav aria-labelledby="hrContact">
-        <h2 id="hrContact" data-i18n="rules_contact">Contact</h2>
-        <ul>
-          <li><a href="mailto:desmond@disroot.org">Mail <span>· desmond@disroot.org</span></a></li>
-          <li><a href="https://x.com/desmond404_" target="_blank" rel="noopener noreferrer">X <span>· @desmond404_</span></a></li>
-          <li><a href="https://discord.gg/Na3Y9ne6S" target="_blank" rel="noopener noreferrer">Discord</a></li>
-        </ul>
-      </nav>
+    <nav class="hr-sheet" aria-labelledby="hrCollect">
+      <p class="hr-label" id="hrCollect" data-i18n="rules_collect">Collectionner</p>
+      <ul>
+        <li><a class="hr-row" href="https://opensea.io/collection/hollow-genesis-258257868" target="_blank" rel="noopener noreferrer"><span class="hr-k">OpenSea</span><span class="hr-v">Hollow genesis</span><span class="hr-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="hr-row" href="https://superrare.com/desmond404" target="_blank" rel="noopener noreferrer"><span class="hr-k">SuperRare</span><span class="hr-v">desmond404</span><span class="hr-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="hr-row" href="https://opepen.art/submissions/b12d8775-e98c-49d8-a728-b765f4e2a52c" target="_blank" rel="noopener noreferrer"><span class="hr-k">Opepen</span><span class="hr-v">Chrome</span><span class="hr-go" aria-hidden="true">↗</span></a></li>
+      </ul>
+    </nav>
+    <nav class="hr-sheet" aria-labelledby="hrContact">
+      <p class="hr-label" id="hrContact" data-i18n="rules_contact">Contact</p>
+      <ul>
+        <li><a class="hr-row" href="mailto:desmond@disroot.org"><span class="hr-k">Mail</span><span class="hr-v">desmond@disroot.org</span><span class="hr-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="hr-row" href="https://x.com/desmond404_" target="_blank" rel="noopener noreferrer"><span class="hr-k">X</span><span class="hr-v">@desmond404_</span><span class="hr-go" aria-hidden="true">↗</span></a></li>
+        <li><a class="hr-row" href="https://discord.gg/Na3Y9ne6S" target="_blank" rel="noopener noreferrer"><span class="hr-k">Discord</span><span class="hr-v">discord.gg/Na3Y9ne6S</span><span class="hr-go" aria-hidden="true">↗</span></a></li>
+      </ul>
+    </nav>
     </div>
-    <p class="hr-foot">© 2026 ART hollOw · desmond404.art</p>
+    <div class="hr-foot">
+      <span class="hr-state"><i aria-hidden="true"></i><span data-i18n="act1_off">Acte I · Huis clos</span></span>
+      <span>© 2026 ART hollOw</span>
+    </div>
   </aside>
 
   <section class="module frame" id="mod-system" aria-label="System">
@@ -4140,6 +4198,7 @@ const UI_TR = {
   rules_open:     { fr:"Record", en:"Record", zh:"Record" },
   rules_close:    { fr:"Fermer", en:"Close", zh:"关闭" },
   rules_collect:  { fr:"Collectionner", en:"Collect", zh:"收藏" },
+  rules_index:    { fr:"Index", en:"Index", zh:"索引" },
   rules_contact:  { fr:"Contact", en:"Contact", zh:"联系" },
   notice_label:   { fr:"Notice du registre", en:"Register notice", zh:"登记册说明" },
   notice_acts_intro:{ fr:"Le projet avance par actes.", en:"The project moves forward in acts.", zh:"这个项目按幕推进。" },
