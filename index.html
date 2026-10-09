@@ -510,6 +510,8 @@ body.pd-view-open .pd-bar{ display:none }
   font-size:11px;
 }
 .pdv-dateline b{ color:var(--paper); font-weight:700 }
+.pdv-market[hidden]{ display:none }
+a.pdv-outline{ text-decoration:none }
 
 .pdv-outline{
   padding:7px 12px;
@@ -3551,6 +3553,11 @@ Timeout — no boot medium found</pre>
           <button type="button" id="pdvFull" class="pdv-outline" data-i18n="view_full">Voir en plein écran</button>
         </p>
 
+        <p class="pdv-dateline pdv-market" id="pdvMarket" hidden>
+          <span>OpenSea · <b id="pdvToken"></b></span>
+          <a id="pdvOpensea" class="pdv-outline" href="#" target="_blank" rel="noopener noreferrer" data-i18n="view_opensea">Voir sur OpenSea ↗</a>
+        </p>
+
         <p id="pdvMemo" class="pdv-memo"></p>
 
         <details class="pdv-acc" open>
@@ -3874,6 +3881,13 @@ const CATEGORY_LABELS = {
   dragon:"Data Dragon",
   opepen:"Opepen / Chrome"
 };
+/* Sealed figures : jeton de chaque œuvre dans la collection OpenSea Hollow genesis */
+const OPENSEA_CONTRACT = "0x776bd13d05b58dfc0e5646196c3de6a33c90818f";
+const OPENSEA_ITEMS = { "#002":2, "#003":10, "#004":9, "#005":4, "#007":19, "#012":12, "#013":20, "#014":5, "#016":8, "#017":6, "#019":18, "#020":13, "#021":11, "#022":7, "#023":1, "#024":3, "#025":17, "#033":15, "#040":16, "#041":14, "#057":21 };
+function openseaItemUrl(work){
+  const id = OPENSEA_ITEMS[work.number];
+  return id ? `https://opensea.io/item/ethereum/${OPENSEA_CONTRACT}/${id}` : '';
+}
 /* collections en vente : le libellé devient un lien direct */
 const CAT_LINKS = {
   figure:"https://opensea.io/collection/hollow-genesis-258257868"
@@ -4023,6 +4037,7 @@ const UI_TR = {
   crumb_collection:{ fr:"Collection", en:"Collection", zh:"系列" },
   kept_under:     { fr:"Conservé sous", en:"Kept under", zh:"存放于" },
   view_full:      { fr:"Voir en plein écran", en:"View full screen", zh:"全屏查看" },
+  view_opensea:   { fr:"Voir sur OpenSea ↗", en:"View on OpenSea ↗", zh:"在 OpenSea 查看 ↗" },
   detail:         { fr:"Détail", en:"Detail", zh:"详情" },
   support:        { fr:"Support", en:"Support", zh:"载体" },
   measure:        { fr:"Mesure", en:"Size", zh:"尺寸" },
@@ -4781,6 +4796,14 @@ function pdvGo(pos){
     pdvPut(`${id}N`, `${count} · ${fmt(count / NFTS.length * 100)} %`);
   });
   pdvPut('pdvMemo', memoFor(work));
+  const market = document.getElementById('pdvMarket');
+  const marketUrl = openseaItemUrl(work);
+  if (market){
+    market.hidden = !marketUrl;
+    const link = document.getElementById('pdvOpensea');
+    if (link && marketUrl) link.href = marketUrl;
+    if (marketUrl) pdvPut('pdvToken', `Hollow genesis #${OPENSEA_ITEMS[work.number]}`);
+  }
   const openFile = document.getElementById('pdvOpenFile');
   if (openFile) openFile.disabled = /^data:/.test(assetSrc(work));
   pdvPaint(work);
