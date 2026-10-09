@@ -1674,60 +1674,141 @@ a.pdv-outline{ text-decoration:none }
 #homeIndex{ border-color:var(--royal); background:var(--royal); color:var(--paper) }
 #homeIndex:hover{ border-color:var(--paper) }
 
-/* ── la bande des règles ────────────────────────────────────────
-   Le carré rouille n'envoie plus sur le relevé : il ouvre une bande
-   fine sous les icônes. Trois lignes sèches, l'accès au relevé, une
-   croix. Texte noir sur l'aplat rouille, comme partout ailleurs. */
-.home-rules{
+/* ── le tiroir du registre ──────────────────────────────────────
+   Le carré rouille ouvre un tiroir à droite, sur toute la hauteur :
+   les trois accès en très grand, puis les endroits où les pièces se
+   collectionnent et les canaux pour écrire. La planche reste visible,
+   voilée, derrière un filet clair. Échap, la croix ou le voile ferment. */
+.hr-veil{
+  position:fixed;
+  inset:0;
+  z-index:90;
+  background:color-mix(in srgb, var(--black) 55%, transparent);
+  backdrop-filter:blur(6px);
+  opacity:0;
+  transition:opacity .25s ease;
+  cursor:var(--cursor-link);
+}
+.hr-drawer{
+  position:fixed;
+  top:0;
+  right:0;
+  bottom:0;
+  z-index:91;
+  display:flex;
+  flex-direction:column;
+  width:min(640px, 100vw);
+  padding:clamp(22px, 2.6vw, 40px) clamp(22px, 3vw, 46px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  border-left:1px solid var(--paper);
+  background:var(--graphite);
+  color:var(--paper);
+  font-family:var(--sans);
+  transform:translateX(100%);
+  transition:transform .32s cubic-bezier(.2, .7, .2, 1);
+}
+.hr-veil[hidden],
+.hr-drawer[hidden]{ display:none }
+body.hr-open{ overflow:hidden }
+body.hr-open .hr-veil{ opacity:1 }
+body.hr-open .hr-drawer{ transform:none }
+
+.hr-top{
   display:flex;
   align-items:center;
-  gap:6px 24px;
-  padding:9px var(--pad);
-  background:var(--pal-rust);
-  color:var(--black);
-  font-family:var(--sans);
-  font-size:clamp(13px, 1.4vw, 17px);
-  font-weight:700;
-  line-height:1.3;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:clamp(36px, 7vh, 90px);
 }
-.home-rules[hidden]{ display:none }
+.hr-mark{
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.12em;
+  color:var(--pal-rust);
+}
+.hr-close{
+  padding:0;
+  border:0;
+  background:transparent;
+  color:var(--paper);
+  font:inherit;
+  font-size:clamp(17px, 1.6vw, 22px);
+  font-weight:700;
+  cursor:var(--cursor-link);
+}
+.hr-close:hover{ color:var(--pal-rust) }
+.hr-close:focus-visible{ outline:1px solid var(--paper); outline-offset:3px }
 
+/* les trois accès, en très grand */
+.hr-main{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  margin:0 0 clamp(32px, 6vh, 64px);
+  padding:0;
+  list-style:none;
+}
 .hr-item{
   padding:0;
   border:0;
   background:transparent;
-  color:var(--black);
-  font:inherit;
-  letter-spacing:inherit;
-  text-transform:inherit;
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:clamp(44px, 6.4vw, 84px);
+  font-weight:700;
+  line-height:1;
+  letter-spacing:-.03em;
+  text-align:left;
+  text-decoration:none;
   cursor:var(--cursor-link);
 }
-.hr-item:hover{ text-decoration:underline; text-underline-offset:3px }
-.hr-item:focus-visible{ outline:1px solid var(--black); outline-offset:2px }
-.hr-bold{ font-weight:900; cursor:default }
-.hr-bold:hover{ text-decoration:none }
-a.hr-item{ text-decoration:none }
-a.hr-item:hover{ text-decoration:underline; text-underline-offset:3px }
+.hr-item:hover{ color:var(--pal-rust) }
+.hr-item:focus-visible{ outline:1px solid var(--paper); outline-offset:3px }
 
-.hr-close{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  width:28px;
-  height:28px;
-  margin-left:auto;
-  padding:0;
-  border:1px solid var(--black);
-  background:transparent;
-  color:var(--black);
-  cursor:var(--cursor-link);
-  align-self:center;
+/* collectionner, écrire : deux colonnes de liens courants */
+.hr-cols{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:28px clamp(20px, 3vw, 40px);
 }
-.hr-close svg{ display:block; width:14px; height:14px }
-.hr-close:hover{ background:var(--black); color:var(--pal-rust) }
-.hr-close:focus-visible{ outline:1px solid var(--black); outline-offset:2px }
+.hr-cols h2{
+  margin:0 0 .8em;
+  color:var(--dim);
+  font-size:10px;
+  font-weight:400;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+.hr-cols ul{ margin:0; padding:0; list-style:none }
+.hr-cols li{ margin:0 0 .35em }
+.hr-cols a{
+  color:var(--paper);
+  font-size:clamp(16px, 1.3vw, 19px);
+  font-weight:700;
+  line-height:1.3;
+  text-decoration:none;
+  cursor:var(--cursor-link);
+}
+.hr-cols a span{ color:var(--dim); font-weight:400 }
+.hr-cols a:hover{ color:var(--pal-rust) }
+.hr-cols a:hover span{ color:inherit }
+.hr-cols a:focus-visible{ outline:1px solid var(--paper); outline-offset:2px }
+
+.hr-foot{
+  margin:auto 0 0;
+  padding-top:clamp(32px, 6vh, 64px);
+  color:var(--dim);
+  font-size:12px;
+}
+
+@media (max-width:520px){
+  .hr-cols{ grid-template-columns:minmax(0, 1fr) }
+}
+@media (prefers-reduced-motion:reduce){
+  .hr-veil,
+  .hr-drawer{ transition:none }
+}
 
 /* ══ 01 / SYSTEM — une seule planche, trois sources fondues ═══
    La voix brute des légendes, la marque en carrés et la frise en
@@ -3281,13 +3362,38 @@ body.nft-open{
 
   <div class="zone" id="z-boot"></div>
 
-  <!-- barre de navigation du registre, collée sous z-boot -->
-  <nav class="home-rules" id="homeRules" hidden data-i18n-aria="rules_nav" aria-label="Navigation du registre">
-    <button type="button" class="hr-item" id="homeRulesArtwork" data-i18n="rules_artwork">Register Artwork</button>
-    <button type="button" class="hr-item" id="homeRulesText" data-i18n="rules_text">Text</button>
-    <a class="hr-item" href="registre/" data-i18n="rules_open">Record</a>
-    <button type="button" class="hr-close" id="homeRulesClose" data-i18n-aria="rules_close" data-i18n-title="rules_close" title="Close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 16 16" shape-rendering="crispEdges" aria-hidden="true"><path d="M6 0h4v3h-4zM4 1h2v2h-2zM10 1h2v2h-2zM3 2h1v3h-1zM12 2h1v3h-1zM2 3h1v3h-1zM4 3h1v1h-1zM7 3h2v13h-2zM11 3h1v1h-1zM13 3h1v3h-1zM1 4h1v8h-1zM14 4h1v8h-1zM0 6h1v4h-1zM15 6h1v4h-1zM2 7h5v2h-5zM9 7h5v2h-5zM2 10h1v3h-1zM13 10h1v3h-1zM3 11h1v3h-1zM12 11h1v3h-1zM4 12h1v3h-1zM11 12h1v3h-1zM5 13h2v2h-2zM9 13h2v2h-2zM6 15h1v1h-1zM9 15h1v1h-1z" fill="currentColor"/></svg></button>
-  </nav>
+  <!-- tiroir du registre, ouvert par le carré rouille -->
+  <div class="hr-veil" id="homeRulesVeil" hidden></div>
+  <aside class="hr-drawer" id="homeRules" hidden role="dialog" aria-modal="true" data-i18n-aria="rules_nav" aria-label="Navigation du registre">
+    <div class="hr-top">
+      <span class="hr-mark">ART hollOw</span>
+      <button type="button" class="hr-close" id="homeRulesClose" data-i18n="rules_close">Fermer</button>
+    </div>
+    <ul class="hr-main">
+      <li><button type="button" class="hr-item" id="homeRulesArtwork" data-i18n="rules_artwork">Register Artwork</button></li>
+      <li><button type="button" class="hr-item" id="homeRulesText" data-i18n="rules_text">Text</button></li>
+      <li><a class="hr-item" href="registre/" data-i18n="rules_open">Record</a></li>
+    </ul>
+    <div class="hr-cols">
+      <nav aria-labelledby="hrCollect">
+        <h2 id="hrCollect" data-i18n="rules_collect">Collectionner</h2>
+        <ul>
+          <li><a href="https://opensea.io/collection/hollow-genesis-258257868" target="_blank" rel="noopener noreferrer">OpenSea <span>· Hollow genesis</span></a></li>
+          <li><a href="https://superrare.com/desmond404" target="_blank" rel="noopener noreferrer">SuperRare <span>· desmond404</span></a></li>
+          <li><a href="https://opepen.art/submissions/b12d8775-e98c-49d8-a728-b765f4e2a52c" target="_blank" rel="noopener noreferrer">Opepen <span>· Chrome</span></a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="hrContact">
+        <h2 id="hrContact" data-i18n="rules_contact">Contact</h2>
+        <ul>
+          <li><a href="mailto:desmond@disroot.org">Mail <span>· desmond@disroot.org</span></a></li>
+          <li><a href="https://x.com/desmond404_" target="_blank" rel="noopener noreferrer">X <span>· @desmond404_</span></a></li>
+          <li><a href="https://discord.gg/Na3Y9ne6S" target="_blank" rel="noopener noreferrer">Discord</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="hr-foot">© 2026 ART hollOw · desmond404.art</p>
+  </aside>
 
   <section class="module frame" id="mod-system" aria-label="System">
     <nav id="home-icons" aria-label="Accès au registre">
@@ -4033,6 +4139,8 @@ const UI_TR = {
   rules_text:     { fr:"Text", en:"Text", zh:"Text" },
   rules_open:     { fr:"Record", en:"Record", zh:"Record" },
   rules_close:    { fr:"Fermer", en:"Close", zh:"关闭" },
+  rules_collect:  { fr:"Collectionner", en:"Collect", zh:"收藏" },
+  rules_contact:  { fr:"Contact", en:"Contact", zh:"联系" },
   notice_label:   { fr:"Notice du registre", en:"Register notice", zh:"登记册说明" },
   notice_acts_intro:{ fr:"Le projet avance par actes.", en:"The project moves forward in acts.", zh:"这个项目按幕推进。" },
   notice_act1:    { fr:"Acte I", en:"Act I", zh:"第一幕" },
@@ -5632,20 +5740,38 @@ function initHomeBoard(){
   const wiki = document.getElementById('homeWiki');
   const grid = document.getElementById('homeGrid');
   const index = document.getElementById('homeIndex');
-  /* la liste ouvre la bande des règles ; le relevé public reste à un
-     clic, depuis la bande elle-même */
+  /* la liste ouvre le tiroir du registre ; le relevé public, les
+     plateformes et les canaux restent à un clic, depuis le tiroir */
   const rulesBand = document.getElementById('homeRules');
+  const rulesVeil = document.getElementById('homeRulesVeil');
   const rulesShut = document.getElementById('homeRulesClose');
+  let rulesTimer = 0;
   const setRules = open => {
     if (!rulesBand) return;
-    rulesBand.hidden = !open;
+    clearTimeout(rulesTimer);
     if (wiki) wiki.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if (open){
+      rulesBand.hidden = false;
+      if (rulesVeil) rulesVeil.hidden = false;
+      /* on force le calcul de la position fermée, pour que le
+         glissement parte du bord */
+      void rulesBand.offsetWidth;
+      document.body.classList.add('hr-open');
+      if (rulesShut) rulesShut.focus({ preventScroll:true });
+    } else {
+      document.body.classList.remove('hr-open');
+      rulesTimer = setTimeout(() => {
+        rulesBand.hidden = true;
+        if (rulesVeil) rulesVeil.hidden = true;
+      }, 340);
+    }
   };
   if (wiki){
     wiki.setAttribute('aria-expanded', 'false');
     wiki.setAttribute('aria-controls', 'homeRules');
-    wiki.addEventListener('click', () => setRules(!!rulesBand && rulesBand.hidden));
+    wiki.addEventListener('click', () => setRules(!document.body.classList.contains('hr-open')));
   }
+  if (rulesVeil) rulesVeil.addEventListener('click', () => setRules(false));
   /* Artwork : ouvre la galerie en grille */
   const rulesArtwork = document.getElementById('homeRulesArtwork');
   if (rulesArtwork) rulesArtwork.addEventListener('click', () => {
@@ -5664,7 +5790,10 @@ function initHomeBoard(){
     if (wiki) wiki.focus({ preventScroll:true });
   });
   document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && rulesBand && !rulesBand.hidden) setRules(false);
+    if (e.key === 'Escape' && document.body.classList.contains('hr-open')){
+      setRules(false);
+      if (wiki) wiki.focus({ preventScroll:true });
+    }
   });
   if (grid) grid.addEventListener('click', () => openGallery('grid'));
   if (index) index.addEventListener('click', () => openGallery('index'));
