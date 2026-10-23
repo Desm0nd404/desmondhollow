@@ -2050,6 +2050,14 @@ body.hr-open .hr-drawer{ transform:none }
    deja centree, la largeur reduite se cale toute seule. */
 .vg-block[data-format="paysage"] .vg-media img{ width:86% }
 .vg-block[data-format="paysage"] .vg-title{ margin-top:0 }
+/* mode gothique : l'œuvre encadrée prend plus de place, centrée dans sa colonne */
+.vg-block[data-goth]{ grid-template-columns:minmax(0, .7fr) minmax(0, 1.3fr) }
+.vg-block[data-goth] .vg-media img,
+.vg-block[data-goth] .vg-media video{
+  width:100%;
+  height:auto;
+  max-width:min(88vh, 820px);
+}
 
 /* la frise en escalier : chaque collection reprend où la précédente
    s'arrête, une case grise fait la marche */
@@ -2153,6 +2161,7 @@ body.hr-open .hr-drawer{ transform:none }
 @media (max-width:620px){
   .vg-block{ grid-template-columns:minmax(0, 1fr); min-height:0 }
   .vg-block[data-format="paysage"]{ grid-template-columns:minmax(0, 1fr) }
+  .vg-block[data-goth]{ grid-template-columns:minmax(0, 1fr) }
 }
 
 /* ══ PIED — la barre bleue ferme la page comme elle l'ouvre ══
@@ -5641,6 +5650,7 @@ function showFeature(pos){
   if (visual instanceof HTMLVideoElement && !reduce) visual.play().catch(() => {});
   /* une oeuvre qui a un mode gothique le propose aussi ici */
   const goth = document.getElementById('vgGoth');
+  if (block) delete block.dataset.goth;
   if (goth){
     goth.hidden = !work.gothic;
     goth.setAttribute('aria-pressed', 'false');
@@ -5813,6 +5823,8 @@ function initHomeBoard(){
     media.querySelectorAll('video').forEach(v => v.pause());
     media.replaceChildren(visual);
     if (visual instanceof HTMLVideoElement && !reduce) visual.play().catch(() => {});
+    const block = media.closest('.vg-block');
+    if (block) block.dataset.goth = '';
     goth.setAttribute('aria-pressed', 'true');
     goth.textContent = 'Normal mode';
   });
