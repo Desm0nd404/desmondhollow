@@ -3509,6 +3509,7 @@ Timeout — no boot medium found</pre>
         <p class="vg-actions">
           <button type="button" id="vgOpen" data-i18n="open_sheet">Ouvrir la fiche</button>
           <button type="button" id="vgNext" data-i18n="next_work">Œuvre suivante</button>
+          <button type="button" id="vgGoth" aria-pressed="false" hidden>Goth mode</button>
         </p>
       </article>
 
@@ -5638,6 +5639,13 @@ function showFeature(pos){
   }
   media.replaceChildren(visual);
   if (visual instanceof HTMLVideoElement && !reduce) visual.play().catch(() => {});
+  /* une oeuvre qui a un mode gothique le propose aussi ici */
+  const goth = document.getElementById('vgGoth');
+  if (goth){
+    goth.hidden = !work.gothic;
+    goth.setAttribute('aria-pressed', 'false');
+    goth.textContent = 'Goth mode';
+  }
 }
 
 function buildSteps(){
@@ -5795,6 +5803,19 @@ function initHomeBoard(){
   const open = document.getElementById('vgOpen');
   const media = document.getElementById('vgMedia');
   if (next) next.addEventListener('click', () => showFeature(vgAt + 1));
+  const goth = document.getElementById('vgGoth');
+  if (goth) goth.addEventListener('click', () => {
+    const work = NFTS[vgAt];
+    if (!work || !work.gothic || !media) return;
+    const on = goth.getAttribute('aria-pressed') !== 'true';
+    if (!on){ showFeature(vgAt); return; }
+    const visual = createArtworkMedia({ ...work, src:work.gothic, poster:undefined, media:pdvKindOf(work.gothic) }, true);
+    media.querySelectorAll('video').forEach(v => v.pause());
+    media.replaceChildren(visual);
+    if (visual instanceof HTMLVideoElement && !reduce) visual.play().catch(() => {});
+    goth.setAttribute('aria-pressed', 'true');
+    goth.textContent = 'Normal mode';
+  });
   if (open) open.addEventListener('click', () => openWorkSheet(NFTS[vgAt]));
   if (media) media.addEventListener('click', () => openWorkSheet(NFTS[vgAt]));
 
